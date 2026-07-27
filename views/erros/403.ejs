@@ -3,11 +3,10 @@
     403
   </p>
 
-  <h1>Acesso negado</h1>
+  <h1><%= titulo || 'Acesso negado' %></h1>
 
   <p class="text-secondary">
-    Sua conta não possui permissão para
-    acessar esta página.
+    <%= mensagem || 'Sua conta não possui permissão para acessar esta página.'%>
   </p>
 
   <a
