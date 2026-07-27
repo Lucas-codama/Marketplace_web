@@ -1,0 +1,29 @@
+:root {
+  --nxt-lime: #c6ff00;
+  --nxt-ink: #151710;
+  --nxt-paper: #f4f4ef;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--nxt-ink);
+  background: var(--nxt-paper);
+}
+
+.navbar-brand {
+  letter-spacing: -0.06em;
+}
+
+.text-success {
+  color: #5f7d00 !important;
+}
+
+.btn-dark {
+  background-color: var(--nxt-ink);
+  border-color: var(--nxt-ink);
+}
+
+::selection {
+  color: var(--nxt-ink);
+  background: var(--nxt-lime);
+}
