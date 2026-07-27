@@ -6,11 +6,15 @@ import sessionMiddleware from './config/session.js';
 import {flashMiddleware} from './middlewares/flash.js';
 import {naoEncontrado,tratarErro} from './middlewares/erros.js';
 import rotasPrincipais from './routes/index.js';
+import {carregarUsuarioDaSessao} from './middlewares/auth.js';
+
+import authRoutes from './routes/authRoutes.js';
+import perfilRouter from './routes/perfilRouter.js';
+import adminRoutes from './routes/adminRoutes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
-
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -20,11 +24,13 @@ app.use(
   })
 );
 app.use(express.json());
+
 app.use(
   express.static(
     path.join(__dirname, 'public')
   )
 );
+
 app.use(
   '/vendor/bootstrap',
   express.static(
@@ -36,6 +42,7 @@ app.use(
     )
   )
 );
+
 app.use(
   '/vendor/jquery',
   express.static(
@@ -50,18 +57,14 @@ app.use(
 
 app.use(sessionMiddleware);
 app.use(flashMiddleware);
-app.use((req, res, next) => {
-  res.locals.usuario =
-    req.session.usuario || null;
 
+app.use((req, res, next) => {
+  res.locals.usuario = null;
   next();
 });
 
 app.use((req, res, next) => {
-  res.renderComLayout = function renderComLayout(
-    view,
-    dados = {}
-  ) {
+  res.renderComLayout = function renderComLayout(view, dados = {}) {
     const dadosDaPagina = {
       ...res.locals,
       ...dados
@@ -85,7 +88,6 @@ app.use((req, res, next) => {
             if (erroDoLayout) {
               return next(erroDoLayout);
             }
-
             return res.send(htmlCompleto);
           }
         );
@@ -96,8 +98,12 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(carregarUsuarioDaSessao);
 
 app.use('/', rotasPrincipais);
+app.use('/', authRoutes);
+app.use('/perfil', perfilRouter);
+app.use('/admin', adminRoutes);
 app.use(naoEncontrado);
 app.use(tratarErro);
 
