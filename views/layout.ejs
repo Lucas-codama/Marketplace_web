@@ -35,6 +35,7 @@
           href="/"
         >
           NXT PLAY
+
         </a>
 
         <button
@@ -51,6 +52,11 @@
 
         <div class="collapse navbar-collapse" id="menuPrincipal">
           <div class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+
+              <span class="navbar-text fw-bold px-lg-2">
+                <%= usuario.username %>
+              </span>
+
             <a class="nav-link" href="/">
               Início
             </a>
@@ -67,10 +73,6 @@
               <a class="nav-link" href="/perfil">
                 Minha conta
               </a>
-
-              <span class="navbar-text px-lg-2">
-                <%= usuario.username %>
-              </span>
 
               <form action="/logout" method="post" class="d-inline">
                 <button type="submit" class="btn btn-sm btn-outline-dark">
