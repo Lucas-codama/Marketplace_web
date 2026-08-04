@@ -53,9 +53,11 @@
         <div class="collapse navbar-collapse" id="menuPrincipal">
           <div class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
 
+            <% if (usuario) { %>
               <span class="navbar-text fw-bold px-lg-2">
                 <%= usuario.username %>
               </span>
+            <%}%>
 
             <a class="nav-link" href="/">
               Início
