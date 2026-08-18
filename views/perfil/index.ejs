@@ -47,6 +47,7 @@
             value="<%= usuarioPerfil.username %>"
             minlength="3"
             maxlength="30"
+            pattern="[A-Za-z0-9_]+"
             required
           >
         </div>
@@ -149,3 +150,4 @@
     </form>
   </div>
 </section>
+<% if (usuarioPerfil.papel === 'vendedor' && perfilVendedor) { %><section class="section-block"><div class="section-heading"><div><span class="eyebrow">Perfil público</span><h2>Dados da loja</h2><p class="text-secondary">Essas informações aparecem para os visitantes.</p></div><a href="/vendedores/<%= perfilVendedor.slug %>" target="_blank">Ver página pública →</a></div><form action="/perfil/vendedor" method="post" class="surface p-4"><div class="row g-3"><div class="col-md-6"><label class="form-label">Nome da loja</label><input class="form-control" name="nomeLoja" value="<%= perfilVendedor.nomeLoja %>" required></div><div class="col-md-6"><label class="form-label">Endereço público</label><input class="form-control" name="slug" value="<%= perfilVendedor.slug %>" pattern="[a-z0-9-]+" required></div><div class="col-12"><label class="form-label">Descrição</label><textarea class="form-control" name="descricao" rows="4"><%= perfilVendedor.descricao || '' %></textarea></div><div class="col-md-8"><label class="form-label">Cidade</label><input class="form-control" name="cidade" value="<%= perfilVendedor.cidade || '' %>"></div><div class="col-md-4"><label class="form-label">UF</label><input class="form-control" name="uf" value="<%= perfilVendedor.uf || '' %>" maxlength="2"></div><div class="col-12"><button class="btn btn-dark">Salvar dados da loja</button></div></div></form></section><% } %>
