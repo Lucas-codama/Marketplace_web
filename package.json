@@ -9,12 +9,13 @@
     "dev": "node --watch server.js",
     "test": "node --test",
     "db:seed": "node scripts/seed.js",
-    "db:reset": "node scripts/seed.js --reset"
+    "db:reset": "node scripts/seed.js --reset",
+    "admin:promote": "node scripts/promoverAdmin.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.3.0",
-    "dotenv": "^16.0.0",
+    "dotenv": "^16.6.1",
     "ejs": "^3.1.0",
     "express": "^5.1.0",
     "express-session": "^1.18.0",

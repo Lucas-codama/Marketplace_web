@@ -1,0 +1,151 @@
+<section class="row g-5">
+  <div class="col-lg-7">
+    <div class="mb-4">
+      <p class="text-uppercase fw-bold text-success mb-2">Conta</p>
+      <h1 class="display-5 fw-bold">Minha conta</h1>
+      <p class="text-secondary">Gerencie seus dados pessoais.</p>
+    </div>
+
+    <% if (
+      errosPerfil &&
+      errosPerfil.length > 0
+    ) { %>
+      <div class="alert alert-danger">
+        <ul class="mb-0">
+          <% errosPerfil.forEach((erro) => { %>
+            <li><%= erro %></li>
+          <% }) %>
+        </ul>
+      </div>
+    <% } %>
+
+    <form action="/perfil" method="post" class="card border-0 shadow-sm">
+      <div class="card-body p-4">
+        <div class="mb-3">
+          <label for="nomeCompleto" class="form-label">Nome completo</label>
+
+          <input
+            type="text"
+            id="nomeCompleto"
+            name="nomeCompleto"
+            class="form-control"
+            value="<%= usuarioPerfil.nomeCompleto %>"
+            minlength="3"
+            maxlength="120"
+            required
+          >
+        </div>
+
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+
+          <input
+            type="text"
+            id="username"
+            name="username"
+            class="form-control"
+            value="<%= usuarioPerfil.username %>"
+            minlength="3"
+            maxlength="30"
+            required
+          >
+        </div>
+
+        <div class="mb-4">
+          <label for="email" class="form-label">E-mail</label>
+
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="form-control"
+            value="<%= usuarioPerfil.email %>"
+            required
+          >
+        </div>
+
+        <button type="submit" class="btn btn-dark">Salvar dados</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="col-lg-5">
+    <div class="card border-0 bg-dark text-white mb-4">
+      <div class="card-body p-4">
+        <p class="text-white-50 mb-1">Tipo de conta</p>
+
+        <p class="h4 text-capitalize mb-3">
+          <%= usuarioPerfil.papel %>
+        </p>
+
+        <p class="text-white-50 mb-1">Situação</p>
+
+        <p class="h5 text-capitalize mb-0">
+          <%= usuarioPerfil.status %>
+        </p>
+      </div>
+    </div>
+
+    <% if (
+      errosSenha &&
+      errosSenha.length > 0
+    ) { %>
+      <div class="alert alert-danger">
+        <ul class="mb-0">
+          <% errosSenha.forEach((erro) => { %>
+            <li><%= erro %></li>
+          <% }) %>
+        </ul>
+      </div>
+    <% } %>
+
+    <form action="/perfil/senha" method="post" class="card border-0 shadow-sm">
+      <div class="card-body p-4">
+        <h2 class="h4 mb-4">Alterar senha</h2>
+
+        <div class="mb-3">
+          <label for="senhaAtual" class="form-label">Senha atual</label>
+
+          <input
+            type="password"
+            id="senhaAtual"
+            name="senhaAtual"
+            class="form-control"
+            autocomplete="current-password"
+            required
+          >
+        </div>
+
+        <div class="mb-3">
+          <label for="novaSenha" class="form-label">Nova senha</label>
+
+          <input
+            type="password"
+            id="novaSenha"
+            name="novaSenha"
+            class="form-control"
+            minlength="8"
+            autocomplete="new-password"
+            required
+          >
+        </div>
+
+        <div class="mb-4">
+          <label for="confirmarNovaSenha" class="form-label">Confirmar nova senha</label>
+
+          <input
+            type="password"
+            id="confirmarNovaSenha"
+            name="confirmarNovaSenha"
+            class="form-control"
+            minlength="8"
+            autocomplete="new-password"
+            required
+          >
+        </div>
+
+        <button type="submit" class="btn btn-outline-dark">Alterar senha</button>
+      </div>
+    </form>
+  </div>
+</section>

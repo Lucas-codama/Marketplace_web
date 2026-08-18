@@ -2,7 +2,7 @@
   <div class="row align-items-center g-5">
     <div class="col-lg-7">
       <p class="text-uppercase fw-bold text-success">
-        Marketplace gamer
+        Kabum só que mais barato
       </p>
 
       <h1 class="display-2 fw-bold">
@@ -10,22 +10,46 @@
       </h1>
 
       <p class="lead text-secondary">
-        A NXT PLAY será um marketplace
-        multi-vendedor de jogos, controles,
-        volantes, consoles e acessórios.
+        Jogos, controles, consoles e acessórios gamers vendidos
+        por diferentes lojas.
       </p>
+
+      <% if (usuario) { %>
+        <p class="mt-4">
+          Bem-vindo,
+          <strong><%= usuario.nomeCompleto %></strong>.
+        </p>
+
+        <a href="/perfil" class="btn btn-dark">
+          Minha conta
+        </a>
+      <% } else { %>
+        <div class="d-flex gap-2 mt-4">
+          <a href="/cadastro" class="btn btn-dark">
+            Criar conta
+          </a>
+
+          <a href="/login" class="btn btn-outline-dark">
+            Entrar
+          </a>
+        </div>
+      <% } %>
     </div>
 
     <div class="col-lg-5">
       <div class="card border-0 bg-dark text-white">
         <div class="card-body p-5">
-          <h2 class="h4">
-            Servidor funcionando
+          <p class="text-uppercase text-white-50">
+            NXT PLAY
+          </p>
+
+          <h2 class="h3">
+            Sua próxima fase começa aqui.
           </h2>
 
           <p class="mb-0 text-white-50">
-            A estrutura inicial do projeto foi
-            carregada corretamente.
+            Plataforma multi-vendedora para
+            o público de consoles.
           </p>
         </div>
       </div>

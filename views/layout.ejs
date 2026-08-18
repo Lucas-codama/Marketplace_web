@@ -27,7 +27,7 @@
 </head>
 
 <body>
-  <header class="border-bottom">
+  <header class="border-bottom bg-white">
     <nav class="navbar navbar-expand-lg">
       <div class="container">
         <a
@@ -35,27 +35,62 @@
           href="/"
         >
           NXT PLAY
+
         </a>
 
-        <div class="ms-auto">
-          <% if (usuario) { %>
-            <span class="me-3">
-              <%= usuario.username %>
-            </span>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#menuPrincipal"
+          aria-controls="menuPrincipal"
+          aria-expanded="false"
+          aria-label="Abrir navegação"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <form
-              action="/logout"
-              method="post"
-              class="d-inline"
-            >
-              <button
-                type="submit"
-                class="btn btn-sm btn-outline-dark"
-              >
-                Sair
-              </button>
-            </form>
-          <% } %>
+        <div class="collapse navbar-collapse" id="menuPrincipal">
+          <div class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+
+            <% if (usuario) { %>
+              <span class="navbar-text fw-bold px-lg-2">
+                <%= usuario.username %>
+              </span>
+            <%}%>
+
+            <a class="nav-link" href="/">
+              Início
+            </a>
+
+            <% if (usuario) { %>
+              <% if (
+                usuario.papel === 'admin'
+              ) { %>
+                <a class="nav-link"href="/admin">
+                  Administração
+                </a>
+              <% } %>
+
+              <a class="nav-link" href="/perfil">
+                Minha conta
+              </a>
+
+              <form action="/logout" method="post" class="d-inline">
+                <button type="submit" class="btn btn-sm btn-outline-dark">
+                  Sair
+                </button>
+              </form>
+            <% } else { %>
+              <a class="nav-link" href="/login">
+                Entrar
+              </a>
+
+              <a class="btn btn-sm btn-dark" href="/cadastro">
+                Criar conta
+              </a>
+            <% } %>
+          </div>
         </div>
       </div>
     </nav>
@@ -63,10 +98,7 @@
 
   <main class="container py-5">
     <% if (flash) { %>
-      <div
-        class="alert alert-<%= flash.tipo %>"
-        role="alert"
-      >
+      <div class="alert alert-<%= flash.tipo %>" role="alert">
         <%= flash.mensagem %>
       </div>
     <% } %>
@@ -75,11 +107,7 @@
   </main>
 
   <script src="/vendor/jquery/jquery.min.js"></script>
-
-  <script
-    src="/vendor/bootstrap/js/bootstrap.bundle.min.js"
-  ></script>
-
+  <scrips src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></scrips>
   <script src="/js/app.js"></script>
 </body>
 </html>
