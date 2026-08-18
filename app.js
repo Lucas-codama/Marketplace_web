@@ -7,7 +7,7 @@ import {flashMiddleware} from './middlewares/flash.js';
 import {naoEncontrado,tratarErro} from './middlewares/erros.js';
 import rotasPrincipais from './routes/index.js';
 import {carregarUsuarioDaSessao} from './middlewares/auth.js';
-
+//
 import authRoutes from './routes/authRoutes.js';
 import perfilRouter from './routes/perfilRouter.js';
 import adminRoutes from './routes/adminRoutes.js';
