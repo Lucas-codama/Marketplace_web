@@ -1,11 +1,17 @@
 import { Router } from 'express';
+import { Categoria, Produto } from '../models/index.js';
 
 const router = Router();
 
-router.get('/', (req, res) => {
-  return res.renderComLayout('inicio', {
-    titulo: 'NXT PLAY'
-  });
+router.get('/', async (req, res, next) => {
+  try {
+    const [destaques, recentes, categorias] = await Promise.all([
+      Produto.findAll({ where: { estado: 'ativo', destaque: true }, limit: 4, order: [['createdAt', 'DESC']] }),
+      Produto.findAll({ where: { estado: 'ativo' }, limit: 4, order: [['createdAt', 'DESC']] }),
+      Categoria.findAll({ where: { ativa: true }, limit: 6, order: [['nome', 'ASC']] })
+    ]);
+    return res.renderComLayout('inicio', { titulo: 'NXT PLAY', destaques, recentes, categorias });
+  } catch (erro) { return next(erro); }
 });
 
 router.get('/health', (req, res) => {
