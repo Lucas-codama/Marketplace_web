@@ -1,9 +1,4 @@
-import {
-  Op,
-  UniqueConstraintError,
-  ValidationError
-} from 'sequelize';
-
+import {Op, UniqueConstraintError, ValidationError } from 'sequelize';
 import { Usuario } from '../models/index.js';
 
 function texto(valor) {
@@ -11,10 +6,8 @@ function texto(valor) {
 }
 
 function destinoPorPapel(papel) {
-  if (papel === "admin") {
-    return '/admin';
-  }
-
+  if (papel === 'admin') return '/admin';
+  if (papel === 'vendedor') return '/vendedor';
   return '/';
 }
 

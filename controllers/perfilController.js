@@ -1,5 +1,5 @@
 import { UniqueConstraintError, ValidationError } from 'sequelize';
-import { Usuario } from '../models/index.js';
+import { PerfilVendedor, Usuario } from '../models/index.js';
 
 function texto(valor) {
   return String(valor || '').trim();
@@ -16,12 +16,13 @@ function definirSessao(req, usuario) {
 
 async function exibirPerfil(req, res, next) {
   try {
-    const usuario = await Usuario.findByPk(req.usuarioAtual.id);
+    const usuario = await Usuario.findByPk(req.usuarioAtual.id, { include: [{ model: PerfilVendedor, as: 'perfilVendedor', required: false }] });
     return res.renderComLayout('perfil/index',{
         titulo: 'Minha conta',
         usuarioPerfil: usuario,
         errosPerfil: [],
-        errosSenha: []
+        errosSenha: [],
+        perfilVendedor: usuario.perfilVendedor
       }
     );
   } catch (erro) {
@@ -43,7 +44,7 @@ async function atualizarPerfil(req, res, next) {
     erros.push('O username deve possuir entre 3 e 30 caracteres.');
   }
 
-  if (!/^[a-z0-9._-]+$/i.test(username)) {
+  if (!/^[a-z0-9_]+$/i.test(username)) {
     erros.push('O username contém caracteres inválidos.');
   }
 
@@ -62,7 +63,8 @@ async function atualizarPerfil(req, res, next) {
           email
         },
         errosPerfil: erros,
-        errosSenha: []
+        errosSenha: [],
+        perfilVendedor: null
       }
     );
   }
@@ -90,7 +92,8 @@ async function atualizarPerfil(req, res, next) {
             email
           },
           errosPerfil: ['O username ou e-mail já está em uso.'],
-          errosSenha: []
+          errosSenha: [],
+          perfilVendedor: null
         }
       );
     }
@@ -101,7 +104,8 @@ async function atualizarPerfil(req, res, next) {
           titulo: 'Minha conta',
           usuarioPerfil: req.usuarioAtual,
           errosPerfil: erro.errors.map((item) => item.message),
-          errosSenha: []
+          errosSenha: [],
+          perfilVendedor: null
         }
       );
     }
@@ -140,7 +144,8 @@ async function alterarSenha(req, res, next) {
           titulo: 'Minha conta',
           usuarioPerfil: req.usuarioAtual,
           errosPerfil: [],
-          errosSenha: erros
+          errosSenha: erros,
+          perfilVendedor: null
         }
       );
     }
@@ -155,8 +160,22 @@ async function alterarSenha(req, res, next) {
   }
 }
 
+async function atualizarPerfilVendedor(req, res, next) {
+  try {
+    const perfil = await PerfilVendedor.findOne({ where: { usuarioId: req.usuarioAtual.id } });
+    if (!perfil) return res.status(404).renderComLayout('erros/404', { titulo: 'Perfil de vendedor não encontrado' });
+    const nomeLoja = texto(req.body.nomeLoja); const slug = texto(req.body.slug).toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+    await perfil.update({ nomeLoja, slug, descricao: texto(req.body.descricao) || null, cidade: texto(req.body.cidade) || null, uf: texto(req.body.uf).toUpperCase() || null });
+    req.definirFlash('success', 'Perfil público da loja atualizado.'); return res.redirect('/perfil');
+  } catch (erro) {
+    if (erro instanceof UniqueConstraintError || erro instanceof ValidationError) { req.definirFlash('danger', erro.errors?.[0]?.message || 'Revise os dados da loja.'); return res.redirect('/perfil'); }
+    return next(erro);
+  }
+}
+
 export {
   exibirPerfil,
   atualizarPerfil,
-  alterarSenha
+  alterarSenha,
+  atualizarPerfilVendedor
 };
