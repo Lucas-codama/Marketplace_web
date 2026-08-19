@@ -7,12 +7,11 @@ import app from './app.js';
 import sequelize from './config/database.js';
 import sessionMiddleware from './config/session.js';
 import configurarSockets from './sockets/index.js';
+import { configurarTempoReal } from './services/tempoRealService.js';
 
-const porta =
-  Number(process.env.PORT) || 3000;
+const porta = Number(process.env.PORT) || 3000;
 
-const servidorHttp =
-  http.createServer(app);
+const servidorHttp = http.createServer(app);
 
 const io = new Server(servidorHttp);
 
@@ -23,6 +22,7 @@ const io = new Server(servidorHttp);
 io.engine.use(sessionMiddleware);
 
 configurarSockets(io);
+configurarTempoReal(io);
 
 /*
  * Permite que controladores futuros recuperem
@@ -41,24 +41,17 @@ async function iniciarServidor() {
     await sequelize.sync();
 
     servidorHttp.listen(porta, () => {
-      console.log(
-        `NXT PLAY disponível em http://localhost:${porta}`
-      );
+      console.log(`NXT PLAY disponível em http://localhost:${porta}`);
     });
   } catch (erro) {
-    console.error(
-      'Não foi possível iniciar o servidor:',
-      erro
-    );
+    console.error('Não foi possível iniciar o servidor:', erro);
 
     process.exit(1);
   }
 }
 
 async function encerrarServidor() {
-  console.log(
-    '\nEncerrando o servidor...'
-  );
+  console.log('\nEncerrando o servidor...');
 
   servidorHttp.close(async () => {
     await sequelize.close();
@@ -67,14 +60,8 @@ async function encerrarServidor() {
   });
 }
 
-process.on(
-  'SIGINT',
-  encerrarServidor
-);
+process.on('SIGINT', encerrarServidor);
 
-process.on(
-  'SIGTERM',
-  encerrarServidor
-);
+process.on('SIGTERM', encerrarServidor);
 
 iniciarServidor();

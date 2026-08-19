@@ -1,0 +1,31 @@
+<section>
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">Atualizações</span>
+      <h1>Notificações</h1>
+    </div>
+    <button id="marcarTodasLidas" class="btn btn-outline-dark">Marcar todas como lidas</button>
+  </div>
+  <div class="d-grid gap-3">
+    <% if (!notificacoes.length) { %>
+      <div class="empty-state">Nenhuma notificação.</div>
+    <% } %>
+    <% notificacoes.forEach((item) => { %>
+      <article class="notification-card <%= item.lida ? 'is-read' : 'is-unread' %>" data-notificacao-id="<%= item.id %>">
+        <div>
+          <h2 class="h5"><%= item.titulo %></h2>
+          <p class="text-secondary"><%= item.mensagem %></p>
+          <small><%= new Date(item.createdAt).toLocaleString('pt-BR') %></small>
+        </div>
+        <div class="d-flex gap-2">
+          <% if (item.link) { %>
+            <a class="btn btn-sm btn-dark" href="<%= item.link %>">Abrir</a>
+          <% } %>
+          <% if (!item.lida) { %>
+            <button class="btn btn-sm btn-link js-marcar-lida">Marcar lida</button>
+          <% } %>
+        </div>
+      </article>
+    <% }) %>
+  </div>
+</section>

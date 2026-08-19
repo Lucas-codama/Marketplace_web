@@ -1,32 +1,14 @@
 export default function configurarSockets(io) {
-  io.use((socket, next) => {
-    const sessao = socket.request.session;
-
-    if (!sessao?.usuario) {
-      return next(
-        new Error('Usuário não autenticado.')
-      );
-    }
-
-    socket.usuario = sessao.usuario;
-
-    return next();
-  });
-
   io.on('connection', (socket) => {
-    const salaDoUsuario =
-      `usuario:${socket.usuario.id}`;
-
-    socket.join(salaDoUsuario);
-
-    console.log(
-      `Socket conectado: ${socket.usuario.username}`
-    );
-
-    socket.on('disconnect', () => {
-      console.log(
-        `Socket desconectado: ${socket.usuario.username}`
-      );
+    const usuario = socket.request.session?.usuario;
+    if (usuario?.id) {
+      socket.join(`usuario:${usuario.id}`);
+      if (usuario.papel === 'vendedor') socket.join(`vendedor:${usuario.id}`);
+      if (usuario.papel === 'admin') socket.join('administradores');
+    }
+    socket.on('acompanhar_produto', (valor) => {
+      const produtoId = Number(valor);
+      if (Number.isInteger(produtoId) && produtoId > 0) socket.join(`produto:${produtoId}`);
     });
   });
 }
