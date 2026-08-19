@@ -1,0 +1,62 @@
+<section>
+  <div class="section-heading">
+    <div><span class="eyebrow">Minha conta</span>
+      <h1>Endereços</h1>
+    </div>
+  </div>
+  <div class="row g-4">
+    <div class="col-lg-5">
+      <form action="/enderecos" method="post" class="surface p-4">
+        <h2 class="h4 mb-4">Novo endereço</h2>
+        <div class="row g-3">
+          <div class="col-md-6"><label class="form-label">Apelido</label><input class="form-control" name="apelido"
+              value="Casa" required></div>
+          <div class="col-md-6"><label class="form-label">Destinatário</label><input class="form-control"
+              name="destinatario" required></div>
+          <div class="col-md-4"><label class="form-label">CEP</label><input class="form-control" name="cep"
+              maxlength="9" required></div>
+          <div class="col-md-8"><label class="form-label">Logradouro</label><input class="form-control"
+              name="logradouro" required></div>
+          <div class="col-md-4"><label class="form-label">Número</label><input class="form-control" name="numero"
+              required></div>
+          <div class="col-md-8"><label class="form-label">Complemento</label><input class="form-control"
+              name="complemento"></div>
+          <div class="col-md-5"><label class="form-label">Bairro</label><input class="form-control" name="bairro"
+              required></div>
+          <div class="col-md-5"><label class="form-label">Cidade</label><input class="form-control" name="cidade"
+              required></div>
+          <div class="col-md-2"><label class="form-label">UF</label><input class="form-control" name="uf" maxlength="2"
+              required></div>
+        </div><label class="form-check my-4"><input class="form-check-input" type="checkbox" name="principal"> Endereço
+          principal</label><button class="btn btn-dark w-100">Cadastrar</button>
+      </form>
+    </div>
+    <div class="col-lg-7">
+      <div class="d-grid gap-3">
+        <% if (!enderecos.length) { %>
+          <div class="empty-state">Nenhum endereço cadastrado.</div>
+          <% } %>
+            <% enderecos.forEach((endereco)=> { %><article class="surface p-4">
+                <div class="d-flex justify-content-between gap-3">
+                  <div>
+                    <h2 class="h5">
+                      <%= endereco.apelido %>
+                        <% if (endereco.principal) { %><span class="badge text-bg-success">Principal</span>
+                          <% } %>
+                    </h2><strong>
+                      <%= endereco.destinatario %>
+                    </strong>
+                    <p class="text-secondary mb-0">
+                      <%= endereco.logradouro %>, <%= endereco.numero %><br>
+                          <%= endereco.bairro %> · <%= endereco.cidade %>/<%= endereco.uf %> · CEP <%= endereco.cep %>
+                    </p>
+                  </div>
+                  <form action="/enderecos/<%= endereco.id %>/excluir" method="post"><button
+                      class="btn btn-sm btn-outline-danger">Excluir</button></form>
+                </div>
+              </article>
+              <% }) %>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,1 +1,17 @@
-<article class="product-card h-100"><a href="/produtos/<%= produto.id %>" class="text-decoration-none text-dark"><div class="product-image"><img src="<%= produto.imagem %>" alt="<%= produto.nome %>"></div><div class="p-3 p-lg-4"><% if (produto.categoria) { %><span class="eyebrow"><%= produto.categoria.nome %></span><% } %><h3 class="h5 mt-2 mb-2"><%= produto.nome %></h3><div class="d-flex justify-content-between align-items-end gap-2"><strong class="fs-5"><%= Number(produto.preco).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) %></strong><span class="small text-secondary"><%= produto.estoque > 0 ? `${produto.estoque} em estoque` : 'Esgotado' %></span></div></div></a></article>
+<article class="product-card h-100"><a href="/produtos/<%= produto.id %>" class="text-decoration-none text-dark">
+    <div class="product-image"><img src="<%= produto.imagem %>" alt="<%= produto.nome %>"></div>
+    <div class="p-3 p-lg-4">
+      <% if (produto.categoria) { %><span class="eyebrow">
+          <%= produto.categoria.nome %>
+        </span>
+        <% } %>
+          <h3 class="h5 mt-2 mb-2">
+            <%= produto.nome %>
+          </h3>
+          <div class="d-flex justify-content-between align-items-end gap-2"><strong class="fs-5">
+              <%= Number(produto.preco).toLocaleString('pt-BR', { style: 'currency' , currency: 'BRL' }) %>
+            </strong><span class="small text-secondary">
+              <%= produto.estoque> 0 ? `${produto.estoque} em estoque` : 'Esgotado' %>
+            </span></div>
+    </div>
+  </a></article>

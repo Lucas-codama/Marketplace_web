@@ -1,0 +1,30 @@
+<section>
+  <div class="section-heading">
+    <div><span class="eyebrow">Histórico</span>
+      <h1>Meus pedidos</h1>
+    </div>
+  </div>
+  <div class="d-grid gap-3">
+    <% if (!pedidos.length) { %>
+      <div class="empty-state">Nenhum pedido realizado.</div>
+      <% } %>
+        <% pedidos.forEach((pedido)=> { %><a href="/pedidos/<%= pedido.id %>"
+            class="surface p-4 text-decoration-none text-dark">
+            <div class="row align-items-center g-3">
+              <div class="col-md-4"><span class="small text-secondary">Pedido</span><strong class="d-block">
+                  <%= pedido.numero %>
+                </strong></div>
+              <div class="col-md-2"><span class="small text-secondary">Data</span><strong class="d-block">
+                  <%= new Date(pedido.createdAt).toLocaleDateString('pt-BR') %>
+                </strong></div>
+              <div class="col-md-3"><span class="small text-secondary">Estado</span><strong class="d-block">
+                  <%= pedido.estado.replaceAll('_', ' ' ) %>
+                </strong></div>
+              <div class="col-md-3 text-md-end"><strong>
+                  <%= Number(pedido.valorTotal).toLocaleString('pt-BR', { style: 'currency' , currency: 'BRL' }) %>
+                </strong></div>
+            </div>
+          </a>
+          <% }) %>
+  </div>
+</section>
