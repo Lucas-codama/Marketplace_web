@@ -1,0 +1,26 @@
+<section>
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">Sua operação</span>
+      <h1>Pedidos recebidos</h1>
+    </div>
+  </div>
+  <div class="d-grid gap-3">
+    <% if (!pedidos.length) { %>
+      <div class="empty-state">Nenhuma venda recebida.</div>
+    <% } %>
+    <% pedidos.forEach((pedido) => { %>
+      <a class="surface p-4 text-decoration-none text-dark" href="/vendedor/pedidos/<%= pedido.id %>">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <strong><%= pedido.numero %></strong>
+            <span class="d-block small text-secondary"><%= pedido.cliente.nomeCompleto %></span>
+          </div>
+          <div class="col-md-3"><%= new Date(pedido.createdAt).toLocaleDateString('pt-BR') %></div>
+          <div class="col-md-2"><%= pedido.itens.reduce((s, i) => s + i.quantidade, 0) %> itens</div>
+          <div class="col-md-3 text-md-end"><%= pedido.itens.reduce((s, i) => s + Number(i.subtotal), 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) %></div>
+        </div>
+      </a>
+    <% }) %>
+  </div>
+</section>

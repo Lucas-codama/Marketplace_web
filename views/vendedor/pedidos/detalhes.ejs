@@ -1,0 +1,46 @@
+<section>
+  <a href="/vendedor/pedidos">← Voltar</a>
+  <div class="section-heading mt-3">
+    <div>
+      <span class="eyebrow">Venda</span>
+      <h1><%= pedido.numero %></h1>
+      <p class="text-secondary"><%= pedido.cliente.nomeCompleto %></p>
+    </div>
+  </div>
+  <div id="mensagemVendedor">
+  </div>
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="surface p-4">
+        <h2 class="h4">Produtos da sua loja</h2>
+        <% pedido.itens.forEach((item) => { %>
+          <div class="d-flex justify-content-between border-bottom py-3">
+            <div>
+              <strong><%= item.nomeProduto %></strong>
+              <span class="d-block small text-secondary js-estado-item"><%= item.quantidade %> × <%= item.estado.replaceAll('_', ' ') %></span>
+            </div>
+            <strong><%= Number(item.subtotal).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) %></strong>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <form id="formEstadoPedido" data-pedido-id="<%= pedido.id %>" class="summary-card">
+        <h2 class="h4 text-white">Atualizar estado</h2>
+        <select class="form-select my-3" name="estado" required>
+          <option value="">Selecione</option>
+          <option value="confirmado">Confirmado</option>
+          <option value="em_preparacao">Em preparação</option>
+          <option value="enviado">Enviado</option>
+          <option value="entregue">Entregue</option>
+          <option value="cancelado">Cancelado</option>
+        </select>
+        <textarea class="form-control" name="observacao" placeholder="Observação">
+</textarea>
+        <button class="btn btn-success w-100 mt-3">Atualizar</button>
+      </form>
+    </div>
+  </div>
+</section>
+<script src="/js/vendedor.js">
+</script>

@@ -1,0 +1,55 @@
+<section>
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">Sua loja</span>
+      <h1>Produtos</h1>
+    </div>
+    <a class="btn btn-dark" href="/vendedor/produtos/novo">Cadastrar produto</a>
+  </div>
+  <div class="surface overflow-hidden">
+    <div class="table-responsive">
+      <table class="table align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>Categoria</th>
+            <th>Preço</th>
+            <th>Estoque</th>
+            <th>Estado</th>
+            <th>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% produtos.forEach((produto) => { %>
+            <tr>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <img class="table-thumb" src="<%= produto.imagem %>" alt="">
+                  <strong><%= produto.nome %></strong>
+                </div>
+              </td>
+              <td><%= produto.categoria.nome %></td>
+              <td><%= Number(produto.preco).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) %></td>
+              <td><%= produto.estoque %></td>
+              <td>
+                <span class="status-pill"><%= produto.estado %></span>
+              </td>
+              <td>
+                <div class="d-flex justify-content-end gap-1">
+                  <a class="btn btn-sm btn-outline-dark" href="/vendedor/produtos/<%= produto.id %>/editar">Editar</a>
+                  <form action="/vendedor/produtos/<%= produto.id %>/estado" method="post">
+                    <button class="btn btn-sm btn-outline-secondary"><%= produto.estado === 'ativo' ? 'Desativar' : 'Ativar' %></button>
+                  </form>
+                  <form action="/vendedor/produtos/<%= produto.id %>/excluir" method="post" data-confirmar="Excluir ou desativar este produto?">
+                    <button class="btn btn-sm btn-outline-danger">Excluir</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

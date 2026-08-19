@@ -1,0 +1,43 @@
+<section>
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">Operação</span>
+      <h1>Estoque</h1>
+    </div>
+  </div>
+  <div id="mensagemVendedor">
+  </div>
+  <div class="surface overflow-hidden">
+    <div class="table-responsive">
+      <table class="table align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>Categoria</th>
+            <th>Quantidade</th>
+            <th>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% produtos.forEach((produto) => { %>
+            <tr data-produto-id="<%= produto.id %>">
+              <td>
+                <strong><%= produto.nome %></strong>
+              </td>
+              <td><%= produto.categoria.nome %></td>
+              <td>
+                <input class="form-control js-estoque" type="number" min="0" value="<%= produto.estoque %>">
+              </td>
+              <td class="text-end">
+                <button class="btn btn-sm btn-dark js-salvar-estoque">Salvar</button>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<script src="/js/vendedor.js">
+</script>
