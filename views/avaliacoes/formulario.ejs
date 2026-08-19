@@ -1,0 +1,40 @@
+<section class="row justify-content-center">
+  <div class="col-lg-7">
+    <a href="/produtos/<%= produto.id %>">← Voltar ao produto</a>
+    <div class="section-heading mt-3">
+      <div>
+        <span class="eyebrow">Sua experiência</span>
+        <h1>Avaliar <%= produto.nome %></h1>
+      </div>
+    </div>
+    <div id="mensagemAvaliacao">
+    </div>
+    <% if (!itens.length) { %>
+      <div class="empty-state">Você precisa ter uma compra entregue e ainda não avaliada.</div>
+      <% } else { %>
+      <form id="formAvaliacao" data-produto-id="<%= produto.id %>" class="surface p-4">
+        <label class="form-label">Compra</label>
+        <select class="form-select mb-4" name="itemPedidoId">
+          <% itens.forEach((item) => { %>
+            <option value="<%= item.id %>"><%= item.pedido.numero %> · <%= new Date(item.pedido.createdAt).toLocaleDateString('pt-BR') %></option>
+          <% }) %>
+        </select>
+        <label class="form-label">Nota</label>
+        <div class="rating-options mb-4">
+          <% for (let n = 1; n <= 5; n += 1) { %>
+            <label>
+              <input type="radio" name="nota" value="<%= n %>" required>
+              <span><%= n %> ★</span>
+            </label>
+          <% } %>
+        </div>
+        <label class="form-label">Comentário</label>
+        <textarea class="form-control mb-4" name="comentario" rows="6" minlength="10" required>
+  </textarea>
+        <button class="btn btn-dark w-100">Enviar para moderação</button>
+      </form>
+    <% } %>
+  </div>
+</section>
+<script src="/js/avaliacoes.js">
+</script>
