@@ -20,11 +20,15 @@
     "express": "^5.1.0",
     "express-session": "^1.18.0",
     "jquery": "^3.7.0",
-    "sequelize": "^6.37.0",
+    "multer": "^2.2.0",
+    "sequelize": "^6.37.8",
     "socket.io": "^4.8.0",
-    "sqlite3": "^5.1.0"
+    "sqlite3": "^6.0.1"
   },
   "devDependencies": {
     "supertest": "^7.0.0"
+  },
+  "allowScripts": {
+    "sqlite3@5.1.7": true
   }
 }
