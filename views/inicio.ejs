@@ -1,58 +1,72 @@
-<section class="py-5">
-  <div class="row align-items-center g-5">
-    <div class="col-lg-7">
-      <p class="text-uppercase fw-bold text-success">
-        Kabum só que mais barato
-      </p>
-
-      <h1 class="display-2 fw-bold">
-        Tudo para seu próximo jogo.
-      </h1>
-
-      <p class="lead text-secondary">
-        Jogos, controles, consoles e acessórios gamers vendidos
-        por diferentes lojas.
-      </p>
-
-      <% if (usuario) { %>
-        <p class="mt-4">
-          Bem-vindo,
-          <strong><%= usuario.nomeCompleto %></strong>.
-        </p>
-
-        <a href="/perfil" class="btn btn-dark">
-          Minha conta
-        </a>
-      <% } else { %>
-        <div class="d-flex gap-2 mt-4">
-          <a href="/cadastro" class="btn btn-dark">
-            Criar conta
-          </a>
-
-          <a href="/login" class="btn btn-outline-dark">
-            Entrar
-          </a>
-        </div>
-      <% } %>
+<section class="hero mb-5">
+  <span class="eyebrow">Marketplace multi-vendedor</span>
+  <h1>O próximo nível começa no seu setup.</h1>
+  <p>Consoles, jogos e acessórios de lojas independentes em uma experiência rápida, segura e feita para jogar.</p>
+  <form class="hero-search" action="/catalogo">
+    <input name="busca" type="search" placeholder="O que você procura?" aria-label="Pesquisar produtos">
+    <button class="btn btn-success">Pesquisar</button>
+  </form>
+  <div class="hero-actions">
+    <a href="/catalogo" class="btn btn-outline-light">Explorar catálogo</a>
+    <% if (!usuario) { %>
+      <a href="/cadastro" class="btn btn-link text-white">Criar minha conta →</a>
+    <% } %>
+  </div>
+  <div class="hero-stat">
+    <div>
+      <strong><%= categorias.length %></strong>
+      <span>categorias</span>
     </div>
-
-    <div class="col-lg-5">
-      <div class="card border-0 bg-dark text-white">
-        <div class="card-body p-5">
-          <p class="text-uppercase text-white-50">
-            NXT PLAY
-          </p>
-
-          <h2 class="h3">
-            Sua próxima fase começa aqui.
-          </h2>
-
-          <p class="mb-0 text-white-50">
-            Plataforma multi-vendedora para
-            o público de consoles.
-          </p>
-        </div>
-      </div>
+    <div>
+      <strong><%= destaques.length %></strong>
+      <span>seleções em destaque</span>
     </div>
+    <div>
+      <strong>24/7</strong>
+      <span>catálogo disponível</span>
+    </div>
+  </div>
+</section>
+<section class="section-block">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">Seleção NXT</span>
+      <h2>Destaques</h2>
+    </div>
+    <a href="/catalogo">Ver tudo →</a>
+  </div>
+  <div class="row g-3">
+    <% destaques.forEach((produto) => { %>
+      <div class="col-6 col-lg-3"><%- include('partials/produto-card', { produto }) %></div>
+    <% }) %>
+  </div>
+</section>
+<section class="section-block">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">Descubra</span>
+      <h2>Categorias</h2>
+    </div>
+  </div>
+  <div class="category-grid">
+    <% categorias.forEach((categoria, indice) => { %>
+      <a href="/catalogo?categoria=<%= categoria.id %>" class="category-tile">
+        <span>0<%= indice + 1 %></span>
+        <strong><%= categoria.nome %></strong>
+      </a>
+    <% }) %>
+  </div>
+</section>
+<section class="section-block">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">Acabaram de chegar</span>
+      <h2>Recentes</h2>
+    </div>
+  </div>
+  <div class="row g-3">
+    <% recentes.forEach((produto) => { %>
+      <div class="col-6 col-lg-3"><%- include('partials/produto-card', { produto }) %></div>
+    <% }) %>
   </div>
 </section>
