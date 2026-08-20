@@ -1,0 +1,36 @@
+<section class="page-head">
+  <div>
+    <span class="eyebrow">Organização</span>
+    <h1>Categorias</h1>
+    <p>Gerencie como os produtos aparecem no catálogo.</p>
+  </div>
+</section>
+<div class="split-layout">
+  <section class="panel">
+    <h2>Nova categoria</h2>
+    <form method="post" action="/admin/categorias" class="form-stack">
+      <label>Nome<input class="form-control" name="nome" required minlength="2">
+      </label>
+      <label>Descrição<textarea class="form-control" name="descricao" rows="4">
+</textarea>
+      </label>
+      <button class="btn btn-dark">Criar categoria</button>
+    </form>
+  </section>
+  <section class="panel grow">
+    <h2>Categorias cadastradas</h2>
+    <div class="category-admin-list">
+      <% categorias.forEach((categoria) => { %>
+        <form method="post" action="/admin/categorias/<%= categoria.id %>/editar" class="category-admin-item">
+          <div>
+            <input class="form-control" name="nome" value="<%= categoria.nome %>" required>
+            <input class="form-control" name="descricao" value="<%= categoria.descricao || '' %>" placeholder="Descrição">
+          </div>
+          <label class="switch-line">
+            <input type="checkbox" name="ativa" <%= categoria.ativa ? 'checked' : '' %>> Ativa · <%= categoria.produtos.length %> produtos</label>
+          <button class="btn btn-sm btn-outline-dark">Salvar</button>
+        </form>
+      <% }) %>
+    </div>
+  </section>
+</div>

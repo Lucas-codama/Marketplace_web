@@ -1,0 +1,57 @@
+<section class="page-head">
+  <div>
+    <span class="eyebrow">Moderação</span>
+    <h1>Produtos</h1>
+    <p>Revise e controle anúncios do marketplace.</p>
+  </div>
+</section>
+<form class="filter-bar" method="get">
+  <select class="form-select" name="estado">
+    <option value="">Todos os estados</option>
+    <% ['ativo','inativo','bloqueado'].forEach((item) => { %>
+      <option value="<%= item %>" <%= estado === item ? 'selected' : '' %>><%= item %></option>
+    <% }) %>
+  </select>
+  <button class="btn btn-dark">Filtrar</button>
+</form>
+<div class="table-shell">
+  <table>
+    <thead>
+      <tr>
+        <th>Produto</th>
+        <th>Vendedor</th>
+        <th>Categoria</th>
+        <th>Estoque</th>
+        <th>Estado</th>
+        <th>Ação</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% produtos.forEach((produto) => { %>
+        <tr>
+          <td>
+            <a href="/produtos/<%= produto.id %>">
+              <strong><%= produto.nome %></strong>
+            </a>
+            <small><%= moeda(produto.preco) %></small>
+          </td>
+          <td><%= produto.vendedor.nomeCompleto %></td>
+          <td><%= produto.categoria.nome %></td>
+          <td><%= produto.estoque %></td>
+          <td>
+            <span class="status status-<%= produto.estado %>"><%= produto.estado %></span>
+          </td>
+          <td>
+            <select class="form-select form-select-sm js-select-status" data-url="/admin/api/produtos/<%= produto.id %>/estado" data-key="estado">
+              <% ['ativo','inativo','bloqueado'].forEach((item) => { %>
+                <option <%= produto.estado === item ? 'selected' : '' %>><%= item %></option>
+              <% }) %>
+            </select>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<script src="/js/admin.js" defer>
+</script>

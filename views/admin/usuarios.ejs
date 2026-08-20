@@ -1,0 +1,59 @@
+<section class="page-head">
+  <div>
+    <span class="eyebrow">Gestão</span>
+    <h1>Usuários</h1>
+    <p>Consulte clientes, vendedores e administradores.</p>
+  </div>
+</section>
+<form class="filter-bar" method="get">
+  <input class="form-control" name="busca" value="<%= filtros.busca || '' %>" placeholder="Nome, usuário ou e-mail">
+  <select class="form-select" name="papel">
+    <option value="">Todos os papéis</option>
+    <% ['cliente','vendedor','admin'].forEach((papel) => { %>
+      <option value="<%= papel %>" <%= filtros.papel === papel ? 'selected' : '' %>><%= papel %></option>
+    <% }) %>
+  </select>
+  <select class="form-select" name="status">
+    <option value="">Todos os status</option>
+    <option value="ativo" <%= filtros.status === 'ativo' ? 'selected' : '' %>>Ativo</option>
+    <option value="bloqueado" <%= filtros.status === 'bloqueado' ? 'selected' : '' %>>Bloqueado</option>
+  </select>
+  <button class="btn btn-dark">Filtrar</button>
+</form>
+<div class="table-shell">
+  <table>
+    <thead>
+      <tr>
+        <th>Usuário</th>
+        <th>Papel</th>
+        <th>Status</th>
+        <th>Cadastro</th>
+        <th>Ação</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% usuarios.forEach((usuario) => { %>
+        <tr>
+          <td>
+            <strong><%= usuario.nomeCompleto %></strong>
+            <small>@<%= usuario.username %> · <%= usuario.email %></small>
+          </td>
+          <td><%= usuario.papel %></td>
+          <td>
+            <span class="status status-<%= usuario.status %>"><%= usuario.status %></span>
+          </td>
+          <td><%= new Date(usuario.createdAt).toLocaleDateString('pt-BR') %></td>
+          <td>
+            <% if (usuario.id !== usuarioAtual.id) { %>
+              <button class="btn btn-sm btn-outline-dark js-status" data-url="/admin/api/usuarios/<%= usuario.id %>/status" data-status="<%= usuario.status === 'ativo' ? 'bloqueado' : 'ativo' %>"><%= usuario.status === 'ativo' ? 'Bloquear' : 'Ativar' %></button>
+              <% } else { %>
+              <small>Conta atual</small>
+            <% } %>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<script src="/js/admin.js" defer>
+</script>

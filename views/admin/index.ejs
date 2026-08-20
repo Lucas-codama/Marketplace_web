@@ -1,9 +1,84 @@
-<section>
-  <p class="text-uppercase fw-bold text-success mb-2">Administração</p>
-  <h1 class="display-5 fw-bold">Painel administrativo</h1>
-  <p class="lead text-secondary">
-    Esta área só pode ser acessada por
-    usuários com papel de administrador.
-  </p>
-  <div class="alert alert-success mt-4">Testando a autorização por papel.</div>
+<section class="page-head">
+  <div>
+    <span class="eyebrow">Visão geral</span>
+    <h1>Administração</h1>
+    <p>Acompanhe a operação completa do marketplace.</p>
+  </div>
+  <a class="btn btn-outline-dark" href="/admin/pedidos">Ver pedidos</a>
+</section>
+<section class="metric-grid">
+  <article class="metric-card">
+    <span>Usuários</span>
+    <strong><%= resumo.usuarios %></strong>
+    <small><%= resumo.clientes %> clientes · <%= resumo.vendedores %> vendedores</small>
+  </article>
+  <article class="metric-card">
+    <span>Produtos</span>
+    <strong><%= resumo.produtos %></strong>
+    <small><%= resumo.bloqueados %> bloqueados</small>
+  </article>
+  <article class="metric-card">
+    <span>Pedidos</span>
+    <strong><%= resumo.pedidos %></strong>
+    <small>Em todo o período</small>
+  </article>
+  <article class="metric-card accent">
+    <span>Volume vendido</span>
+    <strong><%= moeda(resumo.valor) %></strong>
+    <small><%= resumo.pendentes %> avaliações pendentes</small>
+  </article>
+</section>
+<nav class="admin-shortcuts" aria-label="Áreas administrativas">
+  <a href="/admin/usuarios">Usuários <span>→</span>
+  </a>
+  <a href="/admin/vendedores">Vendedores <span>→</span>
+  </a>
+  <a href="/admin/categorias">Categorias <span>→</span>
+  </a>
+  <a href="/admin/produtos">Produtos <span>→</span>
+  </a>
+  <a href="/admin/avaliacoes">Avaliações <span>→</span>
+  </a>
+</nav>
+<section class="section-block">
+  <div class="section-title">
+    <div>
+      <span class="eyebrow">Movimento</span>
+      <h2>Pedidos recentes</h2>
+    </div>
+  </div>
+  <div class="table-shell">
+    <table>
+      <thead>
+        <tr>
+          <th>Pedido</th>
+          <th>Cliente</th>
+          <th>Itens</th>
+          <th>Status</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% recentes.forEach((pedido) => { %>
+          <tr>
+            <td>
+              <strong>#<%= pedido.id %></strong>
+              <small><%= new Date(pedido.createdAt).toLocaleDateString('pt-BR') %></small>
+            </td>
+            <td><%= pedido.cliente.nomeCompleto %></td>
+            <td><%= pedido.itens.length %></td>
+            <td>
+              <span class="status status-<%= pedido.estado %>"><%= pedido.estado %></span>
+            </td>
+            <td><%= moeda(pedido.valorTotal) %></td>
+          </tr>
+        <% }) %>
+        <% if (!recentes.length) { %>
+          <tr>
+            <td colspan="5" class="empty-cell">Nenhum pedido registrado.</td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
 </section>

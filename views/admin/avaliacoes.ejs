@@ -1,0 +1,43 @@
+<section class="page-head">
+  <div>
+    <span class="eyebrow">Confiança</span>
+    <h1>Avaliações</h1>
+    <p>Modere os comentários enviados pelos compradores.</p>
+  </div>
+</section>
+<form class="filter-bar" method="get">
+  <select class="form-select" name="estado">
+    <option value="">Todos os estados</option>
+    <% ['pendente','aprovada','ocultada'].forEach((item) => { %>
+      <option value="<%= item %>" <%= estado === item ? 'selected' : '' %>><%= item %></option>
+    <% }) %>
+  </select>
+  <button class="btn btn-dark">Filtrar</button>
+</form>
+<div class="review-admin-grid">
+  <% avaliacoes.forEach((avaliacao) => { %>
+    <article class="review-card">
+      <div class="review-head">
+        <div>
+          <strong><%= avaliacao.cliente.nomeCompleto %></strong>
+          <small>em <%= avaliacao.produto.nome %></small>
+        </div>
+        <span class="status status-<%= avaliacao.estado %>"><%= avaliacao.estado %></span>
+      </div>
+      <div class="stars" aria-label="<%= avaliacao.nota %> estrelas"><%= '★'.repeat(avaliacao.nota) %><%= '☆'.repeat(5 - avaliacao.nota) %></div>
+      <p><%= avaliacao.comentario || 'Sem comentário.' %></p>
+      <div class="button-row">
+        <button class="btn btn-sm btn-dark js-status" data-url="/admin/api/avaliacoes/<%= avaliacao.id %>/moderacao" data-status="aprovada" data-key="estado">Aprovar</button>
+        <button class="btn btn-sm btn-outline-dark js-status" data-url="/admin/api/avaliacoes/<%= avaliacao.id %>/moderacao" data-status="ocultada" data-key="estado">Ocultar</button>
+      </div>
+    </article>
+  <% }) %>
+  <% if (!avaliacoes.length) { %>
+    <div class="empty-state">
+      <h2>Nenhuma avaliação</h2>
+      <p>Não há avaliações neste filtro.</p>
+    </div>
+  <% } %>
+</div>
+<script src="/js/admin.js" defer>
+</script>
