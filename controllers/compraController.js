@@ -124,32 +124,41 @@ async function listarPedidos(req, res, next) {
 
 async function detalharPedido(req, res, next) {
   try {
-    const pedido = await Pedido.findOne({ where: { 
-      id: req.params.id, 
-      clienteId: req.usuarioAtual.id }, 
-      include: [{ 
-        model: ItemPedido, 
-        as: 'itens', 
-        include: [{ 
-          model: Produto, 
-          as: 'produto', 
-          required: false }, { 
-            model: 
-            Usuario, as: 'vendedor', 
-            attributes: ['id', 'username'] }] }, {
-               model: HistoricoPedido, 
-               as: 'historico' }], 
-               order: [[{ 
-                model: HistoricoPedido, 
-                as: 'historico' }, 
-                'createdAt', 
-                'ASC']] 
-              });
+    const pedido = await Pedido.findOne({
+      where: { id: req.params.id, clienteId: req.usuarioAtual.id },
+      include: [
+        {
+          model: ItemPedido,
+          as: 'itens',
+          include: [
+            { model: Produto, as: 'produto', required: false },
+            { model: Usuario, as: 'vendedor', attributes: ['id', 'username'] }
+          ]
+        },
+        {
+          model: HistoricoPedido,
+          as: 'historico',
+          include: [
+            {
+              model: Usuario,
+              as: 'usuarioResponsavel',
+              attributes: ['id', 'nomeCompleto', 'username']
+            }
+          ]
+        }
+      ],
+      order: [[{ model: HistoricoPedido, as: 'historico' }, 'createdAt', 'ASC']]
+    });
 
     if (!pedido) return res.status(404).renderComLayout('erros/404', { titulo: 'Pedido não encontrado' });
-    return res.renderComLayout('pedidos/detalhes', { titulo: pedido.numero, pedido });
 
-  } catch (erro) { return next(erro); }
+    return res.renderComLayout('pedidos/detalhes', {
+      titulo: pedido.numero,
+      pedido
+    });
+  } catch (erro) {
+    return next(erro);
+  }
 }
 
 export { 

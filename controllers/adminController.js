@@ -19,7 +19,7 @@ async function painel(req, res, next) {
       Usuario.count({ where: { papel: 'vendedor' } }),
       Produto.count(),
       Pedido.count(),
-      Produto.count({ where: { estado: 'bloqueado' } }),
+      Produto.count({ where: { estado: { [Op.in]: ['bloqueado', 'inativo'] } } }),
       Avaliacao.count({ where: { estado: 'pendente' } }),
       Pedido.sum('valorTotal'),
       Pedido.findAll({
@@ -34,13 +34,20 @@ async function painel(req, res, next) {
 
     return res.renderComLayout('admin/index', {
       titulo: 'Administração',
-      resumo: { usuarios, clientes, vendedores, produtos, pedidos, bloqueados, pendentes, valor: Number(valor || 0) },
+      resumo: {
+        usuarios,
+        clientes,
+        vendedores,
+        produtos,
+        pedidos,
+        bloqueados,
+        pendentes,
+        valor: Number(valor || 0)
+      },
       recentes
     });
-
   } catch (erro) {
     return next(erro);
-
   }
 }
 
