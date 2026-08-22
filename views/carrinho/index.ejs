@@ -1,48 +1,70 @@
 <section>
   <div class="section-heading">
-    <div><span class="eyebrow">Sua seleção</span>
+    <div>
+      <span class="eyebrow">Sua seleção</span>
       <h1>Carrinho</h1>
     </div>
   </div>
-  <div id="mensagemCarrinho"></div>
+  <div id="mensagemCarrinho">
+  </div>
   <% if (!carrinho.itens.length) { %>
     <div class="empty-state">
-      <h2>Seu carrinho está vazio</h2><a href="/catalogo" class="btn btn-dark mt-3">Explorar catálogo</a>
+      <h2>Seu carrinho está vazio</h2>
+      <a href="/catalogo" class="btn btn-dark mt-3">Explorar catálogo</a>
     </div>
     <% } else { %>
       <div class="row g-4">
         <div class="col-lg-8">
           <div id="listaCarrinho" class="d-grid gap-3">
-            <% carrinho.itens.forEach((item)=> { %><article class="surface p-3 js-item-carrinho"
-                data-item-id="<%= item.id %>">
+            <% carrinho.itens.forEach((item)=> { %>
+              <article class="surface p-3 js-item-carrinho" data-item-id="<%= item.id %>">
                 <div class="row align-items-center g-3">
-                  <div class="col-3 col-md-2"><img class="cart-image" src="<%= item.produto.imagem %>" alt=""></div>
-                  <div class="col-9 col-md-4"><strong>
-                      <%= item.produto.nome %>
-                    </strong><span class="d-block small text-secondary">@<%= item.produto.vendedor.username %></span>
+                  <div class="col-3 col-md-2">
+                    <img class="cart-image" src="<%= item.produto.imagem %>" alt="">
                   </div>
-                  <div class="col-5 col-md-2"><input class="form-control js-quantidade-carrinho" type="number"
-                      value="<%= item.quantidade %>" min="1" max="<%= item.produto.estoque %>"></div>
-                  <div class="col-5 col-md-3 text-end"><strong class="js-subtotal-item">
+                  <div class="col-9 col-md-4">
+                    <strong>
+                      <%= item.produto.nome %>
+                    </strong>
+                    <span class="d-block small text-secondary">@<%= item.produto.vendedor.username %></span>
+                    <span class="d-block small text-secondary">
+                      Preço unitário:
+                      <%= Number(item.produto.preco).toLocaleString('pt-BR', { style: 'currency' , currency: 'BRL' }) %>
+                    </span>
+                  </div>
+                  <div class="col-5 col-md-2">
+                    <input class="form-control js-quantidade-carrinho" type="number" value="<%= item.quantidade %>"
+                      min="1" max="<%= item.produto.estoque %>">
+                  </div>
+                  <div class="col-5 col-md-3 text-end">
+                    <strong class="js-subtotal-item">
                       <%= Number(item.subtotal).toLocaleString('pt-BR', { style: 'currency' , currency: 'BRL' }) %>
-                    </strong></div>
-                  <div class="col-2 col-md-1 text-end"><button
-                      class="btn btn-sm btn-outline-danger js-remover-item">×</button></div>
+                    </strong>
+                  </div>
+                  <div class="col-2 col-md-1 text-end">
+                    <button class="btn btn-sm btn-outline-danger js-remover-item">×</button>
+                  </div>
                 </div>
               </article>
               <% }) %>
           </div>
         </div>
         <div class="col-lg-4">
-          <aside class="summary-card"><span>Itens</span><strong id="quantidadeCarrinho">
+          <aside class="summary-card">
+            <span>Itens</span>
+            <strong id="quantidadeCarrinho">
               <%= carrinho.quantidadeTotal %>
             </strong>
-            <hr><span>Total</span><strong id="valorTotalCarrinho" class="fs-3">
+            <hr>
+            <span>Total</span>
+            <strong id="valorTotalCarrinho" class="fs-3">
               <%= Number(carrinho.valorTotal).toLocaleString('pt-BR', { style: 'currency' , currency: 'BRL' }) %>
-            </strong><a class="btn btn-success w-100 mt-4" href="/checkout">Finalizar compra</a>
+            </strong>
+            <a class="btn btn-success w-100 mt-4" href="/checkout">Finalizar compra</a>
           </aside>
         </div>
       </div>
       <% } %>
 </section>
-<script src="/js/carrinho.js"></script>
+<script src="/js/carrinho.js">
+</script>
