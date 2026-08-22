@@ -34,15 +34,59 @@ async function painel(req, res, next) {
       Produto.count({ where: { vendedorId, estado: 'ativo' } }),
       Produto.count({ where: { vendedorId, estoque: 0 } }),
       Produto.count({ where: { vendedorId, estoque: { [Op.between]: [1, 5] } } }),
-      ItemPedido.count({ where: { vendedorId, estado: { [Op.in]: ['aguardando_confirmacao', 'confirmado', 'em_preparacao'] } } }),
-      ItemPedido.sum('quantidade', { where: { vendedorId, estado: { [Op.ne]: 'cancelado' } } }),
-      ItemPedido.sum('subtotal', { where: { vendedorId, estado: { [Op.ne]: 'cancelado' } } }),
-      Pedido.findAll({ include: [{ model: ItemPedido, as: 'itens', required: true, where: { vendedorId } }], order: [['createdAt', 'DESC']], limit: 5 }),
+      ItemPedido.count({
+        where: {
+          vendedorId,
+          estado: {
+            [Op.in]: ['aguardando_confirmacao', 'confirmado', 'em_preparacao']
+          }
+        },
+        distinct: true,
+        col: 'pedidoId'
+      }),
+      ItemPedido.sum('quantidade', {
+        where: {
+          vendedorId,
+          estado: {
+            [Op.ne]: 'cancelado'
+          }
+        }
+      }),
+      ItemPedido.sum('subtotal', {
+        where: {
+          vendedorId,
+          estado: {
+            [Op.ne]: 'cancelado'
+          }
+        }
+      }),
+      Pedido.findAll({
+        include: [
+          {
+            model: ItemPedido,
+            as: 'itens',
+            required: true,
+            where: { vendedorId }
+          }
+        ],
+        order: [['createdAt', 'DESC']],
+        limit: 5
+      }),
       Avaliacao.findAll({
         where: { estado: 'aprovada' },
         include: [
-          { model: Produto, as: 'produto', required: true, where: { vendedorId }, attributes: ['id', 'nome'] },
-          { model: Usuario, as: 'cliente', attributes: ['nomeCompleto'] }
+          {
+            model: Produto,
+            as: 'produto',
+            required: true,
+            where: { vendedorId },
+            attributes: ['id', 'nome']
+          },
+          {
+            model: Usuario,
+            as: 'cliente',
+            attributes: ['nomeCompleto']
+          }
         ],
         order: [['createdAt', 'DESC']],
         limit: 3
@@ -51,11 +95,18 @@ async function painel(req, res, next) {
 
     return res.renderComLayout('vendedor/painel', {
       titulo: 'Painel do vendedor',
-      resumo: { total, ativos, semEstoque, baixo, pendentes, unidades: Number(unidades || 0), valor: Number(valor || 0) },
+      resumo: {
+        total,
+        ativos,
+        semEstoque,
+        baixo,
+        pendentes,
+        unidades: Number(unidades || 0),
+        valor: Number(valor || 0)
+      },
       recentes,
       avaliacoesRecentes
     });
-
   } catch (erro) {
     return next(erro);
   }
