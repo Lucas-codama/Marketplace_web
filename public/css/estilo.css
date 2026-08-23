@@ -976,3 +976,172 @@ textarea.form-control {
     flex-direction: column;
   }
 }
+
+/* ==========================================================================
+   Acessibilidade: alto contraste e escala de fonte
+   (controlados em /acessibilidades — ver public/js/acessibilidade.js)
+   ========================================================================== */
+
+html {
+  font-size: calc(16px * var(--fonte-escala, 1));
+}
+
+html.alto-contraste {
+  --ink: #ffffff;
+  --muted: #f1f1f1;
+  --paper: #000000;
+  --surface: #0a0a0a;
+  --line: #ffffff;
+  --lime: #ffe600;
+  --green: #00e676;
+}
+
+html.alto-contraste body {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+html.alto-contraste .site-header {
+  background: #000;
+  border-bottom-color: var(--line);
+  backdrop-filter: none;
+}
+
+html.alto-contraste .nav-link {
+  color: var(--ink) !important;
+}
+
+html.alto-contraste .nav-link:hover {
+  color: var(--lime) !important;
+}
+
+html.alto-contraste a:hover {
+  color: var(--lime);
+}
+
+html.alto-contraste .surface,
+html.alto-contraste .panel,
+html.alto-contraste .summary-card,
+html.alto-contraste .metric-card,
+html.alto-contraste .review-card,
+html.alto-contraste .notification-card,
+html.alto-contraste .acessibilidade-card,
+html.alto-contraste .card {
+  border: 2px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: none;
+}
+
+html.alto-contraste .btn {
+  border-width: 2px;
+}
+
+html.alto-contraste .btn-dark {
+  color: var(--paper);
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+html.alto-contraste .btn-dark:hover {
+  color: var(--ink);
+  background: var(--lime);
+  border-color: var(--lime);
+}
+
+html.alto-contraste .btn-outline-dark {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+html.alto-contraste .btn-outline-dark:hover {
+  color: var(--paper);
+  background: var(--ink);
+}
+
+html.alto-contraste .btn-success {
+  color: var(--paper);
+  background: var(--green);
+  border-color: var(--green);
+}
+
+html.alto-contraste .btn-link {
+  color: var(--lime);
+}
+
+html.alto-contraste .form-control,
+html.alto-contraste .form-select {
+  color: var(--ink);
+  background-color: #000;
+  border: 2px solid var(--line);
+}
+
+html.alto-contraste .form-control::placeholder {
+  color: var(--muted);
+}
+
+html.alto-contraste .badge {
+  border: 1px solid var(--line);
+}
+
+html.alto-contraste .alert {
+  border: 2px solid var(--line);
+}
+
+html.alto-contraste .site-footer {
+  background: #000;
+  border-top: 2px solid var(--line);
+}
+
+html.alto-contraste .brand-mark {
+  color: #000;
+  background: var(--lime);
+}
+
+html.alto-contraste ::selection {
+  color: #000;
+  background: var(--lime);
+}
+
+/* Página /acessibilidades */
+.acessibilidade-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 1.75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: 0 10px 35px rgba(22, 28, 17, .045);
+}
+
+.acessibilidade-card + .acessibilidade-card {
+  margin-top: 1.25rem;
+}
+
+.acessibilidade-controle-fonte {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+
+.acessibilidade-controle-fonte .btn {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+#acessibilidadeEscalaValor {
+  min-width: 56px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.form-switch .form-check-input {
+  width: 3em;
+  height: 1.6em;
+}

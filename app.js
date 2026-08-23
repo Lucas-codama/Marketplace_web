@@ -16,6 +16,7 @@ import compraRoutes from './routes/compraRoutes.js';
 import vendedorRoutes from './routes/vendedorRoutes.js';
 import avaliacaoRoutes from './routes/avaliacaoRoutes.js';
 import notificacaoRoutes from './routes/notificacaoRoutes.js';
+import acessibilidadeRoutes from './routes/acessibilidadeRoutes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -87,6 +88,7 @@ app.use('/', compraRoutes);
 app.use('/', vendedorRoutes);
 app.use('/', avaliacaoRoutes);
 app.use('/', notificacaoRoutes);
+app.use('/', acessibilidadeRoutes);
 app.use(naoEncontrado);
 app.use(tratarErro);
 

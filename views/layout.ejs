@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="NXT PLAY — marketplace multi-vendedor de games, consoles e acessórios.">
     <title><%= typeof titulo !== 'undefined' ? `${titulo} | NXT PLAY` : 'NXT PLAY' %></title>
+    <script>
+      (function aplicarPreferenciasDeAcessibilidade() {
+        try {
+          var preferencias = JSON.parse(localStorage.getItem('nxtplay:acessibilidade') || '{}');
+          if (preferencias.altoContraste) document.documentElement.classList.add('alto-contraste');
+          if (typeof preferencias.escalaFonte === 'number') document.documentElement.style.setProperty('--fonte-escala', preferencias.escalaFonte);
+        } catch (erro) {}
+      })();
+    </script>
     <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/estilo.css">
     <script src="/vendor/jquery/jquery.min.js">
@@ -24,6 +33,7 @@
             <div class="navbar-nav ms-auto align-items-xl-center gap-xl-1">
               <a class="nav-link" href="/">Início</a>
               <a class="nav-link" href="/catalogo">Catálogo</a>
+              <a class="nav-link" href="/acessibilidades">Acessibilidades</a>
               <% if (usuario?.papel === 'cliente') { %>
                 <a class="nav-link" href="/carrinho">Carrinho <span id="contadorCarrinho" class="badge text-bg-dark">0</span>
                 </a>
@@ -79,6 +89,8 @@
     <script src="/js/app.js">
     </script>
     <script src="/js/notificacoes.js">
+    </script>
+    <script src="/js/acessibilidade.js">
     </script>
     <script src="/js/socket.js">
     </script>
