@@ -978,46 +978,210 @@ textarea.form-control {
 }
 
 /* ==========================================================================
-   Acessibilidade: alto contraste e escala de fonte
-   (controlados em /acessibilidades — ver public/js/acessibilidade.js)
+   ACESSIBILIDADE: ALTO CONTRASTE
    ========================================================================== */
 
-html {
-  font-size: calc(16px * var(--fonte-escala, 1));
-}
+/*
+   Mapeamento de cores:
+
+   Preto       -> Branco
+   Branco      -> Preto
+   Cinza       -> Cinza claro
+   Verde       -> Amarelo
+   Verde-lima  -> Amarelo
+*/
+
+
+/* ==========================================================================
+   1. VARIÁVEIS
+   ========================================================================== */
 
 html.alto-contraste {
   --ink: #ffffff;
-  --muted: #f1f1f1;
+  --muted: #d0d0d0;
   --paper: #000000;
-  --surface: #0a0a0a;
+  --surface: #000000;
   --line: #ffffff;
-  --lime: #ffe600;
-  --green: #00e676;
+  --lime: #ffff00;
+  --green: #ffff00;
 }
+
+
+/* ==========================================================================
+   2. BASE
+   ========================================================================== */
 
 html.alto-contraste body {
-  background: var(--paper);
-  color: var(--ink);
+  color: #ffffff !important;
+  background: #000000 !important;
 }
 
+html.alto-contraste a {
+  color: #ffffff !important;
+}
+
+html.alto-contraste a:hover,
+html.alto-contraste a:focus {
+  color: #ffff00 !important;
+}
+
+html.alto-contraste ::selection {
+  color: #000000 !important;
+  background: #ffff00 !important;
+}
+
+
+/* ==========================================================================
+   3. CABEÇALHO / NAVBAR
+   ========================================================================== */
+
 html.alto-contraste .site-header {
-  background: #000;
-  border-bottom-color: var(--line);
+  background: #000000 !important;
+  border-bottom: 2px solid #ffffff !important;
   backdrop-filter: none;
 }
 
+html.alto-contraste .navbar-brand,
 html.alto-contraste .nav-link {
-  color: var(--ink) !important;
+  color: #ffffff !important;
 }
 
-html.alto-contraste .nav-link:hover {
-  color: var(--lime) !important;
+html.alto-contraste .nav-link:hover,
+html.alto-contraste .nav-link:focus {
+  color: #ffff00 !important;
 }
 
-html.alto-contraste a:hover {
-  color: var(--lime);
+html.alto-contraste .brand-mark {
+  color: #000000 !important;
+  background: #ffff00 !important;
 }
+
+html.alto-contraste .navbar-toggler {
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .navbar-toggler-icon {
+  filter: brightness(0) invert(1);
+}
+
+
+/* ==========================================================================
+   4. TEXTOS DO BOOTSTRAP
+   ========================================================================== */
+
+/* Cinza -> cinza claro */
+
+html.alto-contraste .text-secondary,
+html.alto-contraste .text-muted,
+html.alto-contraste .text-white-50,
+html.alto-contraste .form-text {
+  color: #d0d0d0 !important;
+  opacity: 1 !important;
+}
+
+
+/* Branco -> preto
+   ATENÇÃO:
+   Essa regra vale para elementos que originalmente estão em fundo branco.
+   Elementos com fundo preto são tratados nas regras específicas abaixo.
+*/
+
+html.alto-contraste .text-dark {
+  color: #ffffff !important;
+}
+
+html.alto-contraste .text-light {
+  color: #ffffff !important;
+}
+
+html.alto-contraste .text-white {
+  color: #ffffff !important;
+}
+
+
+/* Verde -> amarelo */
+
+html.alto-contraste .text-success,
+html.alto-contraste .text-warning {
+  color: #ffff00 !important;
+}
+
+
+/* Outras cores */
+
+html.alto-contraste .text-danger {
+  color: #ff6666 !important;
+}
+
+html.alto-contraste .text-info {
+  color: #00ffff !important;
+}
+
+
+/* ==========================================================================
+   5. EYEBROW
+   ========================================================================== */
+
+html.alto-contraste .eyebrow,
+html.alto-contraste .hero .eyebrow,
+html.alto-contraste .seller-hero .eyebrow {
+  color: #ffff00 !important;
+}
+
+
+/* ==========================================================================
+   6. HERO
+   ========================================================================== */
+
+html.alto-contraste .hero,
+html.alto-contraste .store-hero,
+html.alto-contraste .seller-hero {
+  color: #ffffff !important;
+  background: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+html.alto-contraste .hero p,
+html.alto-contraste .seller-hero p {
+  color: #d0d0d0 !important;
+}
+
+html.alto-contraste .hero::before {
+  background: #ffff00 !important;
+}
+
+html.alto-contraste .hero::after {
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .hero-stat span {
+  color: #d0d0d0 !important;
+}
+
+
+/* ==========================================================================
+   7. PESQUISA DO HERO
+   ========================================================================== */
+
+html.alto-contraste .hero-search {
+  background: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+html.alto-contraste .hero-search input {
+  color: #ffffff !important;
+  background: #000000 !important;
+}
+
+html.alto-contraste .hero-search input::placeholder {
+  color: #d0d0d0 !important;
+  opacity: 1;
+}
+
+
+/* ==========================================================================
+   8. CARDS — REGRA GERAL
+   ========================================================================== */
 
 html.alto-contraste .surface,
 html.alto-contraste .panel,
@@ -1026,83 +1190,698 @@ html.alto-contraste .metric-card,
 html.alto-contraste .review-card,
 html.alto-contraste .notification-card,
 html.alto-contraste .acessibilidade-card,
-html.alto-contraste .card {
-  border: 2px solid var(--line);
-  background: var(--surface);
-  color: var(--ink);
-  box-shadow: none;
+html.alto-contraste .card,
+html.alto-contraste .product-card,
+html.alto-contraste .category-tile,
+html.alto-contraste .category-link,
+html.alto-contraste .auth-card {
+  color: #ffffff !important;
+  background: #000000 !important;
+  border: 2px solid #ffffff !important;
+  box-shadow: none !important;
 }
+
+
+/* ==========================================================================
+   9. CARD DE PRODUTO
+   ========================================================================== */
+
+html.alto-contraste .product-card-body small,
+html.alto-contraste .product-card-body p,
+html.alto-contraste .product-card-body span {
+  color: #d0d0d0 !important;
+}
+
+html.alto-contraste .product-card:hover {
+  background: #000000 !important;
+  border-color: #ffff00 !important;
+}
+
+html.alto-contraste .product-card-image,
+html.alto-contraste .product-image,
+html.alto-contraste .product-detail-image,
+html.alto-contraste .cart-image,
+html.alto-contraste .table-thumb,
+html.alto-contraste .image-preview {
+  background: #222222 !important;
+}
+
+
+/* ==========================================================================
+   10. CATEGORIAS
+   ========================================================================== */
+
+html.alto-contraste .category-tile span {
+  color: #d0d0d0 !important;
+}
+
+html.alto-contraste .category-tile:hover {
+  color: #000000 !important;
+  background: #ffff00 !important;
+  border-color: #ffff00 !important;
+}
+
+html.alto-contraste .category-tile:hover span,
+html.alto-contraste .category-tile:hover strong {
+  color: #000000 !important;
+}
+
+html.alto-contraste .category-link:hover {
+  color: #000000 !important;
+  background: #ffff00 !important;
+  border-color: #ffff00 !important;
+}
+
+
+/* ==========================================================================
+   11. BOTÕES
+   ========================================================================== */
 
 html.alto-contraste .btn {
-  border-width: 2px;
+  border-width: 2px !important;
 }
 
-html.alto-contraste .btn-dark {
-  color: var(--paper);
-  background: var(--ink);
-  border-color: var(--ink);
-}
 
-html.alto-contraste .btn-dark:hover {
-  color: var(--ink);
-  background: var(--lime);
-  border-color: var(--lime);
-}
-
-html.alto-contraste .btn-outline-dark {
-  color: var(--ink);
-  border-color: var(--ink);
-}
-
-html.alto-contraste .btn-outline-dark:hover {
-  color: var(--paper);
-  background: var(--ink);
-}
+/* Verde -> amarelo */
 
 html.alto-contraste .btn-success {
-  color: var(--paper);
-  background: var(--green);
-  border-color: var(--green);
+  color: #000000 !important;
+  background: #ffff00 !important;
+  border-color: #ffff00 !important;
 }
 
-html.alto-contraste .btn-link {
-  color: var(--lime);
+html.alto-contraste .btn-success:hover,
+html.alto-contraste .btn-success:focus {
+  color: #000000 !important;
+  background: #ffffff !important;
+  border-color: #ffffff !important;
 }
+
+
+/* Preto -> branco */
+
+html.alto-contraste .btn-dark,
+html.alto-contraste .btn-secondary {
+  color: #000000 !important;
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .btn-dark:hover,
+html.alto-contraste .btn-secondary:hover,
+html.alto-contraste .btn-dark:focus,
+html.alto-contraste .btn-secondary:focus {
+  color: #000000 !important;
+  background: #ffff00 !important;
+  border-color: #ffff00 !important;
+}
+
+
+/* ==========================================================================
+   12. BOTÕES OUTLINE
+   ========================================================================== */
+
+html.alto-contraste .btn-outline-dark {
+  color: #ffffff !important;
+  background: #000000 !important;
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .btn-outline-dark:hover,
+html.alto-contraste .btn-outline-dark:focus {
+  color: #000000 !important;
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .btn-outline-light {
+  color: #ffffff !important;
+  background: #000000 !important;
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .btn-outline-light:hover,
+html.alto-contraste .btn-outline-light:focus {
+  color: #000000 !important;
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+
+/* Cinza -> cinza claro */
+
+html.alto-contraste .btn-outline-secondary {
+  color: #ffffff !important;
+  background: #000000 !important;
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .btn-outline-secondary:hover,
+html.alto-contraste .btn-outline-secondary:focus {
+  color: #000000 !important;
+  background: #d0d0d0 !important;
+  border-color: #d0d0d0 !important;
+}
+
+
+/* Vermelho */
+
+html.alto-contraste .btn-outline-danger {
+  color: #ff6666 !important;
+  background: #000000 !important;
+  border-color: #ff6666 !important;
+}
+
+html.alto-contraste .btn-outline-danger:hover,
+html.alto-contraste .btn-outline-danger:focus {
+  color: #000000 !important;
+  background: #ff6666 !important;
+  border-color: #ff6666 !important;
+}
+
+
+/* Link */
+
+html.alto-contraste .btn-link {
+  color: #ffff00 !important;
+}
+
+
+/* ==========================================================================
+   13. FORMULÁRIOS
+   ========================================================================== */
 
 html.alto-contraste .form-control,
 html.alto-contraste .form-select {
-  color: var(--ink);
-  background-color: #000;
-  border: 2px solid var(--line);
+  color: #ffffff !important;
+  background-color: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+html.alto-contraste .form-control:focus,
+html.alto-contraste .form-select:focus {
+  color: #ffffff !important;
+  background-color: #000000 !important;
+  border-color: #ffff00 !important;
+  box-shadow: 0 0 0 .22rem rgba(255, 255, 0, .35) !important;
 }
 
 html.alto-contraste .form-control::placeholder {
-  color: var(--muted);
+  color: #d0d0d0 !important;
+  opacity: 1;
 }
 
-html.alto-contraste .badge {
-  border: 1px solid var(--line);
+html.alto-contraste label {
+  color: #ffffff !important;
 }
+
+
+/* ==========================================================================
+   14. CHECKBOX / SWITCH
+   ========================================================================== */
+
+html.alto-contraste .form-check-input {
+  background-color: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+html.alto-contraste .form-check-input:checked {
+  background-color: #ffff00 !important;
+  border-color: #ffff00 !important;
+}
+
+html.alto-contraste .form-check-input:focus {
+  border-color: #ffff00 !important;
+  box-shadow: 0 0 0 .2rem rgba(255, 255, 0, .35) !important;
+}
+
+html.alto-contraste .form-switch .form-check-input {
+  background-color: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+html.alto-contraste .form-switch .form-check-input:checked {
+  background-color: #ffff00 !important;
+  border-color: #ffff00 !important;
+}
+
+
+/* ==========================================================================
+   15. PAINEL DE FILTROS
+   ========================================================================== */
+
+html.alto-contraste .filter-panel {
+  background: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+html.alto-contraste .filter-panel .form-control,
+html.alto-contraste .filter-panel .form-select {
+  color: #ffffff !important;
+  background-color: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+html.alto-contraste .filter-panel .form-control::placeholder {
+  color: #d0d0d0 !important;
+}
+
+html.alto-contraste .filter-panel .form-check {
+  color: #ffffff !important;
+}
+
+
+/* ==========================================================================
+   16. CHOICE CARD
+   ========================================================================== */
+
+html.alto-contraste .choice-card {
+  color: #ffffff !important;
+  background: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+html.alto-contraste .choice-card:hover {
+  border-color: #ffff00 !important;
+}
+
+html.alto-contraste .choice-card span {
+  color: #d0d0d0 !important;
+}
+
+
+/* ==========================================================================
+   17. BADGES
+   ========================================================================== */
+
+/* Verde -> amarelo */
+
+html.alto-contraste .badge.text-bg-success {
+  color: #000000 !important;
+  background: #ffff00 !important;
+  border: 1px solid #ffff00 !important;
+}
+
+
+/* Preto -> branco */
+
+html.alto-contraste .badge.text-bg-dark {
+  color: #000000 !important;
+  background: #ffffff !important;
+  border: 1px solid #ffffff !important;
+}
+
+
+/* ==========================================================================
+   18. ALERTAS
+   ========================================================================== */
 
 html.alto-contraste .alert {
-  border: 2px solid var(--line);
+  color: #ffffff !important;
+  background: #000000 !important;
+  border: 2px solid #ffffff !important;
 }
+
+html.alto-contraste .alert-danger {
+  color: #ff6666 !important;
+  background: #000000 !important;
+  border-color: #ff6666 !important;
+}
+
+html.alto-contraste .alert-success {
+  color: #ffff00 !important;
+  background: #000000 !important;
+  border-color: #ffff00 !important;
+}
+
+html.alto-contraste .alert-warning {
+  color: #ffff00 !important;
+  background: #000000 !important;
+  border-color: #ffff00 !important;
+}
+
+html.alto-contraste .alert-info {
+  color: #00ffff !important;
+  background: #000000 !important;
+  border-color: #00ffff !important;
+}
+
+html.alto-contraste .btn-close {
+  filter: invert(1);
+  opacity: 1 !important;
+}
+
+
+/* ==========================================================================
+   19. TABELAS
+   ========================================================================== */
+
+html.alto-contraste .table-shell {
+  background: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+html.alto-contraste .table-shell table {
+  color: #ffffff !important;
+}
+
+html.alto-contraste .table-shell th {
+  color: #000000 !important;
+  background: #ffff00 !important;
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .table-shell td {
+  color: #ffffff !important;
+  background: #000000 !important;
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .table-shell td small {
+  color: #d0d0d0 !important;
+}
+
+
+/* Tabelas Bootstrap */
+
+html.alto-contraste .table {
+  --bs-table-bg: #000000 !important;
+  --bs-table-color: #ffffff !important;
+  --bs-table-border-color: #ffffff !important;
+
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .table > :not(caption) > * > * {
+  color: #ffffff !important;
+  background-color: #000000 !important;
+  border-color: #ffffff !important;
+}
+
+
+/* ==========================================================================
+   20. STATUS
+   ========================================================================== */
+
+html.alto-contraste .status,
+html.alto-contraste .status-pill {
+  color: #000000 !important;
+  background: #ffff00 !important;
+  border: 2px solid #ffff00 !important;
+}
+
+
+/* Verde -> amarelo */
+
+html.alto-contraste .status-ativo,
+html.alto-contraste .status-aprovada,
+html.alto-contraste .status-entregue {
+  color: #000000 !important;
+  background: #ffff00 !important;
+  border-color: #ffff00 !important;
+}
+
+
+/* Vermelho */
+
+html.alto-contraste .status-bloqueado,
+html.alto-contraste .status-ocultada,
+html.alto-contraste .status-cancelado {
+  color: #000000 !important;
+  background: #ff6666 !important;
+  border-color: #ff6666 !important;
+}
+
+
+/* Amarelo */
+
+html.alto-contraste .status-pendente,
+html.alto-contraste .status-em_preparacao {
+  color: #000000 !important;
+  background: #ffff00 !important;
+  border-color: #ffff00 !important;
+}
+
+
+/* Azul -> ciano */
+
+html.alto-contraste .status-enviado,
+html.alto-contraste .status-confirmado {
+  color: #000000 !important;
+  background: #00ffff !important;
+  border-color: #00ffff !important;
+}
+
+
+/* ==========================================================================
+   21. PAGINAÇÃO
+   ========================================================================== */
+
+html.alto-contraste .pagination .page-link {
+  color: #ffffff !important;
+  background: #000000 !important;
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .pagination .page-link:hover,
+html.alto-contraste .pagination .page-link:focus {
+  color: #000000 !important;
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .pagination .active .page-link {
+  color: #000000 !important;
+  background: #ffff00 !important;
+  border-color: #ffff00 !important;
+}
+
+
+/* ==========================================================================
+   22. EMPTY STATE
+   ========================================================================== */
+
+html.alto-contraste .empty-state,
+html.alto-contraste .empty-cell {
+  color: #d0d0d0 !important;
+}
+
+html.alto-contraste .empty-state {
+  border-color: #ffffff !important;
+}
+
+
+/* ==========================================================================
+   23. SELLER / SUMMARY
+   ========================================================================== */
+
+html.alto-contraste .summary-card {
+  color: #ffffff !important;
+  background: #000000 !important;
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .summary-card span {
+  color: #d0d0d0 !important;
+}
+
+html.alto-contraste .summary-card hr {
+  border-color: #ffffff !important;
+}
+
+
+/* ==========================================================================
+   24. SELLER PILL
+   ========================================================================== */
+
+html.alto-contraste .seller-pill {
+  color: #000000 !important;
+  background: #d0d0d0 !important;
+  border: 1px solid #ffffff !important;
+}
+
+
+/* ==========================================================================
+   25. TIMELINE
+   ========================================================================== */
+
+html.alto-contraste .timeline {
+  border-left-color: #ffffff !important;
+}
+
+html.alto-contraste .timeline > div::before {
+  background: #ffff00 !important;
+  box-shadow: 0 0 0 4px #000000 !important;
+}
+
+html.alto-contraste .timeline span {
+  color: #d0d0d0 !important;
+}
+
+
+/* ==========================================================================
+   26. NOTIFICAÇÕES
+   ========================================================================== */
+
+html.alto-contraste .notification-card.is-unread {
+  border-left-color: #ffff00 !important;
+}
+
+html.alto-contraste .notification-card.is-read {
+  opacity: 1 !important;
+}
+
+
+/* ==========================================================================
+   27. MÉTRICAS
+   ========================================================================== */
+
+html.alto-contraste .metric-card.accent {
+  color: #000000 !important;
+  background: #ffff00 !important;
+  border-color: #ffff00 !important;
+}
+
+html.alto-contraste .metric-card.accent span,
+html.alto-contraste .metric-card.accent small {
+  color: #000000 !important;
+}
+
+
+/* ==========================================================================
+   28. ADMIN SHORTCUTS
+   ========================================================================== */
+
+html.alto-contraste .admin-shortcuts {
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .admin-shortcuts a {
+  color: #ffffff !important;
+  background: #000000 !important;
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .admin-shortcuts a:hover {
+  color: #000000 !important;
+  background: #ffff00 !important;
+}
+
+
+/* ==========================================================================
+   29. ACESSIBILIDADE
+   ========================================================================== */
+
+html.alto-contraste .acessibilidade-card {
+  color: #ffffff !important;
+  background: #000000 !important;
+  border: 2px solid #ffffff !important;
+  box-shadow: none !important;
+}
+
+html.alto-contraste .acessibilidade-card p,
+html.alto-contraste .acessibilidade-card small {
+  color: #d0d0d0 !important;
+}
+
+
+/* ==========================================================================
+   30. CARD BG-DARK
+   ==========================================================================
+   
+   EXCEÇÃO:
+   O .card normal fica preto no alto contraste.
+   Mas um card que originalmente usa bg-dark representa preto,
+   portanto preto -> branco.
+   
+   Esta regra fica DEPOIS da regra geral de .card.
+*/
+
+html.alto-contraste .card.bg-dark {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+  box-shadow: none !important;
+}
+
+html.alto-contraste .card.bg-dark .text-white {
+  color: #000000 !important;
+}
+
+html.alto-contraste .card.bg-dark .text-white-50 {
+  color: #d0d0d0 !important;
+  opacity: 1 !important;
+}
+
+
+/* ==========================================================================
+   31. ELEMENTOS COM FUNDO ESCURO DO BOOTSTRAP
+   ========================================================================== */
+
+html.alto-contraste .bg-dark,
+html.alto-contraste .text-bg-dark {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+}
+
+html.alto-contraste .bg-dark a,
+html.alto-contraste .text-bg-dark a {
+  color: #000000 !important;
+}
+
+
+/* ==========================================================================
+   32. ELEMENTOS VERDES DO BOOTSTRAP
+   ========================================================================== */
+
+html.alto-contraste .bg-success,
+html.alto-contraste .text-bg-success {
+  color: #000000 !important;
+  background-color: #ffff00 !important;
+}
+
+
+/* ==========================================================================
+   33. BORDA / LINHAS
+   ========================================================================== */
+
+html.alto-contraste .border,
+html.alto-contraste .border-top,
+html.alto-contraste .border-bottom,
+html.alto-contraste .border-start,
+html.alto-contraste .border-end {
+  border-color: #ffffff !important;
+}
+
+
+/* ==========================================================================
+   34. RODAPÉ
+   ========================================================================== */
 
 html.alto-contraste .site-footer {
-  background: #000;
-  border-top: 2px solid var(--line);
+  color: #ffffff !important;
+  background: #000000 !important;
+  border-top: 2px solid #ffffff !important;
 }
 
-html.alto-contraste .brand-mark {
-  color: #000;
-  background: var(--lime);
+html.alto-contraste .site-footer a {
+  color: #ffffff !important;
 }
 
-html.alto-contraste ::selection {
-  color: #000;
-  background: var(--lime);
+html.alto-contraste .site-footer a:hover {
+  color: #ffff00 !important;
 }
 
+
+/* ==========================================================================
+   35. FOCO
+   ========================================================================== */
+
+html.alto-contraste *:focus-visible {
+  outline: 3px solid #ffff00 !important;
+  outline-offset: 3px !important;
+}
 /* Página /acessibilidades */
 .acessibilidade-card {
   display: flex;
@@ -1128,13 +1907,21 @@ html.alto-contraste ::selection {
 }
 
 .acessibilidade-controle-fonte .btn {
-  width: 44px;
   height: 44px;
   padding: 0;
   font-size: 1.1rem;
   line-height: 1;
 }
 
+.acessibilidade-controle-fonte #acessibilidadeDiminuir,
+.acessibilidade-controle-fonte #acessibilidadeAumentar {
+  width: 44px;
+}
+.acessibilidade-controle-fonte #acessibilidadeRestaurar {
+  width: auto;
+  min-width: 90px;
+  padding: 0 1rem;
+}
 #acessibilidadeEscalaValor {
   min-width: 56px;
   font-weight: 700;

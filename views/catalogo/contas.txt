@@ -1,0 +1,9 @@
+Contas para demonstração:
+
+Admin: admin / Admin123
+
+Vendedor: vendedor / Vendedor123
+
+Vendedor 2: pixelstore / Vendedor123
+
+Cliente: cliente / Cliente123

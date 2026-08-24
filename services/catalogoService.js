@@ -2,6 +2,8 @@ import { Op } from 'sequelize';
 import { Avaliacao, Categoria, PerfilVendedor, Produto, Usuario } from '../models/index.js';
 
 function numero(valor) {
+  const entrada = String(valor ?? '').trim()
+  if(!entrada ) return null;
   const resultado = Number(valor);
   return Number.isFinite(resultado) ? resultado : null;
 }
