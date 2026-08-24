@@ -38,6 +38,7 @@ async function iniciarServidor() {
      * Cria tabelas que ainda não existem,
      * sem apagar os dados existentes.
      */
+    //await sequelize.sync();
     await sequelize.sync();
 
     servidorHttp.listen(porta, () => {

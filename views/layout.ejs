@@ -1,16 +1,21 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR"<% if (usuario) { %> data-alto-contraste="<%= usuario.altoContraste ? '1' : '0' %>" data-escala-fonte="<%= usuario.escalaFonte %>"<% } %>>
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="NXT PLAY — marketplace multi-vendedor de games, consoles e acessórios.">
     <title><%= typeof titulo !== 'undefined' ? `${titulo} | NXT PLAY` : 'NXT PLAY' %></title>
-    <script>
+        <script>
       (function aplicarPreferenciasDeAcessibilidade() {
         try {
-          var preferencias = JSON.parse(localStorage.getItem('nxtplay:acessibilidade') || '{}');
-          if (preferencias.altoContraste) document.documentElement.classList.add('alto-contraste');
-          if (typeof preferencias.escalaFonte === 'number') document.documentElement.style.setProperty('--fonte-escala', preferencias.escalaFonte);
+          var html = document.documentElement;
+          if (!html.hasAttribute('data-alto-contraste')) return;
+
+          var altoContraste = html.getAttribute('data-alto-contraste') === '1';
+          var escalaFonte = Number(html.getAttribute('data-escala-fonte')) || 1;
+
+          if (altoContraste) html.classList.add('alto-contraste');
+          html.style.setProperty('--fonte-escala', escalaFonte);
         } catch (erro) {}
       })();
     </script>
@@ -90,9 +95,8 @@
     </script>
     <script src="/js/notificacoes.js">
     </script>
+    
     <script src="/js/acessibilidade.js">
     </script>
     <script src="/js/socket.js">
     </script>
-  </body>
-</html>

@@ -9,6 +9,7 @@
   --lime: #c9ff34;
   --green: #167548;
   --radius: 1.15rem;
+  --fonte-escala: 1;
 }
 
 * {
@@ -17,6 +18,7 @@
 
 html {
   scroll-behavior: smooth;
+  font-size: calc(16px * var(--fonte-escala, 1));
 }
 
 body {
