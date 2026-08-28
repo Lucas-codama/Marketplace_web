@@ -8,7 +8,7 @@
           <h3 class="h5 mt-2 mb-2">
             <%= produto.nome %>
           </h3>
-          <div class="d-flex justify-content-between align-items-end gap-2"><strong class="fs-5">
+          <div class="d-flex flex-wrap justify-content-between align-items-end gap-2"><strong class="fs-5">
               <%= Number(produto.preco).toLocaleString('pt-BR', { style: 'currency' , currency: 'BRL' }) %>
             </strong><span class="small text-secondary">
               <%= produto.estoque> 0 ? `${produto.estoque} em estoque` : 'Esgotado' %>

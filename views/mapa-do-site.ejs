@@ -1,0 +1,85 @@
+<section>
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">Navegação</span>
+      <h1>Mapa do site</h1>
+      <p class="text-secondary mb-0">Encontre as páginas e os conteúdos disponíveis na NXT PLAY.</p>
+    </div>
+  </div>
+
+  <div class="site-map-grid">
+    <nav class="surface p-4" aria-labelledby="mapaPaginasPrincipais">
+      <h2 id="mapaPaginasPrincipais" class="h4">Páginas principais</h2>
+      <ul class="site-map-list">
+        <li><a href="/">Início</a></li>
+        <li><a href="/catalogo">Catálogo de produtos</a></li>
+        <li><a href="/acessibilidades">Preferências de acessibilidade</a></li>
+        <li><a href="/mapa-do-site" aria-current="page">Mapa do site</a></li>
+        <% if (!usuario) { %>
+          <li><a href="/login">Entrar</a></li>
+          <li><a href="/cadastro">Criar conta</a></li>
+        <% } else { %>
+          <li><a href="/perfil">Minha conta</a></li>
+          <li><a href="/notificacoes">Notificações</a></li>
+        <% } %>
+      </ul>
+    </nav>
+
+    <% if (usuario?.papel === 'cliente') { %>
+      <nav class="surface p-4" aria-labelledby="mapaAreaCliente">
+        <h2 id="mapaAreaCliente" class="h4">Área do cliente</h2>
+        <ul class="site-map-list">
+          <li><a href="/carrinho">Carrinho</a></li>
+          <li><a href="/pedidos">Meus pedidos</a></li>
+          <li><a href="/enderecos">Meus endereços</a></li>
+        </ul>
+      </nav>
+    <% } %>
+
+    <% if (usuario?.papel === 'vendedor') { %>
+      <nav class="surface p-4" aria-labelledby="mapaAreaVendedor">
+        <h2 id="mapaAreaVendedor" class="h4">Área do vendedor</h2>
+        <ul class="site-map-list">
+          <li><a href="/vendedor">Painel do vendedor</a></li>
+          <li><a href="/vendedor/produtos">Produtos da loja</a></li>
+          <li><a href="/vendedor/estoque">Estoque</a></li>
+          <li><a href="/vendedor/pedidos">Pedidos recebidos</a></li>
+          <li><a href="/vendedor/avaliacoes">Avaliações recebidas</a></li>
+        </ul>
+      </nav>
+    <% } %>
+
+    <% if (usuario?.papel === 'admin') { %>
+      <nav class="surface p-4" aria-labelledby="mapaAdministracao">
+        <h2 id="mapaAdministracao" class="h4">Administração</h2>
+        <ul class="site-map-list">
+          <li><a href="/admin">Painel administrativo</a></li>
+          <li><a href="/admin/usuarios">Gerenciar usuários</a></li>
+          <li><a href="/admin/vendedores">Gerenciar vendedores</a></li>
+          <li><a href="/admin/categorias">Gerenciar categorias</a></li>
+          <li><a href="/admin/produtos">Gerenciar produtos</a></li>
+          <li><a href="/admin/avaliacoes">Moderar avaliações</a></li>
+          <li><a href="/admin/pedidos">Consultar pedidos</a></li>
+        </ul>
+      </nav>
+    <% } %>
+
+    <nav class="surface p-4" aria-labelledby="mapaProdutos">
+      <h2 id="mapaProdutos" class="h4">Produtos</h2>
+      <ul class="site-map-list">
+        <% produtos.forEach((produto) => { %>
+          <li><a href="/produtos/<%= produto.id %>"><%= produto.nome %></a></li>
+        <% }) %>
+      </ul>
+    </nav>
+
+    <nav class="surface p-4" aria-labelledby="mapaLojas">
+      <h2 id="mapaLojas" class="h4">Lojas</h2>
+      <ul class="site-map-list">
+        <% vendedores.forEach((vendedor) => { %>
+          <li><a href="/vendedores/<%= vendedor.slug %>"><%= vendedor.nomeLoja %></a></li>
+        <% }) %>
+      </ul>
+    </nav>
+  </div>
+</section>

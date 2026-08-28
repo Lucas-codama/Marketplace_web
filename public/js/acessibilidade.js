@@ -1,25 +1,49 @@
 (function iniciarAcessibilidade() {
   const ESCALA_MIN = 0.85;
-  const ESCALA_MAX = 1.4;
+  const ESCALA_MAX = 2;
   const ESCALA_PASSO = 0.1;
   const ESCALA_PADRAO = 1;
+  const CHAVE_ARMAZENAMENTO = 'nxtplay:acessibilidade';
 
   const html = document.documentElement;
   const usuarioLogado = html.hasAttribute('data-alto-contraste');
 
+  function normalizarPreferencias(valor = {}) {
+    const escalaInformada = Number(valor.escalaFonte);
+    const escalaFonte = Number.isFinite(escalaInformada)
+      ? Math.min(ESCALA_MAX, Math.max(ESCALA_MIN, escalaInformada))
+      : ESCALA_PADRAO;
+
+    return {
+      altoContraste: valor.altoContraste === true,
+      escalaFonte
+    };
+  }
+
+  function obterPreferenciasLocais() {
+    try {
+      return normalizarPreferencias(JSON.parse(localStorage.getItem(CHAVE_ARMAZENAMENTO) || '{}'));
+    } catch (erro) {
+      return normalizarPreferencias();
+    }
+  }
+
   function obterPreferencias() {
     if (usuarioLogado) {
-      return {
+      return normalizarPreferencias({
         altoContraste: html.getAttribute('data-alto-contraste') === '1',
         escalaFonte: Number(html.getAttribute('data-escala-fonte')) || ESCALA_PADRAO
-      };
+      });
     }
-    // Visitante sem login: nunca lê nada salvo, sempre começa no padrão.
-    return { altoContraste: false, escalaFonte: ESCALA_PADRAO };
+
+    return obterPreferenciasLocais();
   }
 
   function salvarPreferencias(preferencias) {
-    // Sem login, nada é persistido — é só uma prévia na página atual.
+    try {
+      localStorage.setItem(CHAVE_ARMAZENAMENTO, JSON.stringify(preferencias));
+    } catch (erro) {}
+
     if (!usuarioLogado) return;
 
     html.setAttribute('data-alto-contraste', preferencias.altoContraste ? '1' : '0');
@@ -28,6 +52,7 @@
     fetch('/api/acessibilidade', {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
+      keepalive: true,
       body: JSON.stringify(preferencias)
     }).catch(() => anunciar('A preferência foi aplicada, mas não pôde ser salva na sua conta.'));
   }
@@ -112,6 +137,14 @@
   } else {
     iniciarControles();
   }
+
+  window.addEventListener('storage', (evento) => {
+    if (evento.key !== CHAVE_ARMAZENAMENTO) return;
+    preferencias = obterPreferenciasLocais();
+    aplicarPreferencias(preferencias);
+    atualizarInterface();
+    anunciar(`Preferências atualizadas em outra aba. Tamanho da fonte: ${Math.round(preferencias.escalaFonte * 100)}%.`);
+  });
 
   window.NXTAcessibilidade = { obterPreferencias, aplicarPreferencias };
 })();

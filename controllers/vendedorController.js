@@ -246,7 +246,7 @@ async function estoque(req, res, next) {
 async function apiEstoque(req, res, next) {
   try {
     const valor = Number(req.body.estoque);
-    if (!Number.isInteger(valor) || valor < 0) return res.status(422).json({ erro: 'Estoque inválido.' });
+    if (!Number.isInteger(valor) || valor < 0) return res.status(422).json({ erro: 'Informe o estoque como um número inteiro igual ou maior que zero.' });
     await req.produtoDoVendedor.update({ estoque: valor });
     emitirEstoqueAtualizado(req.produtoDoVendedor);
     return res.json({ mensagem: 'Estoque atualizado.', produto: req.produtoDoVendedor });

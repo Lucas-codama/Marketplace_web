@@ -49,7 +49,7 @@
 
         <div class="mb-3">
           <label for="username" class="form-label">
-            Username
+            Nome de usuário
           </label>
 
           <input
@@ -67,7 +67,7 @@
           >
 
           <div id="usernameAjuda" class="form-text">
-            Letras, números e underline.
+            Use letras, números e sublinhados.
           </div>
         </div>
 
@@ -93,16 +93,19 @@
             Senha
           </label>
 
-          <input
-            type="password"
-            id="password"
-            name="password"
-            class="form-control"
-            minlength="8"
-            autocomplete="new-password"
-            aria-describedby="senhaAjuda"
-            required
-          >
+          <div class="password-field">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              minlength="8"
+              autocomplete="new-password"
+              aria-describedby="senhaAjuda"
+              required
+            >
+            <button type="button" class="btn btn-outline-dark" data-password-toggle aria-controls="password" aria-pressed="false">Mostrar senha</button>
+          </div>
 
           <div id="senhaAjuda" class="form-text">
             Use pelo menos 8 caracteres.
@@ -114,15 +117,18 @@
             Confirmar senha
           </label>
 
-          <input
-            type="password"
-            id="confirmarPassword"
-            name="confirmarPassword"
-            class="form-control"
-            minlength="8"
-            autocomplete="new-password"
-            required
-          >
+          <div class="password-field">
+            <input
+              type="password"
+              id="confirmarPassword"
+              name="confirmarPassword"
+              class="form-control"
+              minlength="8"
+              autocomplete="new-password"
+              required
+            >
+            <button type="button" class="btn btn-outline-dark" data-password-toggle aria-controls="confirmarPassword" aria-pressed="false">Mostrar senha</button>
+          </div>
         </div>
 
         <button type="submit" class="btn btn-dark w-100">

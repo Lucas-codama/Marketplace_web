@@ -64,7 +64,7 @@ function renderizarLogin(res, {erros = [], valores = {}} = {}, status = 200) {
   res.status(status);
 
   return res.renderComLayout('auth/login', {
-    titulo: 'Login',
+    titulo: 'Entrar',
     erros,
     valores
   });
@@ -74,27 +74,27 @@ function validarCadastro({nomeCompleto, username, email, password, confirmarPass
   const erros = [];
 
   if (nomeCompleto.length < 3) {
-    erros.push('informe seu nome completo.');
+    erros.push('Informe seu nome completo com pelo menos 3 caracteres.');
   }
 
   if (username.length < 3 || username.length > 30) {
-    erros.push('informe um nome de usuário entre 3 e 30 caracteres.');
+    erros.push('Informe um nome de usuário entre 3 e 30 caracteres.');
   }
 
   if (username && !/^[a-z0-9_]+$/i.test(username)) {
-    erros.push('o nome de usuário só pode conter letras, números e sublinhados.');
+    erros.push('Use somente letras, números e sublinhados no nome de usuário.');
   }
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    erros.push('informe um endereço de e-mail válido.');
+    erros.push('Informe um endereço de e-mail válido, como nome@exemplo.com.');
   }
 
   if (password.length < 8) {
-    erros.push('informe uma senha com pelo menos 8 caracteres.');
+    erros.push('Informe uma senha com pelo menos 8 caracteres.');
   }
 
   if (password !== confirmarPassword) {
-    erros.push('as senhas não coincidem.');
+    erros.push('Digite a mesma senha nos campos Senha e Confirmar senha.');
   }
 
   return erros;
@@ -150,7 +150,7 @@ async function cadastrar(req, res, next) {
     if (usuarioExistente) {
       return renderizarCadastro(res,{
           erros: [
-            'O username ou e-mail informado já está em uso.'
+            'O nome de usuário ou e-mail já está em uso. Escolha outro nome de usuário ou informe outro e-mail.'
           ],
           valores
         }, 409
@@ -175,7 +175,7 @@ async function cadastrar(req, res, next) {
     if (erro instanceof UniqueConstraintError) {
       return renderizarCadastro(res, {
           erros: [
-            'O username ou e-mail informado já está em uso.'
+            'O nome de usuário ou e-mail já está em uso. Escolha outro nome de usuário ou informe outro e-mail.'
           ],
           valores
         }, 409
@@ -211,7 +211,7 @@ async function autenticar(req, res, next) {
 
   if (!identificador || !password) {
     return renderizarLogin(res, {
-        erros: ['Informe seu username ou e-mail e a senha.'],
+          erros: ['Informe seu nome de usuário ou e-mail e a senha para entrar.'],
         valores
       }, 422
     );
@@ -233,7 +233,7 @@ async function autenticar(req, res, next) {
 
     if (!usuario) {
       return renderizarLogin(res, {
-          erros: ['Usuário ou senha inválidos.'],
+          erros: ['Não foi possível entrar. Verifique o nome de usuário ou e-mail e a senha e tente novamente.'],
           valores
         },401
       );
@@ -243,7 +243,7 @@ async function autenticar(req, res, next) {
 
     if (!senhaCorreta) {
       return renderizarLogin(res, {
-          erros: ['Usuário ou senha inválidos.'],
+          erros: ['Não foi possível entrar. Verifique o nome de usuário ou e-mail e a senha e tente novamente.'],
           valores
         },401
       );
@@ -251,7 +251,7 @@ async function autenticar(req, res, next) {
 
     if (usuario.status !== 'ativo') {
       return renderizarLogin(res,{
-          erros: ['Esta conta está bloqueada.'],
+          erros: ['Esta conta está bloqueada. Solicite o desbloqueio a um administrador antes de tentar novamente.'],
           valores
         },403
       );

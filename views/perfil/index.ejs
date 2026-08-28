@@ -33,12 +33,13 @@
             value="<%= usuarioPerfil.nomeCompleto %>"
             minlength="3"
             maxlength="120"
+            autocomplete="name"
             required
           >
         </div>
 
         <div class="mb-3">
-          <label for="username" class="form-label">Username</label>
+          <label for="username" class="form-label">Nome de usuário</label>
 
           <input
             type="text"
@@ -49,6 +50,7 @@
             minlength="3"
             maxlength="30"
             pattern="[A-Za-z0-9_]+"
+            autocomplete="username"
             required
           >
         </div>
@@ -62,6 +64,7 @@
             name="email"
             class="form-control"
             value="<%= usuarioPerfil.email %>"
+            autocomplete="email"
             required
           >
         </div>
@@ -109,42 +112,51 @@
         <div class="mb-3">
           <label for="senhaAtual" class="form-label">Senha atual</label>
 
-          <input
-            type="password"
-            id="senhaAtual"
-            name="senhaAtual"
-            class="form-control"
-            autocomplete="current-password"
-            required
-          >
+          <div class="password-field">
+            <input
+              type="password"
+              id="senhaAtual"
+              name="senhaAtual"
+              class="form-control"
+              autocomplete="current-password"
+              required
+            >
+            <button type="button" class="btn btn-outline-dark" data-password-toggle aria-controls="senhaAtual" aria-pressed="false">Mostrar senha</button>
+          </div>
         </div>
 
         <div class="mb-3">
           <label for="novaSenha" class="form-label">Nova senha</label>
 
-          <input
-            type="password"
-            id="novaSenha"
-            name="novaSenha"
-            class="form-control"
-            minlength="8"
-            autocomplete="new-password"
-            required
-          >
+          <div class="password-field">
+            <input
+              type="password"
+              id="novaSenha"
+              name="novaSenha"
+              class="form-control"
+              minlength="8"
+              autocomplete="new-password"
+              required
+            >
+            <button type="button" class="btn btn-outline-dark" data-password-toggle aria-controls="novaSenha" aria-pressed="false">Mostrar senha</button>
+          </div>
         </div>
 
         <div class="mb-4">
           <label for="confirmarNovaSenha" class="form-label">Confirmar nova senha</label>
 
-          <input
-            type="password"
-            id="confirmarNovaSenha"
-            name="confirmarNovaSenha"
-            class="form-control"
-            minlength="8"
-            autocomplete="new-password"
-            required
-          >
+          <div class="password-field">
+            <input
+              type="password"
+              id="confirmarNovaSenha"
+              name="confirmarNovaSenha"
+              class="form-control"
+              minlength="8"
+              autocomplete="new-password"
+              required
+            >
+            <button type="button" class="btn btn-outline-dark" data-password-toggle aria-controls="confirmarNovaSenha" aria-pressed="false">Mostrar senha</button>
+          </div>
         </div>
 
         <button type="submit" class="btn btn-outline-dark">Alterar senha</button>

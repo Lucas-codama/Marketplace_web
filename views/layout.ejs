@@ -3,16 +3,26 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="NXT PLAY — marketplace multi-vendedor de games, consoles e acessórios.">
+    <meta name="description" content="NXT PLAY — comércio eletrônico com vários vendedores de jogos, consoles e acessórios.">
     <title><%= typeof titulo !== 'undefined' ? `${titulo} | NXT PLAY` : 'NXT PLAY' %></title>
         <script>
       (function aplicarPreferenciasDeAcessibilidade() {
         try {
           var html = document.documentElement;
-          if (!html.hasAttribute('data-alto-contraste')) return;
+          var usuarioLogado = html.hasAttribute('data-alto-contraste');
+          var altoContraste = false;
+          var escalaFonte = 1;
 
-          var altoContraste = html.getAttribute('data-alto-contraste') === '1';
-          var escalaFonte = Number(html.getAttribute('data-escala-fonte')) || 1;
+          if (usuarioLogado) {
+            altoContraste = html.getAttribute('data-alto-contraste') === '1';
+            escalaFonte = Number(html.getAttribute('data-escala-fonte')) || 1;
+          } else {
+            var preferenciasSalvas = JSON.parse(localStorage.getItem('nxtplay:acessibilidade') || '{}');
+            altoContraste = preferenciasSalvas.altoContraste === true;
+            escalaFonte = Number(preferenciasSalvas.escalaFonte) || 1;
+          }
+
+          escalaFonte = Math.min(2, Math.max(.85, escalaFonte));
 
           if (altoContraste) html.classList.add('alto-contraste');
           html.style.setProperty('--fonte-escala', escalaFonte);
@@ -27,7 +37,7 @@
   <body>
     <a class="skip-link" href="#conteudo-principal">Ir para o conteúdo principal</a>
     <header class="site-header">
-      <nav class="navbar navbar-expand-xl" aria-label="Navegação principal">
+      <nav class="navbar navbar-expand-xxl" aria-label="Navegação principal">
         <div class="container-xxl px-3 px-lg-4">
           <a class="navbar-brand" href="/" aria-label="NXT PLAY — página inicial">
             <span class="brand-mark">NXT</span> PLAY</a>
@@ -36,10 +46,11 @@
             </span>
           </button>
           <div class="collapse navbar-collapse" id="menu">
-            <div class="navbar-nav ms-auto align-items-xl-center gap-xl-1">
+            <div class="navbar-nav ms-auto align-items-xxl-center gap-xxl-1">
               <a class="nav-link" href="/"<%- caminhoAtual === '/' ? ' aria-current="page"' : '' %>>Início</a>
               <a class="nav-link" href="/catalogo"<%- caminhoAtual.startsWith('/catalogo') || caminhoAtual.startsWith('/produtos/') ? ' aria-current="page"' : '' %>>Catálogo</a>
               <a class="nav-link" href="/acessibilidades"<%- caminhoAtual.startsWith('/acessibilidades') ? ' aria-current="page"' : '' %>>Acessibilidade</a>
+              <a class="nav-link" href="/mapa-do-site"<%- caminhoAtual === '/mapa-do-site' ? ' aria-current="page"' : '' %>>Mapa do site</a>
               <% if (usuario?.papel === 'cliente') { %>
                 <a class="nav-link" href="/carrinho"<%- caminhoAtual.startsWith('/carrinho') || caminhoAtual.startsWith('/checkout') ? ' aria-current="page"' : '' %>>Carrinho <span id="contadorCarrinho" class="badge text-bg-dark" aria-live="polite" aria-atomic="true">0</span>
                 </a>
@@ -55,7 +66,7 @@
                 <a class="nav-link" href="/admin"<%- caminhoAtual.startsWith('/admin') ? ' aria-current="page"' : '' %>>Admin</a>
               <% } %>
               <% if (usuario) { %>
-                <a class="nav-link" href="/notificacoes"<%- caminhoAtual.startsWith('/notificacoes') ? ' aria-current="page"' : '' %>>Avisos <span id="contadorNotificacoes" class="badge text-bg-success d-none" aria-live="polite" aria-atomic="true">0</span>
+                <a class="nav-link" href="/notificacoes"<%- caminhoAtual.startsWith('/notificacoes') ? ' aria-current="page"' : '' %>>Notificações <span id="contadorNotificacoes" class="badge text-bg-success d-none" aria-live="polite" aria-atomic="true">0</span>
                 </a>
                 <a class="nav-link" href="/perfil"<%- caminhoAtual.startsWith('/perfil') ? ' aria-current="page"' : '' %>>@<%= usuario.username %></a>
                 <form action="/logout" method="post">
@@ -82,8 +93,14 @@
         <div>
           <span class="navbar-brand text-white">
             <span class="brand-mark">NXT</span> PLAY</span>
-          <p class="text-white-50 mt-3 mb-0">O próximo nível do seu setup.</p>
+          <p class="text-white-50 mt-3 mb-0">O próximo nível dos seus equipamentos.</p>
         </div>
+        <nav class="footer-nav align-self-lg-end" aria-label="Navegação complementar">
+          <a href="/">Início</a>
+          <a href="/catalogo">Catálogo</a>
+          <a href="/acessibilidades">Acessibilidade</a>
+          <a href="/mapa-do-site">Mapa do site</a>
+        </nav>
       </div>
     </footer>
     <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js">

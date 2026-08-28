@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { Categoria, Produto } from '../models/index.js';
+import { Categoria, PerfilVendedor, Produto } from '../models/index.js';
 
 const router = Router();
 
@@ -12,6 +12,31 @@ router.get('/', async (req, res, next) => {
     ]);
     return res.renderComLayout('inicio', { titulo: 'Início', destaques, recentes, categorias });
   } catch (erro) { return next(erro); }
+});
+
+router.get('/mapa-do-site', async (req, res, next) => {
+  try {
+    const [produtos, vendedores] = await Promise.all([
+      Produto.findAll({
+        where: { estado: 'ativo' },
+        attributes: ['id', 'nome'],
+        order: [['nome', 'ASC']]
+      }),
+      PerfilVendedor.findAll({
+        where: { ativo: true },
+        attributes: ['slug', 'nomeLoja'],
+        order: [['nomeLoja', 'ASC']]
+      })
+    ]);
+
+    return res.renderComLayout('mapa-do-site', {
+      titulo: 'Mapa do site',
+      produtos,
+      vendedores
+    });
+  } catch (erro) {
+    return next(erro);
+  }
 });
 
 router.get('/health', (req, res) => {
