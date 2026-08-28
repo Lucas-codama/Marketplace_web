@@ -10,7 +10,7 @@
         try {
           var preferencias = JSON.parse(localStorage.getItem('nxtplay:acessibilidade') || '{}');
           if (preferencias.altoContraste) document.documentElement.classList.add('alto-contraste');
-          if (typeof preferencias.escalaFonte === 'number') document.documentElement.style.setProperty('--fonte-escala', preferencias.escalaFonte);
+          if (typeof preferencias.escalaFonte === 'number') document.documentElement.style.fontSize = (preferencias.escalaFonte * 100) + '%';
         } catch (erro) {}
       })();
     </script>

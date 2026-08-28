@@ -27,7 +27,7 @@
 
   function aplicarPreferencias(preferencias) {
     document.documentElement.classList.toggle('alto-contraste', preferencias.altoContraste);
-    document.documentElement.style.setProperty('--fonte-escala', preferencias.escalaFonte);
+    document.documentElement.style.fontSize = `${preferencias.escalaFonte * 100}%`;
   }
 
   let preferencias = obterPreferencias();
@@ -40,7 +40,7 @@
     if (valorEscala) valorEscala.textContent = `${Math.round(preferencias.escalaFonte * 100)}%`;
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
+  function iniciarControles() {
     const chaveContraste = document.getElementById('acessibilidadeContraste');
     const botaoDiminuir = document.getElementById('acessibilidadeDiminuir');
     const botaoAumentar = document.getElementById('acessibilidadeAumentar');
@@ -82,7 +82,13 @@
         atualizarInterface();
       });
     }
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', iniciarControles);
+  } else {
+    iniciarControles();
+  }
 
   window.NXTAcessibilidade = { obterPreferencias, aplicarPreferencias };
 })();
