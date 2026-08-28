@@ -81,7 +81,7 @@ async function adicionarItem(usuarioId, produtoId, valorQuantidade = 1) {
 
   if (!produto) throw new ErroCarrinho('Produto não encontrado.', 404);
 
-  if (produto.estado !== 'ativo' || produto.estoque < 1) throw new ErroCarrinho('Produto indisponível.');
+  if (produto.estado !== 'ativo' || produto.estoque < 1) throw new ErroCarrinho('Escolha outro produto; este item não está disponível.');
 
   const carrinho = await obterOuCriarCarrinho(usuarioId);
 
@@ -89,7 +89,7 @@ async function adicionarItem(usuarioId, produtoId, valorQuantidade = 1) {
 
   const novaQuantidade = (item?.quantidade || 0) + quantidade;
 
-  if (novaQuantidade > produto.estoque) throw new ErroCarrinho('A quantidade supera o estoque disponível.');
+  if (novaQuantidade > produto.estoque) throw new ErroCarrinho(`Reduza a quantidade. Há ${produto.estoque} unidade(s) em estoque.`);
 
   if (item) await item.update({ quantidade: novaQuantidade });
 
@@ -109,7 +109,9 @@ async function alterarQuantidade(usuarioId, itemId, valorQuantidade) {
 
   if (!item) throw new ErroCarrinho('Item não encontrado.', 404);
 
-  if (item.produto.estado !== 'ativo' || quantidade > item.produto.estoque) throw new ErroCarrinho('Quantidade indisponível.');
+  if (item.produto.estado !== 'ativo') throw new ErroCarrinho('Remova este item do carrinho; o produto não está mais disponível.');
+
+  if (quantidade > item.produto.estoque) throw new ErroCarrinho(`Informe uma quantidade entre 1 e ${item.produto.estoque}.`);
 
   await item.update({ quantidade });
 

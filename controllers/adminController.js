@@ -76,7 +76,7 @@ async function usuarios(req, res, next) {
 
 async function statusUsuario(req, res, next) {
   try {
-    if (!['ativo', 'bloqueado'].includes(req.body.status)) return res.status(422).json({ erro: 'Status inválido.' });
+    if (!['ativo', 'bloqueado'].includes(req.body.status)) return res.status(422).json({ erro: 'Selecione o status Ativo ou Bloqueado.' });
     
     const usuario = await Usuario.findByPk(req.params.id);
     
@@ -114,7 +114,7 @@ async function vendedores(req, res, next) {
 
 async function statusVendedor(req, res, next) {
   try {
-    if (!['ativo', 'bloqueado'].includes(req.body.status)) return res.status(422).json({ erro: 'Status inválido.' });
+    if (!['ativo', 'bloqueado'].includes(req.body.status)) return res.status(422).json({ erro: 'Selecione o status Ativo ou Bloqueado.' });
     
     const vendedor = await Usuario.findOne({ where: { id: req.params.id, papel: 'vendedor' }, include: [{ model: PerfilVendedor, as: 'perfilVendedor', required: false }] });
     
@@ -205,7 +205,7 @@ async function produtos(req, res, next) {
 
 async function estadoProduto(req, res, next) {
   try {
-    if (!['ativo', 'inativo', 'bloqueado'].includes(req.body.estado)) return res.status(422).json({ erro: 'Estado inválido.' });
+    if (!['ativo', 'inativo', 'bloqueado'].includes(req.body.estado)) return res.status(422).json({ erro: 'Selecione um estado válido: Ativo, Inativo ou Bloqueado.' });
 
     const produto = await Produto.findByPk(req.params.id);
 
@@ -245,7 +245,7 @@ async function avaliacoes(req, res, next) {
 
 async function moderarAvaliacao(req, res, next) {
   try {
-    if (!['aprovada', 'ocultada'].includes(req.body.estado)) return res.status(422).json({ erro: 'Moderação inválida.' });
+    if (!['aprovada', 'ocultada'].includes(req.body.estado)) return res.status(422).json({ erro: 'Selecione Aprovar ou Ocultar para moderar a avaliação.' });
 
     const avaliacao = await Avaliacao.findByPk(req.params.id);
 

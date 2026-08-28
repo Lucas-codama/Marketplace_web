@@ -67,7 +67,9 @@
       erro = document.createElement('span');
       erro.id = idErro;
       erro.className = 'field-error';
-      const destino = referencia.type === 'radio' ? referencia.closest('.rating-options') : referencia;
+      const destino = referencia.type === 'radio'
+        ? referencia.closest('.rating-options')
+        : referencia.closest('.password-field') || referencia;
       destino.insertAdjacentElement('afterend', erro);
     }
     erro.textContent = mensagemDeErro(controle);
@@ -102,6 +104,17 @@
 
   document.addEventListener('change', (evento) => {
     if (evento.target.matches('input, select, textarea')) limparCampoInvalido(evento.target);
+  });
+
+  document.querySelectorAll('[data-password-toggle]').forEach((botao) => {
+    botao.addEventListener('click', () => {
+      const campo = document.getElementById(botao.getAttribute('aria-controls'));
+      if (!campo) return;
+      const mostrar = campo.type === 'password';
+      campo.type = mostrar ? 'text' : 'password';
+      botao.textContent = mostrar ? 'Ocultar senha' : 'Mostrar senha';
+      botao.setAttribute('aria-pressed', String(mostrar));
+    });
   });
 
   document.querySelectorAll('[data-confirmar]').forEach((form) =>

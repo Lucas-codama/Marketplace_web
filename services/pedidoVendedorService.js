@@ -56,8 +56,15 @@ async function atualizarEstadoPedido(id, vendedorId, novoEstado, observacao) {
     const itens = await ItemPedido.findAll({ where: { pedidoId: id, vendedorId }, transaction });
     if (!itens.length) throw new ErroPedidoVendedor('Pedido não pertence a este vendedor.', 403);
     
-    for (const item of itens)
-      if (!(transicoes[item.estado] || []).includes(novoEstado)) throw new ErroPedidoVendedor(`Transição de ${item.estado} para ${novoEstado} não permitida.`);
+    for (const item of itens) {
+      const estadosPermitidos = transicoes[item.estado] || [];
+      if (!estadosPermitidos.includes(novoEstado)) {
+        const sugestao = estadosPermitidos.length
+          ? `Escolha um destes estados: ${estadosPermitidos.join(', ')}.`
+          : 'Este item não aceita novas alterações de estado.';
+        throw new ErroPedidoVendedor(`Não é possível alterar o estado atual ${item.estado} para ${novoEstado}. ${sugestao}`);
+      }
+    }
     
     await ItemPedido.update({ estado: novoEstado }, { where: { pedidoId: id, vendedorId }, transaction });
     const todos = await ItemPedido.findAll({ where: { pedidoId: id }, transaction });

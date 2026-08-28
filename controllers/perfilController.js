@@ -37,19 +37,19 @@ async function atualizarPerfil(req, res, next) {
   const erros = [];
 
   if (nomeCompleto.length < 3) {
-    erros.push('Informe seu nome completo.');
+    erros.push('Informe seu nome completo com pelo menos 3 caracteres.');
   }
 
   if (username.length < 3 || username.length > 30) {
-    erros.push('O username deve possuir entre 3 e 30 caracteres.');
+    erros.push('Informe um nome de usuário entre 3 e 30 caracteres.');
   }
 
   if (!/^[a-z0-9_]+$/i.test(username)) {
-    erros.push('O username contém caracteres inválidos.');
+    erros.push('Use somente letras, números e sublinhados no nome de usuário.');
   }
 
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    erros.push('Informe um e-mail válido.');
+    erros.push('Informe um e-mail válido, como nome@exemplo.com.');
   }
 
   if (erros.length > 0) {
@@ -91,7 +91,7 @@ async function atualizarPerfil(req, res, next) {
             username,
             email
           },
-          errosPerfil: ['O username ou e-mail já está em uso.'],
+          errosPerfil: ['O nome de usuário ou e-mail já está em uso. Escolha outro nome de usuário ou informe outro e-mail.'],
           errosSenha: [],
           perfilVendedor: null
         }
@@ -128,7 +128,7 @@ async function alterarSenha(req, res, next) {
   }
 
   if (novaSenha !== confirmarNovaSenha) {
-    erros.push('A confirmação da nova senha não corresponde.');
+    erros.push('Digite a mesma senha nos campos Nova senha e Confirmar nova senha.');
   }
 
   try {

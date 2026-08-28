@@ -8,9 +8,9 @@ class ErroCheckout extends Error {
 }
 
 async function finalizarCompra(usuarioId, dados) {
-  if (!['pix', 'cartao', 'boleto'].includes(dados.formaPagamento)) throw new ErroCheckout('Forma de pagamento inválida.');
+  if (!['pix', 'cartao', 'boleto'].includes(dados.formaPagamento)) throw new ErroCheckout('Selecione uma forma de pagamento válida: PIX, cartão ou boleto.');
 
-  if (!['padrao', 'expressa', 'retirada'].includes(dados.formaEntrega)) throw new ErroCheckout('Forma de entrega inválida.');
+  if (!['padrao', 'expressa', 'retirada'].includes(dados.formaEntrega)) throw new ErroCheckout('Selecione uma forma de entrega válida: padrão, expressa ou retirada.');
 
   const resultado = await sequelize.transaction(async (transaction) => {
 
@@ -24,7 +24,7 @@ async function finalizarCompra(usuarioId, dados) {
 
     let valorTotal = 0;
     for (const item of carrinho.itens) {
-      if (item.produto.estado !== 'ativo' || item.produto.estoque < item.quantidade) throw new ErroCheckout(`Estoque indisponível para ${item.produto.nome}.`);
+      if (item.produto.estado !== 'ativo' || item.produto.estoque < item.quantidade) throw new ErroCheckout(`Reduza a quantidade de ${item.produto.nome} no carrinho ou remova o produto.`);
       valorTotal += Number(item.produto.preco) * item.quantidade;
     }
 
