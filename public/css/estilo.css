@@ -1954,6 +1954,80 @@ html.alto-contraste *:focus-visible {
   text-align: center;
 }
 
+.acessibilidade-card--cores {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.acessibilidade-controle-cores {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.acessibilidade-controle-cores label {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+  font-weight: 600;
+  font-size: .9rem;
+}
+
+.acessibilidade-controle-cores input[type="color"] {
+  width: 56px;
+  height: 44px;
+  padding: .2rem;
+  border: 1px solid var(--control-border);
+  border-radius: .6rem;
+  background: var(--surface);
+}
+
+#atualizarNotificacoesManual {
+  min-height: 38px;
+}
+
+/* ==========================================================================
+   36. WCAG 1.4.8 - APRESENTACAO VISUAL (blocos de texto corrido)
+   ========================================================================== */
+
+body {
+  /* Espacamento de linha >= 1.5 e entre paragrafos >= 1.5x a altura da linha. */
+  line-height: 1.5;
+}
+
+p,
+li,
+dd,
+blockquote,
+.texto-corrido {
+  /* Largura maxima de aprox. 80 caracteres/glyphs por linha. */
+  max-width: 80ch;
+  line-height: 1.5;
+}
+
+p + p,
+.texto-corrido p + p {
+  margin-top: 1.5em;
+}
+
+/*
+  Nenhum bloco de texto deste site usa alinhamento justificado dos dois lados;
+  esta regra documenta e garante a exigencia do 1.4.8 mesmo se algo novo
+  tentar usar esse alinhamento no futuro.
+*/
+p,
+li,
+blockquote,
+.texto-corrido {
+  text-align: left;
+}
+
+html.cores-personalizadas body {
+  color: var(--ink);
+  background: var(--paper);
+}
+
 .form-switch .form-check-input {
   width: 3em;
   height: 1.6em;

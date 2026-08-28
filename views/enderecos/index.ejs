@@ -14,7 +14,8 @@
           <div class="col-md-6"><label class="form-label" for="enderecoDestinatario">Destinatário</label><input id="enderecoDestinatario" class="form-control"
               name="destinatario" required></div>
           <div class="col-md-4"><label class="form-label" for="enderecoCep">CEP</label><input id="enderecoCep" class="form-control" name="cep"
-              inputmode="numeric" autocomplete="postal-code" maxlength="9" required></div>
+              inputmode="numeric" autocomplete="postal-code" maxlength="9" aria-describedby="enderecoCepAjuda" required>
+              <div id="enderecoCepAjuda" class="form-text">Formato 00000-000, só números também é aceito.</div></div>
           <div class="col-md-8"><label class="form-label" for="enderecoLogradouro">Logradouro</label><input id="enderecoLogradouro" class="form-control"
               name="logradouro" required></div>
           <div class="col-md-4"><label class="form-label" for="enderecoNumero">Número</label><input id="enderecoNumero" class="form-control" name="numero"

@@ -97,6 +97,24 @@ const Usuario = sequelize.define(
       defaultValue: 1
     },
 
+    corTexto: {
+      type: DataTypes.STRING(7),
+      allowNull: true,
+      defaultValue: null
+    },
+
+    corFundo: {
+      type: DataTypes.STRING(7),
+      allowNull: true,
+      defaultValue: null
+    },
+
+    notificacoesPausadas: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
+    },
+
     status: {
       type: DataTypes.ENUM('ativo', 'bloqueado'),
       allowNull: false,

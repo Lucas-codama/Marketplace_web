@@ -24,11 +24,13 @@
         </div>
         <div class="col-12">
           <label class="form-label" for="produtoDescricao">Descrição</label>
-          <textarea id="produtoDescricao" class="form-control" name="descricao" rows="6" minlength="20" maxlength="5000" required><%= produto?.descricao || '' %></textarea>
+          <textarea id="produtoDescricao" class="form-control" name="descricao" rows="6" minlength="20" maxlength="5000" aria-describedby="produtoDescricaoAjuda" required><%= produto?.descricao || '' %></textarea>
+          <div id="produtoDescricaoAjuda" class="form-text">Escreva pelo menos 20 caracteres contando as principais características do produto.</div>
         </div>
         <div class="col-md-4">
           <label class="form-label" for="produtoPreco">Preço</label>
-          <input id="produtoPreco" class="form-control" type="number" name="preco" min="0.01" step="0.01" value="<%= produto?.preco || '' %>" required>
+          <input id="produtoPreco" class="form-control" type="number" name="preco" min="0.01" step="0.01" value="<%= produto?.preco || '' %>" aria-describedby="produtoPrecoAjuda" required>
+          <div id="produtoPrecoAjuda" class="form-text">Valor em reais, use ponto para centavos (ex: 199.90).</div>
         </div>
         <div class="col-md-4">
           <label class="form-label" for="produtoEstoque">Estoque</label>
@@ -36,7 +38,8 @@
         </div>
         <div class="col-md-4">
           <label class="form-label" for="imagem">Imagem JPG, PNG ou WEBP</label>
-          <input id="imagem" class="form-control" type="file" name="imagem" accept="image/jpeg,image/png,image/webp">
+          <input id="imagem" class="form-control" type="file" name="imagem" accept="image/jpeg,image/png,image/webp" aria-describedby="imagemAjuda">
+          <div id="imagemAjuda" class="form-text">Formatos aceitos: JPG, PNG ou WEBP.</div>
         </div>
         <div class="col-12">
           <img class="js-preview-imagem image-preview <%= produto?.imagem ? '' : 'd-none' %>" src="<%= produto?.imagem || '' %>" alt="Pré-visualização da imagem do produto">
