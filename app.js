@@ -42,6 +42,7 @@ app.use(flashMiddleware);
 
 app.use((req, res, next) => {
   res.locals.usuario = null;
+  res.locals.caminhoAtual = req.path;
   res.locals.moeda = (valor) => Number(valor || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   next();
 });

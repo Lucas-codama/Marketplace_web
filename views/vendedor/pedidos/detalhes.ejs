@@ -27,7 +27,8 @@
     <div class="col-lg-4">
       <form id="formEstadoPedido" data-pedido-id="<%= pedido.id %>" class="summary-card">
         <h2 class="h4 text-white">Atualizar estado</h2>
-        <select class="form-select my-3" name="estado" required>
+        <label class="visually-hidden" for="estadoPedido">Novo estado do pedido</label>
+        <select id="estadoPedido" class="form-select my-3" name="estado" required>
           <option value="">Selecione</option>
           <option value="confirmado">Confirmado</option>
           <option value="em_preparacao">Em preparação</option>
@@ -35,7 +36,8 @@
           <option value="entregue">Entregue</option>
           <option value="cancelado">Cancelado</option>
         </select>
-        <textarea class="form-control" name="observacao" placeholder="Observação">
+        <label class="visually-hidden" for="observacaoPedido">Observação</label>
+        <textarea id="observacaoPedido" class="form-control" name="observacao" placeholder="Observação">
 </textarea>
         <button class="btn btn-success w-100 mt-3">Atualizar</button>
       </form>

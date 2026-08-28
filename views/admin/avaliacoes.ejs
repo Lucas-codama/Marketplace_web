@@ -6,7 +6,8 @@
   </div>
 </section>
 <form class="filter-bar" method="get">
-  <select class="form-select" name="estado">
+  <label class="visually-hidden" for="filtroEstadoAvaliacao">Estado da avaliação</label>
+  <select id="filtroEstadoAvaliacao" class="form-select" name="estado">
     <option value="">Todos os estados</option>
     <% ['pendente','aprovada','ocultada'].forEach((item) => { %>
       <option value="<%= item %>" <%= estado === item ? 'selected' : '' %>><%= item %></option>
@@ -24,11 +25,11 @@
         </div>
         <span class="status status-<%= avaliacao.estado %>"><%= avaliacao.estado %></span>
       </div>
-      <div class="stars" aria-label="<%= avaliacao.nota %> estrelas"><%= '★'.repeat(avaliacao.nota) %><%= '☆'.repeat(5 - avaliacao.nota) %></div>
+      <div class="stars" role="img" aria-label="<%= avaliacao.nota %> de 5 estrelas"><%= '★'.repeat(avaliacao.nota) %><%= '☆'.repeat(5 - avaliacao.nota) %></div>
       <p><%= avaliacao.comentario || 'Sem comentário.' %></p>
       <div class="button-row">
-        <button class="btn btn-sm btn-dark js-status" data-url="/admin/api/avaliacoes/<%= avaliacao.id %>/moderacao" data-status="aprovada" data-key="estado">Aprovar</button>
-        <button class="btn btn-sm btn-outline-dark js-status" data-url="/admin/api/avaliacoes/<%= avaliacao.id %>/moderacao" data-status="ocultada" data-key="estado">Ocultar</button>
+        <button type="button" class="btn btn-sm btn-dark js-status" data-url="/admin/api/avaliacoes/<%= avaliacao.id %>/moderacao" data-status="aprovada" data-key="estado">Aprovar <span class="visually-hidden">avaliação de <%= avaliacao.cliente.nomeCompleto %></span></button>
+        <button type="button" class="btn btn-sm btn-outline-dark js-status" data-url="/admin/api/avaliacoes/<%= avaliacao.id %>/moderacao" data-status="ocultada" data-key="estado">Ocultar <span class="visually-hidden">avaliação de <%= avaliacao.cliente.nomeCompleto %></span></button>
       </div>
     </article>
   <% }) %>

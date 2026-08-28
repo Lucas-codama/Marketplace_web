@@ -4,9 +4,10 @@
       <span class="eyebrow">Atualizações</span>
       <h1>Notificações</h1>
     </div>
-    <button id="marcarTodasLidas" class="btn btn-outline-dark">Marcar todas como lidas</button>
+    <button type="button" id="marcarTodasLidas" class="btn btn-outline-dark">Marcar todas como lidas</button>
   </div>
-  <div class="d-grid gap-3">
+  <p id="statusNotificacoes" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></p>
+  <div id="listaNotificacoes" class="d-grid gap-3">
     <% if (!notificacoes.length) { %>
       <div class="empty-state">Nenhuma notificação.</div>
     <% } %>
@@ -14,6 +15,7 @@
       <article class="notification-card <%= item.lida ? 'is-read' : 'is-unread' %>" data-notificacao-id="<%= item.id %>">
         <div>
           <h2 class="h5"><%= item.titulo %></h2>
+          <span class="small fw-bold js-estado-notificacao"><%= item.lida ? 'Lida' : 'Não lida' %></span>
           <p class="text-secondary"><%= item.mensagem %></p>
           <small><%= new Date(item.createdAt).toLocaleString('pt-BR') %></small>
         </div>
@@ -22,7 +24,7 @@
             <a class="btn btn-sm btn-dark" href="<%= item.link %>">Abrir</a>
           <% } %>
           <% if (!item.lida) { %>
-            <button class="btn btn-sm btn-link js-marcar-lida">Marcar lida</button>
+            <button type="button" class="btn btn-sm btn-link js-marcar-lida">Marcar <span class="visually-hidden"><%= item.titulo %> como </span>lida</button>
           <% } %>
         </div>
       </article>

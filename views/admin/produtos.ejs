@@ -6,7 +6,8 @@
   </div>
 </section>
 <form class="filter-bar" method="get">
-  <select class="form-select" name="estado">
+  <label class="visually-hidden" for="filtroEstadoProduto">Estado do produto</label>
+  <select id="filtroEstadoProduto" class="form-select" name="estado">
     <option value="">Todos os estados</option>
     <% ['ativo','inativo','bloqueado'].forEach((item) => { %>
       <option value="<%= item %>" <%= estado === item ? 'selected' : '' %>><%= item %></option>
@@ -16,14 +17,15 @@
 </form>
 <div class="table-shell">
   <table>
+    <caption class="visually-hidden">Produtos do marketplace</caption>
     <thead>
       <tr>
-        <th>Produto</th>
-        <th>Vendedor</th>
-        <th>Categoria</th>
-        <th>Estoque</th>
-        <th>Estado</th>
-        <th>Ação</th>
+        <th scope="col">Produto</th>
+        <th scope="col">Vendedor</th>
+        <th scope="col">Categoria</th>
+        <th scope="col">Estoque</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Ação</th>
       </tr>
     </thead>
     <tbody>
@@ -42,7 +44,8 @@
             <span class="status status-<%= produto.estado %>"><%= produto.estado %></span>
           </td>
           <td>
-            <select class="form-select form-select-sm js-select-status" data-url="/admin/api/produtos/<%= produto.id %>/estado" data-key="estado">
+            <label class="visually-hidden" for="estadoProduto<%= produto.id %>">Alterar estado de <%= produto.nome %></label>
+            <select id="estadoProduto<%= produto.id %>" class="form-select form-select-sm js-select-status" data-url="/admin/api/produtos/<%= produto.id %>/estado" data-key="estado">
               <% ['ativo','inativo','bloqueado'].forEach((item) => { %>
                 <option <%= produto.estado === item ? 'selected' : '' %>><%= item %></option>
               <% }) %>

@@ -10,7 +10,7 @@ router.get('/', async (req, res, next) => {
       Produto.findAll({ where: { estado: 'ativo' }, limit: 4, order: [['createdAt', 'DESC']] }),
       Categoria.findAll({ where: { ativa: true }, limit: 6, order: [['nome', 'ASC']] })
     ]);
-    return res.renderComLayout('inicio', { titulo: 'NXT PLAY', destaques, recentes, categorias });
+    return res.renderComLayout('inicio', { titulo: 'Início', destaques, recentes, categorias });
   } catch (erro) { return next(erro); }
 });
 

@@ -28,7 +28,7 @@
       <small>Valor acumulado</small>
     </article>
   </div>
-  <nav class="admin-shortcuts mb-5">
+  <nav class="admin-shortcuts mb-5" aria-label="Áreas da loja">
     <a href="/vendedor/produtos">Produtos <span>→</span>
     </a>
     <a href="/vendedor/estoque">Estoque <span>→</span>
@@ -48,12 +48,13 @@
   </div>
   <div class="table-shell">
     <table>
+      <caption class="visually-hidden">Pedidos recentes da loja</caption>
       <thead>
         <tr>
-          <th>Pedido</th>
-          <th>Itens</th>
-          <th>Valor da loja</th>
-          <th>Estado</th>
+          <th scope="col">Pedido</th>
+          <th scope="col">Itens</th>
+          <th scope="col">Valor da loja</th>
+          <th scope="col">Estado</th>
         </tr>
       </thead>
       <tbody>
@@ -93,7 +94,7 @@
           <strong><%= avaliacao.produto.nome %></strong>
           <small><%= avaliacao.cliente.nomeCompleto %></small>
         </div>
-        <div class="stars"><%= '★'.repeat(avaliacao.nota) %><%= '☆'.repeat(5 - avaliacao.nota) %></div>
+        <div class="stars" role="img" aria-label="<%= avaliacao.nota %> de 5 estrelas"><%= '★'.repeat(avaliacao.nota) %><%= '☆'.repeat(5 - avaliacao.nota) %></div>
         <p><%= avaliacao.comentario %></p>
       </article>
     <% }) %>

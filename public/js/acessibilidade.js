@@ -29,7 +29,7 @@
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(preferencias)
-    }).catch(() => {});
+    }).catch(() => anunciar('A preferência foi aplicada, mas não pôde ser salva na sua conta.'));
   }
 
   function aplicarPreferencias(preferencias) {
@@ -40,11 +40,22 @@
   let preferencias = obterPreferencias();
   aplicarPreferencias(preferencias);
 
+  function anunciar(texto) {
+    const status = document.getElementById('acessibilidadeStatus');
+    if (!status) return;
+    status.textContent = '';
+    window.requestAnimationFrame(() => { status.textContent = texto; });
+  }
+
   function atualizarInterface() {
     const chaveContraste = document.getElementById('acessibilidadeContraste');
     const valorEscala = document.getElementById('acessibilidadeEscalaValor');
+    const botaoDiminuir = document.getElementById('acessibilidadeDiminuir');
+    const botaoAumentar = document.getElementById('acessibilidadeAumentar');
     if (chaveContraste) chaveContraste.checked = preferencias.altoContraste;
     if (valorEscala) valorEscala.textContent = `${Math.round(preferencias.escalaFonte * 100)}%`;
+    if (botaoDiminuir) botaoDiminuir.disabled = preferencias.escalaFonte <= ESCALA_MIN;
+    if (botaoAumentar) botaoAumentar.disabled = preferencias.escalaFonte >= ESCALA_MAX;
   }
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -60,6 +71,7 @@
         preferencias.altoContraste = chaveContraste.checked;
         aplicarPreferencias(preferencias);
         salvarPreferencias(preferencias);
+        anunciar(`Alto contraste ${preferencias.altoContraste ? 'ativado' : 'desativado'}.`);
       });
     }
 
@@ -69,6 +81,7 @@
         aplicarPreferencias(preferencias);
         salvarPreferencias(preferencias);
         atualizarInterface();
+        anunciar(`Tamanho da fonte: ${Math.round(preferencias.escalaFonte * 100)}%.`);
       });
     }
 
@@ -78,6 +91,7 @@
         aplicarPreferencias(preferencias);
         salvarPreferencias(preferencias);
         atualizarInterface();
+        anunciar(`Tamanho da fonte: ${Math.round(preferencias.escalaFonte * 100)}%.`);
       });
     }
 
@@ -87,6 +101,7 @@
         aplicarPreferencias(preferencias);
         salvarPreferencias(preferencias);
         atualizarInterface();
+        anunciar('Preferências de acessibilidade restauradas.');
       });
     }
   });

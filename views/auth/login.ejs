@@ -9,7 +9,8 @@
     </div>
 
     <% if (erros && erros.length > 0) { %>
-      <div class="alert alert-danger" role="alert">
+      <div id="errosLogin" class="alert alert-danger" role="alert" aria-atomic="true">
+        <strong>Não foi possível entrar:</strong>
         <ul class="mb-0">
           <% erros.forEach((erro) => { %>
             <li><%= erro %></li>
@@ -18,7 +19,7 @@
       </div>
     <% } %>
 
-    <form action="/login" method="post" class="card border-0 shadow-sm">
+    <form action="/login" method="post" class="card border-0 shadow-sm"<%- erros?.length ? ' aria-describedby="errosLogin"' : '' %>>
       <div class="card-body p-4">
         <div class="mb-3">
           <label for="identificador" class="form-label">

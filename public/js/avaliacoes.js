@@ -1,6 +1,7 @@
 $(function configurarAvaliacoes() {
   const $area = $('#avaliacoesProduto');
-  if ($area.length)
+  if ($area.length) {
+    $('#listaAvaliacoes').attr('aria-busy', 'true');
     $.getJSON(`/api/produtos/${$area.data('produto-id')}/avaliacoes`).done((dados) => {
       $('#mediaAvaliacoes').text(Number(dados.resumo.media).toFixed(1));
       $('#quantidadeAvaliacoes').text(`${dados.resumo.quantidade} avaliações`);
@@ -11,11 +12,19 @@ $(function configurarAvaliacoes() {
           $('<strong>').text(item.cliente.nomeCompleto),
           $('<small>').text(new Date(item.criadaEm).toLocaleDateString('pt-BR'))
         );
-        $card.append($topo, $('<div>', { class: 'stars' }).text(`${'★'.repeat(item.nota)}${'☆'.repeat(5 - item.nota)}`), $('<p>').text(item.comentario));
+        const $estrelas = $('<div>', {
+          class: 'stars',
+          role: 'img',
+          'aria-label': `${item.nota} de 5 estrelas`
+        }).text(`${'★'.repeat(item.nota)}${'☆'.repeat(5 - item.nota)}`);
+        $card.append($topo, $estrelas, $('<p>').text(item.comentario));
         $lista.append($card);
       });
       if (!dados.avaliacoes.length) $lista.append($('<p>', { class: 'text-secondary', text: 'Este produto ainda não possui avaliações.' }));
-    });
+    }).fail(() => {
+      NXT.mensagem($('#listaAvaliacoes')[0], 'Não foi possível carregar as avaliações.', 'danger');
+    }).always(() => $('#listaAvaliacoes').removeAttr('aria-busy'));
+  }
     
   $('#formAvaliacao').on('submit', function enviar(evento) {
     evento.preventDefault();

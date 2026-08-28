@@ -8,7 +8,8 @@
     <div class="row g-4">
       <div class="col-lg-8">
         <div class="surface p-4 mb-4">
-          <h2 class="h4">Endereço de entrega</h2>
+          <fieldset>
+          <legend class="h4">Endereço de entrega</legend>
           <div class="d-grid gap-2 mt-3">
             <% enderecos.forEach((endereco)=> { %><label class="choice-card"><input class="form-check-input"
                   type="radio" name="enderecoId" value="<%= endereco.id %>" <%=endereco.principal ? 'checked' : '' %>
@@ -21,23 +22,21 @@
           </div>
           <% if (!enderecos.length) { %><a class="btn btn-dark mt-3" href="/enderecos">Cadastrar endereço</a>
             <% } %>
+          </fieldset>
         </div>
         <div class="surface p-4">
           <div class="row g-3">
-            <div class="col-md-6"><label class="form-label">Entrega</label><select class="form-select"
-                name="formaEntrega">
+            <div class="col-md-6"><label class="form-label" for="formaEntrega">Entrega</label><select id="formaEntrega" class="form-select" name="formaEntrega">
                 <option value="padrao">Padrão</option>
                 <option value="expressa">Expressa</option>
                 <option value="retirada">Retirada</option>
               </select></div>
-            <div class="col-md-6"><label class="form-label">Pagamento Teste</label><select class="form-select"
-                name="formaPagamento">
+            <div class="col-md-6"><label class="form-label" for="formaPagamento">Pagamento de teste</label><select id="formaPagamento" class="form-select" name="formaPagamento">
                 <option value="pix">PIX</option>
                 <option value="cartao">Cartão</option>
                 <option value="boleto">Boleto</option>
               </select></div>
-            <div class="col-12"><label class="form-label">Observação</label><textarea class="form-control"
-                name="observacao" rows="3"></textarea></div>
+            <div class="col-12"><label class="form-label" for="observacaoCheckout">Observação</label><textarea id="observacaoCheckout" class="form-control" name="observacao" rows="3"></textarea></div>
           </div>
         </div>
       </div>
