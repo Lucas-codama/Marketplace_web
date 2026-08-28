@@ -80,6 +80,23 @@ const Usuario = sequelize.define(
       defaultValue: 'cliente'
     },
 
+        ultimoLoginEm: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
+
+    altoContraste: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
+    },
+
+    escalaFonte: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+      defaultValue: 1
+    },
+
     status: {
       type: DataTypes.ENUM('ativo', 'bloqueado'),
       allowNull: false,

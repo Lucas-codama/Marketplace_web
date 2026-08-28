@@ -10,7 +10,8 @@
       errosPerfil &&
       errosPerfil.length > 0
     ) { %>
-      <div class="alert alert-danger">
+      <div id="errosPerfil" class="alert alert-danger" role="alert" aria-atomic="true">
+        <strong>Revise os dados da conta:</strong>
         <ul class="mb-0">
           <% errosPerfil.forEach((erro) => { %>
             <li><%= erro %></li>
@@ -19,7 +20,7 @@
       </div>
     <% } %>
 
-    <form action="/perfil" method="post" class="card border-0 shadow-sm">
+    <form action="/perfil" method="post" class="card border-0 shadow-sm"<%- errosPerfil?.length ? ' aria-describedby="errosPerfil"' : '' %>>
       <div class="card-body p-4">
         <div class="mb-3">
           <label for="nomeCompleto" class="form-label">Nome completo</label>
@@ -91,7 +92,8 @@
       errosSenha &&
       errosSenha.length > 0
     ) { %>
-      <div class="alert alert-danger">
+      <div id="errosSenha" class="alert alert-danger" role="alert" aria-atomic="true">
+        <strong>Não foi possível alterar a senha:</strong>
         <ul class="mb-0">
           <% errosSenha.forEach((erro) => { %>
             <li><%= erro %></li>
@@ -100,7 +102,7 @@
       </div>
     <% } %>
 
-    <form action="/perfil/senha" method="post" class="card border-0 shadow-sm">
+    <form action="/perfil/senha" method="post" class="card border-0 shadow-sm"<%- errosSenha?.length ? ' aria-describedby="errosSenha"' : '' %>>
       <div class="card-body p-4">
         <h2 class="h4 mb-4">Alterar senha</h2>
 
@@ -150,4 +152,25 @@
     </form>
   </div>
 </section>
-<% if (usuarioPerfil.papel === 'vendedor' && perfilVendedor) { %><section class="section-block"><div class="section-heading"><div><span class="eyebrow">Perfil público</span><h2>Dados da loja</h2><p class="text-secondary">Essas informações aparecem para os visitantes.</p></div><a href="/vendedores/<%= perfilVendedor.slug %>" target="_blank">Ver página pública →</a></div><form action="/perfil/vendedor" method="post" class="surface p-4"><div class="row g-3"><div class="col-md-6"><label class="form-label">Nome da loja</label><input class="form-control" name="nomeLoja" value="<%= perfilVendedor.nomeLoja %>" required></div><div class="col-md-6"><label class="form-label">Endereço público</label><input class="form-control" name="slug" value="<%= perfilVendedor.slug %>" pattern="[a-z0-9-]+" required></div><div class="col-12"><label class="form-label">Descrição</label><textarea class="form-control" name="descricao" rows="4"><%= perfilVendedor.descricao || '' %></textarea></div><div class="col-md-8"><label class="form-label">Cidade</label><input class="form-control" name="cidade" value="<%= perfilVendedor.cidade || '' %>"></div><div class="col-md-4"><label class="form-label">UF</label><input class="form-control" name="uf" value="<%= perfilVendedor.uf || '' %>" maxlength="2"></div><div class="col-12"><button class="btn btn-dark">Salvar dados da loja</button></div></div></form></section><% } %>
+<% if (usuarioPerfil.papel === 'vendedor' && perfilVendedor) { %>
+  <section class="section-block">
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">Perfil público</span>
+        <h2>Dados da loja</h2>
+        <p class="text-secondary">Essas informações aparecem para os visitantes.</p>
+      </div>
+      <a href="/vendedores/<%= perfilVendedor.slug %>" target="_blank" rel="noopener">Ver página pública <span class="visually-hidden">(abre em nova aba)</span> →</a>
+    </div>
+    <form action="/perfil/vendedor" method="post" class="surface p-4">
+      <div class="row g-3">
+        <div class="col-md-6"><label class="form-label" for="lojaNome">Nome da loja</label><input id="lojaNome" class="form-control" name="nomeLoja" value="<%= perfilVendedor.nomeLoja %>" required></div>
+        <div class="col-md-6"><label class="form-label" for="lojaSlug">Endereço público</label><input id="lojaSlug" class="form-control" name="slug" value="<%= perfilVendedor.slug %>" pattern="[a-z0-9-]+" required></div>
+        <div class="col-12"><label class="form-label" for="lojaDescricao">Descrição</label><textarea id="lojaDescricao" class="form-control" name="descricao" rows="4"><%= perfilVendedor.descricao || '' %></textarea></div>
+        <div class="col-md-8"><label class="form-label" for="lojaCidade">Cidade</label><input id="lojaCidade" class="form-control" name="cidade" value="<%= perfilVendedor.cidade || '' %>"></div>
+        <div class="col-md-4"><label class="form-label" for="lojaUf">UF</label><input id="lojaUf" class="form-control" name="uf" value="<%= perfilVendedor.uf || '' %>" maxlength="2"></div>
+        <div class="col-12"><button class="btn btn-dark">Salvar dados da loja</button></div>
+      </div>
+    </form>
+  </section>
+<% } %>

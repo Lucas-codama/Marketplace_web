@@ -9,15 +9,15 @@
   <div class="surface overflow-hidden">
     <div class="table-responsive">
       <table class="table align-middle mb-0">
+        <caption class="visually-hidden">Produtos cadastrados pela loja</caption>
         <thead>
           <tr>
-            <th>Produto</th>
-            <th>Categoria</th>
-            <th>Preço</th>
-            <th>Estoque</th>
-            <th>Estado</th>
-            <th>
-            </th>
+            <th scope="col">Produto</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Preço</th>
+            <th scope="col">Estoque</th>
+            <th scope="col">Estado</th>
+            <th scope="col"><span class="visually-hidden">Ações</span></th>
           </tr>
         </thead>
         <tbody>
@@ -37,12 +37,12 @@
               </td>
               <td>
                 <div class="d-flex justify-content-end gap-1">
-                  <a class="btn btn-sm btn-outline-dark" href="/vendedor/produtos/<%= produto.id %>/editar">Editar</a>
+                  <a class="btn btn-sm btn-outline-dark" href="/vendedor/produtos/<%= produto.id %>/editar">Editar <span class="visually-hidden"><%= produto.nome %></span></a>
                   <form action="/vendedor/produtos/<%= produto.id %>/estado" method="post">
-                    <button class="btn btn-sm btn-outline-secondary"><%= produto.estado === 'ativo' ? 'Desativar' : 'Ativar' %></button>
+                    <button class="btn btn-sm btn-outline-secondary"><%= produto.estado === 'ativo' ? 'Desativar' : 'Ativar' %> <span class="visually-hidden"><%= produto.nome %></span></button>
                   </form>
                   <form action="/vendedor/produtos/<%= produto.id %>/excluir" method="post" data-confirmar="Excluir ou desativar este produto?">
-                    <button class="btn btn-sm btn-outline-danger">Excluir</button>
+                    <button class="btn btn-sm btn-outline-danger">Excluir <span class="visually-hidden"><%= produto.nome %></span></button>
                   </form>
                 </div>
               </td>

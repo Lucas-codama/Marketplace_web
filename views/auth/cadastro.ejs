@@ -16,7 +16,7 @@
     </div>
 
     <% if (erros && erros.length > 0) { %>
-      <div class="alert alert-danger" role="alert">
+      <div id="errosCadastro" class="alert alert-danger" role="alert" aria-atomic="true">
         <strong>Verifique os dados informados:</strong>
 
         <ul class="mb-0 mt-2">
@@ -27,7 +27,7 @@
       </div>
     <% } %>
 
-    <form action="/cadastro" method="post" class="card border-0 shadow-sm">
+    <form action="/cadastro" method="post" class="card border-0 shadow-sm"<%- erros?.length ? ' aria-describedby="errosCadastro"' : '' %>>
       <div class="card-body p-4">
         <div class="mb-3">
           <label for="nomeCompleto" class="form-label">
@@ -62,10 +62,11 @@
             maxlength="30"
             pattern="[A-Za-z0-9_]+"
             autocomplete="username"
+            aria-describedby="usernameAjuda"
             required
           >
 
-          <div class="form-text">
+          <div id="usernameAjuda" class="form-text">
             Letras, números e underline.
           </div>
         </div>
@@ -99,10 +100,11 @@
             class="form-control"
             minlength="8"
             autocomplete="new-password"
+            aria-describedby="senhaAjuda"
             required
           >
 
-          <div class="form-text">
+          <div id="senhaAjuda" class="form-text">
             Use pelo menos 8 caracteres.
           </div>
         </div>

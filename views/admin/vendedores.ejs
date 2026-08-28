@@ -7,13 +7,14 @@
 </section>
 <div class="table-shell">
   <table>
+    <caption class="visually-hidden">Vendedores do marketplace</caption>
     <thead>
       <tr>
-        <th>Loja</th>
-        <th>Responsável</th>
-        <th>Produtos</th>
-        <th>Status</th>
-        <th>Ação</th>
+        <th scope="col">Loja</th>
+        <th scope="col">Responsável</th>
+        <th scope="col">Produtos</th>
+        <th scope="col">Status</th>
+        <th scope="col">Ação</th>
       </tr>
     </thead>
     <tbody>
@@ -30,7 +31,7 @@
             <span class="status status-<%= vendedor.status %>"><%= vendedor.status %></span>
           </td>
           <td>
-            <button class="btn btn-sm btn-outline-dark js-status" data-url="/admin/api/vendedores/<%= vendedor.id %>/status" data-status="<%= vendedor.status === 'ativo' ? 'bloqueado' : 'ativo' %>"><%= vendedor.status === 'ativo' ? 'Bloquear' : 'Ativar' %></button>
+            <button type="button" class="btn btn-sm btn-outline-dark js-status" data-url="/admin/api/vendedores/<%= vendedor.id %>/status" data-status="<%= vendedor.status === 'ativo' ? 'bloqueado' : 'ativo' %>"><%= vendedor.status === 'ativo' ? 'Bloquear' : 'Ativar' %> <span class="visually-hidden"><%= vendedor.nomeCompleto %></span></button>
           </td>
         </tr>
       <% }) %>

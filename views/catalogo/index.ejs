@@ -7,33 +7,42 @@
       </p>
     </div>
   </div>
-  <form id="filtrosCatalogo" action="/catalogo" class="filter-panel mb-4"><input class="form-control" type="search"
-      name="busca" placeholder="Buscar produtos" value="<%= filtros.busca || '' %>"><select class="form-select"
-      name="categoria">
+  <form id="filtrosCatalogo" action="/catalogo" class="filter-panel mb-4" aria-label="Filtros do catálogo">
+    <label class="visually-hidden" for="catalogoBusca">Buscar produtos</label>
+    <input id="catalogoBusca" class="form-control" type="search" name="busca" placeholder="Buscar produtos" value="<%= filtros.busca || '' %>">
+    <label class="visually-hidden" for="catalogoCategoria">Categoria</label>
+    <select id="catalogoCategoria" class="form-select" name="categoria">
       <option value="">Categorias</option>
       <% categorias.forEach((item)=> { %><option value="<%= item.id %>" <%=Number(filtros.categoria)===item.id
           ? 'selected' : '' %>><%= item.nome %>
         </option>
         <% }) %>
-    </select><select class="form-select" name="vendedor">
+    </select>
+    <label class="visually-hidden" for="catalogoVendedor">Vendedor</label>
+    <select id="catalogoVendedor" class="form-select" name="vendedor">
       <option value="">Vendedores</option>
       <% vendedores.forEach((item)=> { %><option value="<%= item.id %>" <%=Number(filtros.vendedor)===item.id
           ? 'selected' : '' %>><%= item.perfilVendedor?.nomeLoja || item.username %>
         </option>
         <% }) %>
-    </select><input class="form-control" type="number" name="precoMin" min="0" step="0.01" placeholder="Preço mínimo"
-      value="<%= filtros.precoMin || '' %>"><input class="form-control" type="number" name="precoMax" min="0"
-      step="0.01" placeholder="Preço máximo" value="<%= filtros.precoMax || '' %>"><select class="form-select"
-      name="ordem">
+    </select>
+    <label class="visually-hidden" for="catalogoPrecoMin">Preço mínimo</label>
+    <input id="catalogoPrecoMin" class="form-control" type="number" name="precoMin" min="0" step="0.01" placeholder="Preço mínimo" value="<%= filtros.precoMin || '' %>">
+    <label class="visually-hidden" for="catalogoPrecoMax">Preço máximo</label>
+    <input id="catalogoPrecoMax" class="form-control" type="number" name="precoMax" min="0" step="0.01" placeholder="Preço máximo" value="<%= filtros.precoMax || '' %>">
+    <label class="visually-hidden" for="catalogoOrdem">Ordenar produtos</label>
+    <select id="catalogoOrdem" class="form-select" name="ordem">
       <option value="recentes" <%=filtros.ordem==='recentes' || !filtros.ordem ? 'selected' : '' %>>Mais recentes
       </option>
       <option value="menor-preco" <%=filtros.ordem==='menor-preco' ? 'selected' : '' %>>Menor preço</option>
       <option value="maior-preco" <%=filtros.ordem==='maior-preco' ? 'selected' : '' %>>Maior preço</option>
       <option value="nome" <%=filtros.ordem==='nome' ? 'selected' : '' %>>Nome</option>
-    </select><label class="form-check"><input class="form-check-input" type="checkbox" name="disponivel" value="1"
-        <%=filtros.disponivel==='1' ? 'checked' : '' %>> Em estoque</label><button class="btn btn-dark">Aplicar
-      filtros</button></form>
-  <div id="gradeCatalogo" class="row g-3">
+    </select>
+    <label class="form-check"><input class="form-check-input" type="checkbox" name="disponivel" value="1" <%=filtros.disponivel==='1' ? 'checked' : '' %>> Em estoque</label>
+    <button class="btn btn-dark">Aplicar filtros</button>
+  </form>
+  <h2 id="tituloResultadosCatalogo" class="visually-hidden">Produtos encontrados</h2>
+  <div id="gradeCatalogo" class="row g-3" role="region" aria-labelledby="tituloResultadosCatalogo">
     <% produtos.forEach((produto)=> { %><div class="col-6 col-lg-3"><%- include('../partials/produto-card', { produto })
           %></div>
       <% }) %>
@@ -41,11 +50,11 @@
   <% if (!produtos.length) { %>
     <div class="empty-state">Nenhum produto corresponde aos filtros.</div>
     <% } %>
-      <% if (totalPaginas> 1) { %><nav class="mt-5">
+      <% if (totalPaginas> 1) { %><nav class="mt-5" aria-label="Paginação do catálogo">
           <ul class="pagination justify-content-center">
             <% for (let n=1; n <=totalPaginas; n +=1) { const parametros=new URLSearchParams(filtros);
               parametros.set('pagina', n); %>
-              <li class="page-item <%= n === pagina ? 'active' : '' %>"><a class="page-link"
+              <li class="page-item <%= n === pagina ? 'active' : '' %>"><a class="page-link" aria-label="Página <%= n %>"<%- n === pagina ? ' aria-current="page"' : '' %>
                   href="/catalogo?<%= parametros.toString() %>">
                   <%= n %>
                 </a></li>

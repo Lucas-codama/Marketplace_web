@@ -17,7 +17,7 @@
           </div>
           <span class="status status-<%= avaliacao.estado %>"><%= avaliacao.estado %></span>
         </div>
-        <div class="stars"><%= '★'.repeat(avaliacao.nota) %><%= '☆'.repeat(5 - avaliacao.nota) %></div>
+        <div class="stars" role="img" aria-label="<%= avaliacao.nota %> de 5 estrelas"><%= '★'.repeat(avaliacao.nota) %><%= '☆'.repeat(5 - avaliacao.nota) %></div>
         <p><%= avaliacao.comentario %></p>
         <small><%= new Date(avaliacao.createdAt).toLocaleDateString('pt-BR') %></small>
       </article>

@@ -23,12 +23,14 @@
       <% categorias.forEach((categoria) => { %>
         <form method="post" action="/admin/categorias/<%= categoria.id %>/editar" class="category-admin-item">
           <div>
-            <input class="form-control" name="nome" value="<%= categoria.nome %>" required>
-            <input class="form-control" name="descricao" value="<%= categoria.descricao || '' %>" placeholder="Descrição">
+            <label class="visually-hidden" for="categoriaNome<%= categoria.id %>">Nome da categoria <%= categoria.nome %></label>
+            <input id="categoriaNome<%= categoria.id %>" class="form-control" name="nome" value="<%= categoria.nome %>" required>
+            <label class="visually-hidden" for="categoriaDescricao<%= categoria.id %>">Descrição da categoria <%= categoria.nome %></label>
+            <input id="categoriaDescricao<%= categoria.id %>" class="form-control" name="descricao" value="<%= categoria.descricao || '' %>" placeholder="Descrição">
           </div>
           <label class="switch-line">
             <input type="checkbox" name="ativa" <%= categoria.ativa ? 'checked' : '' %>> Ativa · <%= categoria.produtos.length %> produtos</label>
-          <button class="btn btn-sm btn-outline-dark">Salvar</button>
+          <button class="btn btn-sm btn-outline-dark">Salvar <span class="visually-hidden"><%= categoria.nome %></span></button>
         </form>
       <% }) %>
     </div>

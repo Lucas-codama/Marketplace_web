@@ -13,13 +13,14 @@
       <div class="empty-state">Você precisa ter uma compra entregue e ainda não avaliada.</div>
       <% } else { %>
       <form id="formAvaliacao" data-produto-id="<%= produto.id %>" class="surface p-4">
-        <label class="form-label">Compra</label>
-        <select class="form-select mb-4" name="itemPedidoId">
+        <label class="form-label" for="avaliacaoCompra">Compra</label>
+        <select id="avaliacaoCompra" class="form-select mb-4" name="itemPedidoId">
           <% itens.forEach((item) => { %>
             <option value="<%= item.id %>"><%= item.pedido.numero %> · <%= new Date(item.pedido.createdAt).toLocaleDateString('pt-BR') %></option>
           <% }) %>
         </select>
-        <label class="form-label">Nota</label>
+        <fieldset class="border-0 p-0 m-0">
+        <legend class="form-label">Nota</legend>
         <div class="rating-options mb-4">
           <% for (let n = 1; n <= 5; n += 1) { %>
             <label>
@@ -28,8 +29,9 @@
             </label>
           <% } %>
         </div>
-        <label class="form-label">Comentário</label>
-        <textarea class="form-control mb-4" name="comentario" rows="6" minlength="10" required>
+        </fieldset>
+        <label class="form-label" for="avaliacaoComentario">Comentário</label>
+        <textarea id="avaliacaoComentario" class="form-control mb-4" name="comentario" rows="6" minlength="10" required>
   </textarea>
         <button class="btn btn-dark w-100">Enviar para moderação</button>
       </form>

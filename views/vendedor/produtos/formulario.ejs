@@ -10,12 +10,12 @@
     <form action="<%= acao %>" method="post" enctype="multipart/form-data" class="surface p-4 p-lg-5">
       <div class="row g-4">
         <div class="col-lg-8">
-          <label class="form-label">Nome</label>
-          <input class="form-control" name="nome" value="<%= produto?.nome || '' %>" minlength="3" maxlength="140" required>
+          <label class="form-label" for="produtoNome">Nome</label>
+          <input id="produtoNome" class="form-control" name="nome" value="<%= produto?.nome || '' %>" minlength="3" maxlength="140" required>
         </div>
         <div class="col-lg-4">
-          <label class="form-label">Categoria</label>
-          <select class="form-select" name="categoriaId" required>
+          <label class="form-label" for="produtoCategoria">Categoria</label>
+          <select id="produtoCategoria" class="form-select" name="categoriaId" required>
             <option value="">Selecione</option>
             <% categorias.forEach((item) => { %>
               <option value="<%= item.id %>" <%= Number(produto?.categoriaId) === item.id ? 'selected' : '' %>><%= item.nome %></option>
@@ -23,23 +23,23 @@
           </select>
         </div>
         <div class="col-12">
-          <label class="form-label">Descrição</label>
-          <textarea class="form-control" name="descricao" rows="6" minlength="20" maxlength="5000" required><%= produto?.descricao || '' %></textarea>
+          <label class="form-label" for="produtoDescricao">Descrição</label>
+          <textarea id="produtoDescricao" class="form-control" name="descricao" rows="6" minlength="20" maxlength="5000" required><%= produto?.descricao || '' %></textarea>
         </div>
         <div class="col-md-4">
-          <label class="form-label">Preço</label>
-          <input class="form-control" type="number" name="preco" min="0.01" step="0.01" value="<%= produto?.preco || '' %>" required>
+          <label class="form-label" for="produtoPreco">Preço</label>
+          <input id="produtoPreco" class="form-control" type="number" name="preco" min="0.01" step="0.01" value="<%= produto?.preco || '' %>" required>
         </div>
         <div class="col-md-4">
-          <label class="form-label">Estoque</label>
-          <input class="form-control" type="number" name="estoque" min="0" step="1" value="<%= produto?.estoque ?? 0 %>" required>
+          <label class="form-label" for="produtoEstoque">Estoque</label>
+          <input id="produtoEstoque" class="form-control" type="number" name="estoque" min="0" step="1" value="<%= produto?.estoque ?? 0 %>" required>
         </div>
         <div class="col-md-4">
-          <label class="form-label">Imagem JPG, PNG ou WEBP</label>
+          <label class="form-label" for="imagem">Imagem JPG, PNG ou WEBP</label>
           <input id="imagem" class="form-control" type="file" name="imagem" accept="image/jpeg,image/png,image/webp">
         </div>
         <div class="col-12">
-          <img class="js-preview-imagem image-preview <%= produto?.imagem ? '' : 'd-none' %>" src="<%= produto?.imagem || '' %>" alt="Pré-visualização da imagem">
+          <img class="js-preview-imagem image-preview <%= produto?.imagem ? '' : 'd-none' %>" src="<%= produto?.imagem || '' %>" alt="Pré-visualização da imagem do produto">
           <label class="form-check mt-3">
             <input class="form-check-input" type="checkbox" name="destaque" <%= produto?.destaque ? 'checked' : '' %>> Destacar produto</label>
         </div>

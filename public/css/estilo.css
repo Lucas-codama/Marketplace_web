@@ -9,6 +9,7 @@
   --lime: #c9ff34;
   --green: #167548;
   --radius: 1.15rem;
+  --fonte-escala: 1;
 }
 
 * {
@@ -17,6 +18,7 @@
 
 html {
   scroll-behavior: smooth;
+  font-size: calc(16px * var(--fonte-escala, 1));
 }
 
 body {
@@ -1931,4 +1933,75 @@ html.alto-contraste *:focus-visible {
 .form-switch .form-check-input {
   width: 3em;
   height: 1.6em;
+}
+
+/* Recursos estruturais para navegação por teclado e tecnologias assistivas. */
+.skip-link {
+  position: fixed;
+  z-index: 2000;
+  top: .75rem;
+  left: .75rem;
+  padding: .75rem 1rem;
+  color: #fff;
+  background: #10120e;
+  border: 2px solid #fff;
+  border-radius: .5rem;
+  transform: translateY(-180%);
+}
+
+.skip-link:focus {
+  color: #fff;
+  transform: translateY(0);
+}
+
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid #fff !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 6px #10120e !important;
+}
+
+[aria-current="page"] {
+  text-decoration: underline;
+  text-decoration-thickness: .16em;
+  text-underline-offset: .28em;
+}
+
+p a:not(.btn),
+.section-heading > a:not(.btn),
+.section-title > a:not(.btn),
+main a.small:not(.btn) {
+  text-decoration: underline;
+  text-decoration-thickness: .11em;
+  text-underline-offset: .18em;
+}
+
+.field-error {
+  display: block;
+  margin-top: .35rem;
+  color: #a32118;
+  font-size: .875em;
+  font-weight: 700;
+}
+
+[aria-invalid="true"] {
+  border-color: #a32118 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+html.alto-contraste .field-error {
+  color: #ff8a8a !important;
 }

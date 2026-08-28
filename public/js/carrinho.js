@@ -45,10 +45,16 @@ $(function configurarCarrinho() {
 
   $('.js-remover-item').on('click', function remover() { 
     const $linha = $(this).closest('.js-item-carrinho'); 
+    const proximoFoco = $linha.next('.js-item-carrinho').find('.js-remover-item')[0]
+      || $linha.prev('.js-item-carrinho').find('.js-remover-item')[0]
+      || document.querySelector('a[href="/checkout"]');
     $.ajax({ 
       url: `/api/carrinho/itens/${$linha.data('item-id')}`, 
       method: 'DELETE' 
-    }).done((dados) => { $linha.fadeOut(180, () => $linha.remove()); 
+    }).done((dados) => { $linha.fadeOut(180, () => {
+      $linha.remove();
+      proximoFoco?.focus();
+    });
 
     atualizar(dados.carrinho); 
   

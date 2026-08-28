@@ -6,14 +6,17 @@
   </div>
 </section>
 <form class="filter-bar" method="get">
-  <input class="form-control" name="busca" value="<%= filtros.busca || '' %>" placeholder="Nome, usuário ou e-mail">
-  <select class="form-select" name="papel">
+  <label class="visually-hidden" for="buscaUsuario">Buscar usuário</label>
+  <input id="buscaUsuario" class="form-control" name="busca" value="<%= filtros.busca || '' %>" placeholder="Nome, usuário ou e-mail">
+  <label class="visually-hidden" for="filtroPapelUsuario">Papel do usuário</label>
+  <select id="filtroPapelUsuario" class="form-select" name="papel">
     <option value="">Todos os papéis</option>
     <% ['cliente','vendedor','admin'].forEach((papel) => { %>
       <option value="<%= papel %>" <%= filtros.papel === papel ? 'selected' : '' %>><%= papel %></option>
     <% }) %>
   </select>
-  <select class="form-select" name="status">
+  <label class="visually-hidden" for="filtroStatusUsuario">Status do usuário</label>
+  <select id="filtroStatusUsuario" class="form-select" name="status">
     <option value="">Todos os status</option>
     <option value="ativo" <%= filtros.status === 'ativo' ? 'selected' : '' %>>Ativo</option>
     <option value="bloqueado" <%= filtros.status === 'bloqueado' ? 'selected' : '' %>>Bloqueado</option>
@@ -22,13 +25,14 @@
 </form>
 <div class="table-shell">
   <table>
+    <caption class="visually-hidden">Usuários do marketplace</caption>
     <thead>
       <tr>
-        <th>Usuário</th>
-        <th>Papel</th>
-        <th>Status</th>
-        <th>Cadastro</th>
-        <th>Ação</th>
+        <th scope="col">Usuário</th>
+        <th scope="col">Papel</th>
+        <th scope="col">Status</th>
+        <th scope="col">Cadastro</th>
+        <th scope="col">Ação</th>
       </tr>
     </thead>
     <tbody>
@@ -45,7 +49,7 @@
           <td><%= new Date(usuario.createdAt).toLocaleDateString('pt-BR') %></td>
           <td>
             <% if (usuario.id !== usuarioAtual.id) { %>
-              <button class="btn btn-sm btn-outline-dark js-status" data-url="/admin/api/usuarios/<%= usuario.id %>/status" data-status="<%= usuario.status === 'ativo' ? 'bloqueado' : 'ativo' %>"><%= usuario.status === 'ativo' ? 'Bloquear' : 'Ativar' %></button>
+              <button type="button" class="btn btn-sm btn-outline-dark js-status" data-url="/admin/api/usuarios/<%= usuario.id %>/status" data-status="<%= usuario.status === 'ativo' ? 'bloqueado' : 'ativo' %>"><%= usuario.status === 'ativo' ? 'Bloquear' : 'Ativar' %> <span class="visually-hidden"><%= usuario.nomeCompleto %></span></button>
               <% } else { %>
               <small>Conta atual</small>
             <% } %>
