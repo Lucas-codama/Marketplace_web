@@ -1,0 +1,39 @@
+<section class="page-head">
+  <div>
+    <span class="eyebrow">Operação</span>
+    <h1>Todos os pedidos</h1>
+    <p>Visão global das compras realizadas.</p>
+  </div>
+</section>
+<div class="table-shell" role="region" aria-label="Tabela de pedidos" tabindex="0">
+  <table>
+    <caption class="visually-hidden">Todos os pedidos da loja virtual</caption>
+    <thead>
+      <tr>
+        <th scope="col">Pedido</th>
+        <th scope="col">Cliente</th>
+        <th scope="col">Itens</th>
+        <th scope="col">Status</th>
+        <th scope="col">Total</th>
+        <th scope="col">Data</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% pedidos.forEach((pedido) => { %>
+        <tr>
+          <td>
+            <strong>#<%= pedido.id %></strong>
+          </td>
+          <td><%= pedido.cliente.nomeCompleto %><small>@<%= pedido.cliente.username %></small>
+          </td>
+          <td><%= pedido.itens.length %></td>
+          <td>
+            <span class="status status-<%= pedido.estado %>"><%= pedido.estado %></span>
+          </td>
+          <td><%= moeda(pedido.valorTotal) %></td>
+          <td><%= new Date(pedido.createdAt).toLocaleString('pt-BR') %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>

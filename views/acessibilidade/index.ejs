@@ -1,0 +1,64 @@
+<section>
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">Preferências</span>
+      <h1>Acessibilidade</h1>
+      <p class="text-secondary mb-0">Ajuste contraste, cores, tamanho da fonte e atualizações automáticas para navegar com mais conforto. Quando você está conectado, as preferências ficam salvas na sua conta.</p>
+    </div>
+  </div>
+
+  <div class="d-grid gap-3 mt-4">
+    <div class="acessibilidade-card">
+      <div>
+        <h2 class="h5 mb-1">Alto contraste</h2>
+        <p id="descricaoContraste" class="text-secondary mb-0">Aumenta o contraste de cores em todo o site para facilitar a leitura.</p>
+      </div>
+      <div class="form-check form-switch fs-4 mb-0">
+        <label class="visually-hidden" for="acessibilidadeContraste">Ativar alto contraste</label>
+        <input class="form-check-input" type="checkbox" role="switch" id="acessibilidadeContraste" aria-describedby="descricaoContraste">
+      </div>
+    </div>
+
+    <div class="acessibilidade-card">
+      <div>
+        <h2 class="h5 mb-1">Tamanho da fonte</h2>
+        <p id="descricaoTamanhoFonte" class="text-secondary mb-0">Aumente ou diminua o texto entre 85% e 200%</p>
+      </div>
+      <div class="acessibilidade-controle-fonte" role="group" aria-label="Tamanho da fonte" aria-describedby="descricaoTamanhoFonte">
+        <button type="button" id="acessibilidadeDiminuir" class="btn btn-outline-dark" aria-label="Diminuir fonte">A-</button>
+        <output id="acessibilidadeEscalaValor">100%</output>
+        <button type="button" id="acessibilidadeAumentar" class="btn btn-outline-dark" aria-label="Aumentar fonte">A+</button>
+        <button type="button" id="acessibilidadeRestaurar" class="btn btn-outline-dark">Restaurar padrão</button>
+      </div>
+    </div>
+
+    <div class="acessibilidade-card acessibilidade-card--cores">
+      <div>
+        <h2 class="h5 mb-1">Cores de texto e de fundo</h2>
+        <p id="descricaoCores" class="text-secondary mb-0">Escolha livremente a cor do texto e a cor de fundo do site. Ativar isto desliga o alto contraste, já que os dois mecanismos não podem ficar ativos ao mesmo tempo.</p>
+      </div>
+      <div class="acessibilidade-controle-cores" role="group" aria-label="Cores personalizadas" aria-describedby="descricaoCores">
+        <label for="acessibilidadeCorTexto">Cor do texto
+          <input type="color" id="acessibilidadeCorTexto" value="#10120e">
+        </label>
+        <label for="acessibilidadeCorFundo">Cor do fundo
+          <input type="color" id="acessibilidadeCorFundo" value="#f3f4ed">
+        </label>
+        <button type="button" id="acessibilidadeAplicarCores" class="btn btn-outline-dark">Aplicar cores</button>
+        <button type="button" id="acessibilidadeLimparCores" class="btn btn-outline-dark">Usar cores padrão</button>
+      </div>
+    </div>
+
+    <div class="acessibilidade-card">
+      <div>
+        <h2 class="h5 mb-1">Atualizações em tempo real</h2>
+        <p id="descricaoNotificacoes" class="text-secondary mb-0">Notificações e contadores do site (carrinho, pedidos, estoque) chegam automaticamente. Pausando aqui, nada muda sozinho na tela — você atualiza quando quiser pelo botão "Atualizar notificações" no menu.</p>
+      </div>
+      <div class="form-check form-switch fs-4 mb-0">
+        <label class="visually-hidden" for="acessibilidadePausarNotificacoes">Pausar atualizações automáticas</label>
+        <input class="form-check-input" type="checkbox" role="switch" id="acessibilidadePausarNotificacoes" aria-describedby="descricaoNotificacoes">
+      </div>
+    </div>
+  </div>
+  <p id="acessibilidadeStatus" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></p>
+</section>

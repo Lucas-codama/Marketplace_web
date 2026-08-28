@@ -1,0 +1,2163 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root {
+  --ink: #10120e;
+  --muted: #686d63;
+  --paper: #f3f4ed;
+  --surface: #fff;
+  --line: #dfe1d7;
+  --control-border: #686d63;
+  --lime: #c9ff34;
+  --green: #167548;
+  --radius: 1.15rem;
+  --fonte-escala: 1;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: calc(16px * var(--fonte-escala, 1));
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+.navbar-brand {
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -.045em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--green);
+}
+
+::selection {
+  color: var(--ink);
+  background: var(--lime);
+}
+
+.site-header {
+  position: sticky;
+  z-index: 100;
+  top: 0;
+  border-bottom: 1px solid rgba(16, 18, 14, .09);
+  background: rgba(243, 244, 237, .88);
+  backdrop-filter: blur(18px);
+}
+
+.navbar {
+  min-height: 76px;
+}
+
+.text-secondary,
+.text-muted,
+.form-text {
+  color: var(--muted) !important;
+}
+
+.text-success {
+  color: var(--green) !important;
+}
+
+.navbar-toggler {
+  border-color: var(--control-border);
+}
+
+.navbar-brand {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.brand-mark {
+  display: inline-grid;
+  place-items: center;
+  padding: .24rem .45rem;
+  color: var(--ink);
+  background: var(--lime);
+  border-radius: .35rem;
+  transform: skew(-5deg);
+}
+
+.nav-link {
+  color: #33372f;
+  font-weight: 600;
+}
+
+.nav-link:hover {
+  color: #000;
+}
+
+.site-footer {
+  margin-top: 5rem;
+  padding: 3.5rem 0;
+  background: var(--ink);
+}
+
+.eyebrow {
+  display: inline-block;
+  color: #517113;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+.btn {
+  border-radius: .7rem;
+  font-weight: 700;
+}
+
+.btn-dark {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.btn-dark:hover {
+  color: var(--ink);
+  background: var(--lime);
+  border-color: var(--lime);
+}
+
+.btn-success {
+  color: var(--ink);
+  background: var(--lime);
+  border-color: var(--lime);
+}
+
+.btn-success:hover {
+  color: #fff;
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.form-control,
+.form-select {
+  min-height: 46px;
+  border-color: var(--control-border);
+  border-radius: .7rem;
+  background-color: rgba(255, 255, 255, .9);
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--ink);
+  box-shadow: 0 0 0 .22rem rgba(201, 255, 52, .28);
+}
+
+.form-check-input {
+  border-color: var(--control-border);
+}
+
+textarea.form-control {
+  min-height: auto;
+}
+
+.surface,
+.panel,
+.summary-card,
+.metric-card,
+.review-card,
+.notification-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: 0 10px 35px rgba(22, 28, 17, .045);
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 510px;
+  padding: clamp(2.4rem, 7vw, 6rem);
+  border-radius: 1.7rem;
+  color: #fff;
+  background: var(--ink);
+}
+
+.hero::before {
+  position: absolute;
+  width: 430px;
+  height: 430px;
+  content: '';
+  right: -100px;
+  top: -130px;
+  border-radius: 50%;
+  background: var(--lime);
+  filter: blur(1px);
+}
+
+.hero::after {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  content: '';
+  right: 17%;
+  bottom: -150px;
+  border: 42px solid rgba(255, 255, 255, .11);
+  border-radius: 50%;
+}
+
+.hero>* {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+}
+
+.hero h1 {
+  max-width: 820px;
+  margin: .8rem 0 1.25rem;
+  font-size: clamp(3rem, 8vw, 7rem);
+  line-height: .87;
+}
+
+.hero p {
+  max-width: 600px;
+  color: rgba(255, 255, 255, .67);
+  font-size: 1.1rem;
+}
+
+.hero .eyebrow {
+  color: var(--lime);
+}
+
+.hero-search {
+  display: flex;
+  max-width: 590px;
+  gap: .55rem;
+  margin: 2rem 0 1rem;
+  padding: .45rem;
+  border-radius: .9rem;
+  background: #fff;
+}
+
+.hero-search input {
+  width: 100%;
+  padding: 0 .7rem;
+  border: 0;
+  outline: 0;
+  background: transparent;
+}
+
+.hero-actions,
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .65rem;
+}
+
+.hero .btn-success {
+  padding: .85rem 1.25rem;
+}
+
+.hero-stat {
+  display: flex;
+  gap: 2rem;
+  margin-top: 3.5rem;
+}
+
+.hero-stat strong {
+  display: block;
+  font-size: 1.45rem;
+}
+
+.hero-stat span {
+  color: rgba(255, 255, 255, .55);
+  font-size: .85rem;
+}
+
+.section-block {
+  margin-top: 5rem;
+}
+
+.section-heading,
+.section-title,
+.page-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.section-heading h1,
+.section-heading h2,
+.section-title h2,
+.page-head h1 {
+  margin: .3rem 0 0;
+}
+
+.page-head {
+  align-items: center;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.page-head h1 {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.page-head p {
+  margin: .4rem 0 0;
+  color: var(--muted);
+}
+
+.category-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+  gap: .75rem;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: .75rem;
+}
+
+.category-tile {
+  min-height: 145px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: #fff;
+  transition: .2s ease;
+}
+
+.category-tile span {
+  color: var(--muted);
+  font-size: .75rem;
+}
+
+.category-tile strong {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.3rem;
+}
+
+.category-tile:hover {
+  color: var(--ink);
+  background: var(--lime);
+  border-color: var(--lime);
+  transform: translateY(-3px);
+}
+
+.category-link {
+  padding: 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: var(--surface);
+  font-weight: 700;
+  transition: .2s ease;
+}
+
+.category-link:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+  transform: translateY(-3px);
+}
+
+.product-card {
+  height: 100%;
+  overflow: visible;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: #fff;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 22px 45px rgba(21, 26, 16, .11);
+}
+
+.product-card-image {
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 1/1;
+  background: #e8eae1;
+}
+
+.product-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+
+.product-image {
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 1/1;
+  background: #e8eae1;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+
+.product-card:hover img {
+  transform: scale(1.035);
+}
+
+.product-card-body {
+  padding: 1.1rem;
+}
+
+.product-card-body small {
+  display: block;
+  color: var(--muted);
+}
+
+.product-card-body h3 {
+  min-height: 2.7em;
+  margin: .35rem 0 .8rem;
+  font-size: 1.05rem;
+}
+
+.product-card-price {
+  font-size: 1.18rem;
+  font-weight: 700;
+}
+
+.product-badge {
+  position: absolute;
+  z-index: 2;
+  margin: .7rem;
+  padding: .35rem .55rem;
+  border-radius: .45rem;
+  color: var(--ink);
+  background: var(--lime);
+  font-size: .7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.filter-panel,
+.filter-bar {
+  display: grid;
+  grid-template-columns: 2fr repeat(4, minmax(125px, 1fr));
+  gap: .65rem;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+}
+
+.filter-bar {
+  grid-template-columns: minmax(220px, 2fr) repeat(2, minmax(150px, 1fr)) auto;
+  margin-bottom: 1.5rem;
+}
+
+.form-check {
+  white-space: normal;
+}
+
+.empty-state {
+  grid-column: 1/-1;
+  padding: 4.5rem 1.5rem;
+  border: 1px dashed #b6baad;
+  border-radius: var(--radius);
+  text-align: center;
+  color: var(--muted);
+}
+
+.product-detail-image {
+  overflow: hidden;
+  aspect-ratio: 1/1;
+  border-radius: 1.5rem;
+  background: #e7e9e0;
+}
+
+.product-detail-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.seller-pill {
+  display: inline-block;
+  padding: .6rem .8rem;
+  border-radius: 999px;
+  background: #e9ecdf;
+}
+
+.price-display {
+  margin: 2rem 0 .7rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.3rem);
+  font-weight: 700;
+  letter-spacing: -.06em;
+}
+
+.quantity-input {
+  max-width: 90px;
+}
+
+.summary-card {
+  position: sticky;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  color: #fff;
+  background: var(--ink);
+}
+
+.summary-card span {
+  color: rgba(255, 255, 255, .55);
+}
+
+.summary-card hr {
+  border-color: rgba(255, 255, 255, .2);
+}
+
+.cart-image,
+.table-thumb {
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: .7rem;
+  object-fit: cover;
+  background: #e8eae1;
+}
+
+.table-thumb {
+  width: 52px;
+}
+
+.image-preview {
+  width: 180px;
+  aspect-ratio: 4/3;
+  border: 1px solid var(--line);
+  border-radius: .8rem;
+  object-fit: cover;
+  background: #e8eae1;
+}
+
+.reviews-grid,
+.review-admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 1rem;
+}
+
+.review-card {
+  padding: 1.3rem;
+}
+
+.review-head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: .7rem;
+}
+
+.review-head small,
+.review-card small {
+  display: block;
+  color: var(--muted);
+}
+
+.review-card p {
+  margin: 1rem 0 0;
+  color: #4d5148;
+}
+
+.stars {
+  margin-top: .7rem;
+  color: #587700;
+  letter-spacing: .1em;
+}
+
+.rating-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+.rating-options input {
+  position: absolute;
+  opacity: 0;
+}
+
+.rating-options span {
+  display: block;
+  padding: .65rem .8rem;
+  border: 1px solid var(--control-border);
+  border-radius: .65rem;
+  cursor: pointer;
+}
+
+.rating-options input:checked+span {
+  border-color: var(--ink);
+  color: var(--ink);
+  background: var(--lime);
+}
+
+.notification-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.3rem;
+}
+
+.notification-card.is-unread {
+  border-left: 5px solid var(--lime);
+}
+
+.notification-card.is-read {
+  opacity: 1;
+  background: var(--paper);
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.metric-card {
+  min-height: 165px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.3rem;
+}
+
+.metric-card span,
+.metric-card small {
+  color: var(--muted);
+}
+
+.metric-card strong {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.1rem;
+  letter-spacing: -.06em;
+}
+
+.metric-card.accent {
+  background: var(--lime);
+  border-color: var(--lime);
+}
+
+.metric-card.accent span,
+.metric-card.accent small {
+  color: #3b480f;
+}
+
+.admin-shortcuts {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  margin-top: 1rem;
+  overflow: visible;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+}
+
+.admin-shortcuts a {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border-right: 1px solid var(--line);
+  background: #fff;
+  font-weight: 700;
+}
+
+.admin-shortcuts a:last-child {
+  border: 0;
+}
+
+.table-shell {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+}
+
+.table-shell table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-shell th {
+  padding: .85rem 1rem;
+  color: var(--muted);
+  background: #eceee6;
+  font-size: .73rem;
+  letter-spacing: .09em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.table-shell td {
+  padding: 1rem;
+  border-top: 1px solid var(--line);
+  vertical-align: middle;
+}
+
+.table-shell td small,
+.table-shell td strong {
+  display: block;
+}
+
+.table-shell td small {
+  margin-top: .2rem;
+  color: var(--muted);
+}
+
+.empty-cell {
+  padding: 3rem !important;
+  text-align: center;
+  color: var(--muted);
+}
+
+.status,
+.status-pill {
+  display: inline-block;
+  padding: .35rem .58rem;
+  border-radius: 999px;
+  background: #e8eae2;
+  font-size: .72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.status-ativo,
+.status-aprovada,
+.status-entregue {
+  color: #075b31;
+  background: #d8f7e6;
+}
+
+.status-bloqueado,
+.status-ocultada,
+.status-cancelado {
+  color: #922b21;
+  background: #fbe0dc;
+}
+
+.status-pendente,
+.status-em_preparacao {
+  color: #806100;
+  background: #fff2be;
+}
+
+.status-enviado,
+.status-confirmado {
+  color: #174f91;
+  background: #dbeaff;
+}
+
+.split-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.panel {
+  padding: 1.5rem;
+}
+
+.panel.grow {
+  flex: 1;
+}
+
+.form-stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.form-stack label {
+  display: grid;
+  gap: .4rem;
+  font-weight: 600;
+}
+
+.category-admin-list {
+  display: grid;
+  gap: .75rem;
+}
+
+.category-admin-item {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: .7rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: .8rem;
+}
+
+.category-admin-item>div {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: .5rem;
+}
+
+.switch-line {
+  white-space: normal;
+}
+
+.timeline {
+  position: relative;
+  margin: 1.5rem 0 0 .4rem;
+  padding-left: 1.5rem;
+  border-left: 2px solid var(--line);
+}
+
+.timeline>div {
+  position: relative;
+  margin-bottom: 1.4rem;
+}
+
+.timeline>div::before {
+  position: absolute;
+  width: .72rem;
+  height: .72rem;
+  content: '';
+  left: -1.92rem;
+  top: .25rem;
+  border-radius: 50%;
+  background: var(--lime);
+  box-shadow: 0 0 0 4px #fff;
+}
+
+.timeline span {
+  display: block;
+  color: var(--muted);
+  font-size: .8rem;
+}
+
+.pagination .page-link {
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.pagination .active .page-link {
+  color: var(--ink);
+  background: var(--lime);
+  border-color: var(--lime);
+}
+
+.auth-shell {
+  max-width: 520px;
+  margin: 2rem auto;
+}
+
+.auth-card {
+  padding: clamp(1.5rem, 5vw, 3rem);
+  border: 1px solid var(--line);
+  border-radius: 1.4rem;
+  background: #fff;
+}
+
+.store-hero,
+.seller-hero {
+  padding: clamp(2rem, 6vw, 5rem);
+  border-radius: 1.5rem;
+  color: #fff;
+  background: var(--ink);
+}
+
+.seller-hero p {
+  max-width: 680px;
+  margin: 1rem 0;
+  color: rgba(255, 255, 255, .65);
+  font-size: 1.08rem;
+}
+
+.seller-hero .eyebrow {
+  color: var(--lime);
+}
+
+.choice-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: .7rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: .8rem;
+  cursor: pointer;
+}
+
+.choice-card input {
+  grid-row: 1/3;
+}
+
+.choice-card span {
+  color: var(--muted);
+}
+
+@media (max-width: 1399px) {
+  .navbar-collapse {
+    padding: 1rem 0;
+  }
+
+  .filter-panel {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .metric-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .admin-shortcuts {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  main {
+    padding-top: 2rem !important;
+  }
+
+  .hero {
+    min-height: 480px;
+    padding: 2rem;
+  }
+
+  .hero::before {
+    width: 220px;
+    height: 220px;
+    right: -100px;
+  }
+
+  .hero .eyebrow {
+    max-width: 100%;
+    font-size: .64rem;
+    letter-spacing: .08em;
+  }
+
+  .hero-stat {
+    gap: 1rem;
+  }
+
+  .section-heading,
+  .section-title,
+  .page-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .filter-panel,
+  .filter-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .metric-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-shortcuts {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-shortcuts a {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .split-layout {
+    flex-direction: column;
+  }
+
+  .panel {
+    width: 100%;
+  }
+
+  .category-admin-item,
+  .category-admin-item>div {
+    grid-template-columns: 1fr;
+  }
+
+  .notification-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+/* ==========================================================================
+   ACESSIBILIDADE: ALTO CONTRASTE
+   ========================================================================== */
+
+/*
+   Mapeamento de cores:
+
+   Preto       -> Branco
+   Branco      -> Preto
+   Cinza       -> Cinza claro
+   Verde       -> Amarelo
+   Verde-lima  -> Amarelo
+*/
+
+
+/* ==========================================================================
+   1. VARIÁVEIS
+   ========================================================================== */
+
+html.alto-contraste {
+  --ink: #ffffff;
+  --muted: #d0d0d0;
+  --paper: #000000;
+  --surface: #000000;
+  --line: #ffffff;
+  --control-border: #ffffff;
+  --lime: #ffff00;
+  --green: #ffff00;
+}
+
+
+/* ==========================================================================
+   2. BASE
+   ========================================================================== */
+
+html.alto-contraste body {
+  color: #ffffff !important;
+  background: #000000 !important;
+}
+
+html.alto-contraste a {
+  color: #ffffff !important;
+}
+
+html.alto-contraste a:hover,
+html.alto-contraste a:focus {
+  color: #ffff00 !important;
+}
+
+html.alto-contraste ::selection {
+  color: #000000 !important;
+  background: #ffff00 !important;
+}
+
+
+/* ==========================================================================
+   3. CABEÇALHO / NAVBAR
+   ========================================================================== */
+
+html.alto-contraste .site-header {
+  background: #000000 !important;
+  border-bottom: 2px solid #ffffff !important;
+  backdrop-filter: none;
+}
+
+html.alto-contraste .navbar-brand,
+html.alto-contraste .nav-link {
+  color: #ffffff !important;
+}
+
+html.alto-contraste .nav-link:hover,
+html.alto-contraste .nav-link:focus {
+  color: #ffff00 !important;
+}
+
+html.alto-contraste .brand-mark {
+  color: #000000 !important;
+  background: #ffff00 !important;
+}
+
+html.alto-contraste .navbar-toggler {
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .navbar-toggler-icon {
+  filter: brightness(0) invert(1);
+}
+
+
+/* ==========================================================================
+   4. TEXTOS DO BOOTSTRAP
+   ========================================================================== */
+
+/* Cinza -> cinza claro */
+
+html.alto-contraste .text-secondary,
+html.alto-contraste .text-muted,
+html.alto-contraste .text-white-50,
+html.alto-contraste .form-text {
+  color: #d0d0d0 !important;
+  opacity: 1 !important;
+}
+
+
+/* Branco -> preto
+   ATENÇÃO:
+   Essa regra vale para elementos que originalmente estão em fundo branco.
+   Elementos com fundo preto são tratados nas regras específicas abaixo.
+*/
+
+html.alto-contraste .text-dark {
+  color: #ffffff !important;
+}
+
+html.alto-contraste .text-light {
+  color: #ffffff !important;
+}
+
+html.alto-contraste .text-white {
+  color: #ffffff !important;
+}
+
+
+/* Verde -> amarelo */
+
+html.alto-contraste .text-success,
+html.alto-contraste .text-warning {
+  color: #ffff00 !important;
+}
+
+
+/* Outras cores */
+
+html.alto-contraste .text-danger {
+  color: #ff6666 !important;
+}
+
+html.alto-contraste .text-info {
+  color: #00ffff !important;
+}
+
+
+/* ==========================================================================
+   5. EYEBROW
+   ========================================================================== */
+
+html.alto-contraste .eyebrow,
+html.alto-contraste .hero .eyebrow,
+html.alto-contraste .seller-hero .eyebrow {
+  color: #ffff00 !important;
+}
+
+
+/* ==========================================================================
+   6. HERO
+   ========================================================================== */
+
+html.alto-contraste .hero,
+html.alto-contraste .store-hero,
+html.alto-contraste .seller-hero {
+  color: #ffffff !important;
+  background: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+html.alto-contraste .hero p,
+html.alto-contraste .seller-hero p {
+  color: #d0d0d0 !important;
+}
+
+html.alto-contraste .hero::before {
+  background: #ffff00 !important;
+}
+
+html.alto-contraste .hero::after {
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .hero-stat span {
+  color: #d0d0d0 !important;
+}
+
+
+/* ==========================================================================
+   7. PESQUISA DO HERO
+   ========================================================================== */
+
+html.alto-contraste .hero-search {
+  background: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+html.alto-contraste .hero-search input {
+  color: #ffffff !important;
+  background: #000000 !important;
+}
+
+html.alto-contraste .hero-search input::placeholder {
+  color: #d0d0d0 !important;
+  opacity: 1;
+}
+
+
+/* ==========================================================================
+   8. CARDS — REGRA GERAL
+   ========================================================================== */
+
+html.alto-contraste .surface,
+html.alto-contraste .panel,
+html.alto-contraste .summary-card,
+html.alto-contraste .metric-card,
+html.alto-contraste .review-card,
+html.alto-contraste .notification-card,
+html.alto-contraste .acessibilidade-card,
+html.alto-contraste .card,
+html.alto-contraste .product-card,
+html.alto-contraste .category-tile,
+html.alto-contraste .category-link,
+html.alto-contraste .auth-card {
+  color: #ffffff !important;
+  background: #000000 !important;
+  border: 2px solid #ffffff !important;
+  box-shadow: none !important;
+}
+
+
+/* ==========================================================================
+   9. CARD DE PRODUTO
+   ========================================================================== */
+
+html.alto-contraste .product-card-body small,
+html.alto-contraste .product-card-body p,
+html.alto-contraste .product-card-body span {
+  color: #d0d0d0 !important;
+}
+
+html.alto-contraste .product-card:hover {
+  background: #000000 !important;
+  border-color: #ffff00 !important;
+}
+
+html.alto-contraste .product-card-image,
+html.alto-contraste .product-image,
+html.alto-contraste .product-detail-image,
+html.alto-contraste .cart-image,
+html.alto-contraste .table-thumb,
+html.alto-contraste .image-preview {
+  background: #222222 !important;
+}
+
+
+/* ==========================================================================
+   10. CATEGORIAS
+   ========================================================================== */
+
+html.alto-contraste .category-tile span {
+  color: #d0d0d0 !important;
+}
+
+html.alto-contraste .category-tile:hover {
+  color: #000000 !important;
+  background: #ffff00 !important;
+  border-color: #ffff00 !important;
+}
+
+html.alto-contraste .category-tile:hover span,
+html.alto-contraste .category-tile:hover strong {
+  color: #000000 !important;
+}
+
+html.alto-contraste .category-link:hover {
+  color: #000000 !important;
+  background: #ffff00 !important;
+  border-color: #ffff00 !important;
+}
+
+
+/* ==========================================================================
+   11. BOTÕES
+   ========================================================================== */
+
+html.alto-contraste .btn {
+  border-width: 2px !important;
+}
+
+
+/* Verde -> amarelo */
+
+html.alto-contraste .btn-success {
+  color: #000000 !important;
+  background: #ffff00 !important;
+  border-color: #ffff00 !important;
+}
+
+html.alto-contraste .btn-success:hover,
+html.alto-contraste .btn-success:focus {
+  color: #000000 !important;
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+
+/* Preto -> branco */
+
+html.alto-contraste .btn-dark,
+html.alto-contraste .btn-secondary {
+  color: #000000 !important;
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .btn-dark:hover,
+html.alto-contraste .btn-secondary:hover,
+html.alto-contraste .btn-dark:focus,
+html.alto-contraste .btn-secondary:focus {
+  color: #000000 !important;
+  background: #ffff00 !important;
+  border-color: #ffff00 !important;
+}
+
+
+/* ==========================================================================
+   12. BOTÕES OUTLINE
+   ========================================================================== */
+
+html.alto-contraste .btn-outline-dark {
+  color: #ffffff !important;
+  background: #000000 !important;
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .btn-outline-dark:hover,
+html.alto-contraste .btn-outline-dark:focus {
+  color: #000000 !important;
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .btn-outline-light {
+  color: #ffffff !important;
+  background: #000000 !important;
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .btn-outline-light:hover,
+html.alto-contraste .btn-outline-light:focus {
+  color: #000000 !important;
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+
+/* Cinza -> cinza claro */
+
+html.alto-contraste .btn-outline-secondary {
+  color: #ffffff !important;
+  background: #000000 !important;
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .btn-outline-secondary:hover,
+html.alto-contraste .btn-outline-secondary:focus {
+  color: #000000 !important;
+  background: #d0d0d0 !important;
+  border-color: #d0d0d0 !important;
+}
+
+
+/* Vermelho */
+
+html.alto-contraste .btn-outline-danger {
+  color: #ff6666 !important;
+  background: #000000 !important;
+  border-color: #ff6666 !important;
+}
+
+html.alto-contraste .btn-outline-danger:hover,
+html.alto-contraste .btn-outline-danger:focus {
+  color: #000000 !important;
+  background: #ff6666 !important;
+  border-color: #ff6666 !important;
+}
+
+
+/* Link */
+
+html.alto-contraste .btn-link {
+  color: #ffff00 !important;
+}
+
+
+/* ==========================================================================
+   13. FORMULÁRIOS
+   ========================================================================== */
+
+html.alto-contraste .form-control,
+html.alto-contraste .form-select {
+  color: #ffffff !important;
+  background-color: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+html.alto-contraste .form-control:focus,
+html.alto-contraste .form-select:focus {
+  color: #ffffff !important;
+  background-color: #000000 !important;
+  border-color: #ffff00 !important;
+  box-shadow: 0 0 0 .22rem rgba(255, 255, 0, .35) !important;
+}
+
+html.alto-contraste .form-control::placeholder {
+  color: #d0d0d0 !important;
+  opacity: 1;
+}
+
+html.alto-contraste label {
+  color: #ffffff !important;
+}
+
+
+/* ==========================================================================
+   14. CHECKBOX / SWITCH
+   ========================================================================== */
+
+html.alto-contraste .form-check-input {
+  background-color: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+html.alto-contraste .form-check-input:checked {
+  background-color: #ffff00 !important;
+  border-color: #ffff00 !important;
+}
+
+html.alto-contraste .form-check-input:focus {
+  border-color: #ffff00 !important;
+  box-shadow: 0 0 0 .2rem rgba(255, 255, 0, .35) !important;
+}
+
+html.alto-contraste .form-switch .form-check-input {
+  background-color: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+html.alto-contraste .form-switch .form-check-input:checked {
+  background-color: #ffff00 !important;
+  border-color: #ffff00 !important;
+}
+
+
+/* ==========================================================================
+   15. PAINEL DE FILTROS
+   ========================================================================== */
+
+html.alto-contraste .filter-panel {
+  background: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+html.alto-contraste .filter-panel .form-control,
+html.alto-contraste .filter-panel .form-select {
+  color: #ffffff !important;
+  background-color: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+html.alto-contraste .filter-panel .form-control::placeholder {
+  color: #d0d0d0 !important;
+}
+
+html.alto-contraste .filter-panel .form-check {
+  color: #ffffff !important;
+}
+
+
+/* ==========================================================================
+   16. CHOICE CARD
+   ========================================================================== */
+
+html.alto-contraste .choice-card {
+  color: #ffffff !important;
+  background: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+html.alto-contraste .choice-card:hover {
+  border-color: #ffff00 !important;
+}
+
+html.alto-contraste .choice-card span {
+  color: #d0d0d0 !important;
+}
+
+
+/* ==========================================================================
+   17. BADGES
+   ========================================================================== */
+
+/* Verde -> amarelo */
+
+html.alto-contraste .badge.text-bg-success {
+  color: #000000 !important;
+  background: #ffff00 !important;
+  border: 1px solid #ffff00 !important;
+}
+
+
+/* Preto -> branco */
+
+html.alto-contraste .badge.text-bg-dark {
+  color: #000000 !important;
+  background: #ffffff !important;
+  border: 1px solid #ffffff !important;
+}
+
+
+/* ==========================================================================
+   18. ALERTAS
+   ========================================================================== */
+
+html.alto-contraste .alert {
+  color: #ffffff !important;
+  background: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+html.alto-contraste .alert-danger {
+  color: #ff6666 !important;
+  background: #000000 !important;
+  border-color: #ff6666 !important;
+}
+
+html.alto-contraste .alert-success {
+  color: #ffff00 !important;
+  background: #000000 !important;
+  border-color: #ffff00 !important;
+}
+
+html.alto-contraste .alert-warning {
+  color: #ffff00 !important;
+  background: #000000 !important;
+  border-color: #ffff00 !important;
+}
+
+html.alto-contraste .alert-info {
+  color: #00ffff !important;
+  background: #000000 !important;
+  border-color: #00ffff !important;
+}
+
+html.alto-contraste .btn-close {
+  filter: invert(1);
+  opacity: 1 !important;
+}
+
+
+/* ==========================================================================
+   19. TABELAS
+   ========================================================================== */
+
+html.alto-contraste .table-shell {
+  background: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+html.alto-contraste .table-shell table {
+  color: #ffffff !important;
+}
+
+html.alto-contraste .table-shell th {
+  color: #000000 !important;
+  background: #ffff00 !important;
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .table-shell td {
+  color: #ffffff !important;
+  background: #000000 !important;
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .table-shell td small {
+  color: #d0d0d0 !important;
+}
+
+
+/* Tabelas Bootstrap */
+
+html.alto-contraste .table {
+  --bs-table-bg: #000000 !important;
+  --bs-table-color: #ffffff !important;
+  --bs-table-border-color: #ffffff !important;
+
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .table > :not(caption) > * > * {
+  color: #ffffff !important;
+  background-color: #000000 !important;
+  border-color: #ffffff !important;
+}
+
+
+/* ==========================================================================
+   20. STATUS
+   ========================================================================== */
+
+html.alto-contraste .status,
+html.alto-contraste .status-pill {
+  color: #000000 !important;
+  background: #ffff00 !important;
+  border: 2px solid #ffff00 !important;
+}
+
+
+/* Verde -> amarelo */
+
+html.alto-contraste .status-ativo,
+html.alto-contraste .status-aprovada,
+html.alto-contraste .status-entregue {
+  color: #000000 !important;
+  background: #ffff00 !important;
+  border-color: #ffff00 !important;
+}
+
+
+/* Vermelho */
+
+html.alto-contraste .status-bloqueado,
+html.alto-contraste .status-ocultada,
+html.alto-contraste .status-cancelado {
+  color: #000000 !important;
+  background: #ff6666 !important;
+  border-color: #ff6666 !important;
+}
+
+
+/* Amarelo */
+
+html.alto-contraste .status-pendente,
+html.alto-contraste .status-em_preparacao {
+  color: #000000 !important;
+  background: #ffff00 !important;
+  border-color: #ffff00 !important;
+}
+
+
+/* Azul -> ciano */
+
+html.alto-contraste .status-enviado,
+html.alto-contraste .status-confirmado {
+  color: #000000 !important;
+  background: #00ffff !important;
+  border-color: #00ffff !important;
+}
+
+
+/* ==========================================================================
+   21. PAGINAÇÃO
+   ========================================================================== */
+
+html.alto-contraste .pagination .page-link {
+  color: #ffffff !important;
+  background: #000000 !important;
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .pagination .page-link:hover,
+html.alto-contraste .pagination .page-link:focus {
+  color: #000000 !important;
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .pagination .active .page-link {
+  color: #000000 !important;
+  background: #ffff00 !important;
+  border-color: #ffff00 !important;
+}
+
+
+/* ==========================================================================
+   22. EMPTY STATE
+   ========================================================================== */
+
+html.alto-contraste .empty-state,
+html.alto-contraste .empty-cell {
+  color: #d0d0d0 !important;
+}
+
+html.alto-contraste .empty-state {
+  border-color: #ffffff !important;
+}
+
+
+/* ==========================================================================
+   23. SELLER / SUMMARY
+   ========================================================================== */
+
+html.alto-contraste .summary-card {
+  color: #ffffff !important;
+  background: #000000 !important;
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .summary-card span {
+  color: #d0d0d0 !important;
+}
+
+html.alto-contraste .summary-card hr {
+  border-color: #ffffff !important;
+}
+
+
+/* ==========================================================================
+   24. SELLER PILL
+   ========================================================================== */
+
+html.alto-contraste .seller-pill {
+  color: #000000 !important;
+  background: #d0d0d0 !important;
+  border: 1px solid #ffffff !important;
+}
+
+
+/* ==========================================================================
+   25. TIMELINE
+   ========================================================================== */
+
+html.alto-contraste .timeline {
+  border-left-color: #ffffff !important;
+}
+
+html.alto-contraste .timeline > div::before {
+  background: #ffff00 !important;
+  box-shadow: 0 0 0 4px #000000 !important;
+}
+
+html.alto-contraste .timeline span {
+  color: #d0d0d0 !important;
+}
+
+
+/* ==========================================================================
+   26. NOTIFICAÇÕES
+   ========================================================================== */
+
+html.alto-contraste .notification-card.is-unread {
+  border-left-color: #ffff00 !important;
+}
+
+html.alto-contraste .notification-card.is-read {
+  opacity: 1 !important;
+}
+
+
+/* ==========================================================================
+   27. MÉTRICAS
+   ========================================================================== */
+
+html.alto-contraste .metric-card.accent {
+  color: #000000 !important;
+  background: #ffff00 !important;
+  border-color: #ffff00 !important;
+}
+
+html.alto-contraste .metric-card.accent span,
+html.alto-contraste .metric-card.accent small {
+  color: #000000 !important;
+}
+
+
+/* ==========================================================================
+   28. ADMIN SHORTCUTS
+   ========================================================================== */
+
+html.alto-contraste .admin-shortcuts {
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .admin-shortcuts a {
+  color: #ffffff !important;
+  background: #000000 !important;
+  border-color: #ffffff !important;
+}
+
+html.alto-contraste .admin-shortcuts a:hover {
+  color: #000000 !important;
+  background: #ffff00 !important;
+}
+
+
+/* ==========================================================================
+   29. ACESSIBILIDADE
+   ========================================================================== */
+
+html.alto-contraste .acessibilidade-card {
+  color: #ffffff !important;
+  background: #000000 !important;
+  border: 2px solid #ffffff !important;
+  box-shadow: none !important;
+}
+
+html.alto-contraste .acessibilidade-card p,
+html.alto-contraste .acessibilidade-card small {
+  color: #d0d0d0 !important;
+}
+
+
+/* ==========================================================================
+   30. CARD BG-DARK
+   ==========================================================================
+   
+   EXCEÇÃO:
+   O .card normal fica preto no alto contraste.
+   Mas um card que originalmente usa bg-dark representa preto,
+   portanto preto -> branco.
+   
+   Esta regra fica DEPOIS da regra geral de .card.
+*/
+
+html.alto-contraste .card.bg-dark {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+  box-shadow: none !important;
+}
+
+html.alto-contraste .card.bg-dark .text-white {
+  color: #000000 !important;
+}
+
+html.alto-contraste .card.bg-dark .text-white-50 {
+  color: #333333 !important;
+  opacity: 1 !important;
+}
+
+
+/* ==========================================================================
+   31. ELEMENTOS COM FUNDO ESCURO DO BOOTSTRAP
+   ========================================================================== */
+
+html.alto-contraste .bg-dark,
+html.alto-contraste .text-bg-dark {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+}
+
+html.alto-contraste .bg-dark a,
+html.alto-contraste .text-bg-dark a {
+  color: #000000 !important;
+}
+
+
+/* ==========================================================================
+   32. ELEMENTOS VERDES DO BOOTSTRAP
+   ========================================================================== */
+
+html.alto-contraste .bg-success,
+html.alto-contraste .text-bg-success {
+  color: #000000 !important;
+  background-color: #ffff00 !important;
+}
+
+
+/* ==========================================================================
+   33. BORDA / LINHAS
+   ========================================================================== */
+
+html.alto-contraste .border,
+html.alto-contraste .border-top,
+html.alto-contraste .border-bottom,
+html.alto-contraste .border-start,
+html.alto-contraste .border-end {
+  border-color: #ffffff !important;
+}
+
+
+/* ==========================================================================
+   34. RODAPÉ
+   ========================================================================== */
+
+html.alto-contraste .site-footer {
+  color: #ffffff !important;
+  background: #000000 !important;
+  border-top: 2px solid #ffffff !important;
+}
+
+html.alto-contraste .site-footer a {
+  color: #ffffff !important;
+}
+
+html.alto-contraste .site-footer a:hover {
+  color: #ffff00 !important;
+}
+
+
+/* ==========================================================================
+   35. FOCO
+   ========================================================================== */
+
+html.alto-contraste *:focus-visible {
+  outline: 3px solid #ffff00 !important;
+  outline-offset: 3px !important;
+}
+/* Página /acessibilidades */
+.acessibilidade-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 1.75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: 0 10px 35px rgba(22, 28, 17, .045);
+}
+
+.acessibilidade-card + .acessibilidade-card {
+  margin-top: 1.25rem;
+}
+
+.acessibilidade-controle-fonte {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .75rem;
+}
+
+.acessibilidade-controle-fonte .btn {
+  min-height: 44px;
+  height: auto;
+  padding: .55rem .7rem;
+  font-size: 1.1rem;
+  line-height: 1.2;
+}
+
+.acessibilidade-controle-fonte #acessibilidadeDiminuir,
+.acessibilidade-controle-fonte #acessibilidadeAumentar {
+  width: auto;
+  min-width: 44px;
+}
+.acessibilidade-controle-fonte #acessibilidadeRestaurar {
+  width: auto;
+  min-width: 90px;
+  padding: 0 1rem;
+}
+#acessibilidadeEscalaValor {
+  min-width: 56px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.acessibilidade-card--cores {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.acessibilidade-controle-cores {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.acessibilidade-controle-cores label {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+  font-weight: 600;
+  font-size: .9rem;
+}
+
+.acessibilidade-controle-cores input[type="color"] {
+  width: 56px;
+  height: 44px;
+  padding: .2rem;
+  border: 1px solid var(--control-border);
+  border-radius: .6rem;
+  background: var(--surface);
+}
+
+#atualizarNotificacoesManual {
+  min-height: 38px;
+}
+
+/* ==========================================================================
+   36. WCAG 1.4.8 - APRESENTACAO VISUAL (blocos de texto corrido)
+   ========================================================================== */
+
+body {
+  /* Espacamento de linha >= 1.5 e entre paragrafos >= 1.5x a altura da linha. */
+  line-height: 1.5;
+}
+
+p,
+li,
+dd,
+blockquote,
+.texto-corrido {
+  /* Largura maxima de aprox. 80 caracteres/glyphs por linha. */
+  max-width: 80ch;
+  line-height: 1.5;
+}
+
+p + p,
+.texto-corrido p + p {
+  margin-top: 1.5em;
+}
+
+/*
+  Nenhum bloco de texto deste site usa alinhamento justificado dos dois lados;
+  esta regra documenta e garante a exigencia do 1.4.8 mesmo se algo novo
+  tentar usar esse alinhamento no futuro.
+*/
+p,
+li,
+blockquote,
+.texto-corrido {
+  text-align: left;
+}
+
+html.cores-personalizadas body {
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.form-switch .form-check-input {
+  width: 3em;
+  height: 1.6em;
+}
+
+/* Recursos estruturais para navegação por teclado e tecnologias assistivas. */
+.skip-link {
+  position: fixed;
+  z-index: 2000;
+  top: .75rem;
+  left: .75rem;
+  padding: .75rem 1rem;
+  color: #fff;
+  background: #10120e;
+  border: 2px solid #fff;
+  border-radius: .5rem;
+  transform: translateY(-180%);
+}
+
+.skip-link:focus {
+  color: #fff;
+  transform: translateY(0);
+}
+
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid #fff !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 6px #10120e !important;
+}
+
+[aria-current="page"] {
+  text-decoration: underline;
+  text-decoration-thickness: .16em;
+  text-underline-offset: .28em;
+}
+
+p a:not(.btn),
+.section-heading > a:not(.btn),
+.section-title > a:not(.btn),
+main a.small:not(.btn) {
+  text-decoration: underline;
+  text-decoration-thickness: .11em;
+  text-underline-offset: .18em;
+}
+
+.field-error {
+  display: block;
+  margin-top: .35rem;
+  color: #a32118;
+  font-size: .875em;
+  font-weight: 700;
+}
+
+[aria-invalid="true"] {
+  border-color: #a32118 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+html.alto-contraste .field-error {
+  color: #ff8a8a !important;
+}
+
+/* Ajustes WCAG 2.2 AA: controles, ampliação e navegação complementar. */
+.password-field {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+.password-field .form-control {
+  flex: 1 1 14rem;
+}
+
+.password-field .btn {
+  flex: 0 1 auto;
+}
+
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .65rem 1rem;
+}
+
+.footer-nav a {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-thickness: .11em;
+  text-underline-offset: .2em;
+}
+
+.site-map-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: 1rem;
+}
+
+.site-map-list {
+  display: grid;
+  gap: .65rem;
+  margin: 1rem 0 0;
+  padding-left: 1.25rem;
+}
+
+.site-map-list a {
+  text-decoration: underline;
+  text-decoration-thickness: .11em;
+  text-underline-offset: .18em;
+}
+
+@media (max-width: 767px) {
+  .password-field .btn {
+    flex-basis: 100%;
+  }
+}
+
+html.alto-contraste .footer-nav a,
+html.alto-contraste .site-map-list a {
+  color: #fff !important;
+}

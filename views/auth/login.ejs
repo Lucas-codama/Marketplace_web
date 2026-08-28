@@ -1,0 +1,67 @@
+<section class="row justify-content-center">
+  <div class="col-lg-5 col-xl-4">
+    <div class="mb-4">
+      <p class="text-uppercase fw-bold text-success mb-2">
+        NXT PLAY
+      </p>
+      <h1 class="display-5 fw-bold">Entrar</h1>
+      <p class="text-secondary">Acesse sua conta para continuar.</p>
+    </div>
+
+    <% if (erros && erros.length > 0) { %>
+      <div id="errosLogin" class="alert alert-danger" role="alert" aria-atomic="true">
+        <strong>Não foi possível entrar:</strong>
+        <ul class="mb-0">
+          <% erros.forEach((erro) => { %>
+            <li><%= erro %></li>
+          <% }) %>
+        </ul>
+      </div>
+    <% } %>
+
+    <form action="/login" method="post" class="card border-0 shadow-sm"<%- erros?.length ? ' aria-describedby="errosLogin"' : '' %>>
+      <div class="card-body p-4">
+        <div class="mb-3">
+          <label for="identificador" class="form-label">
+            Nome de usuário ou e-mail
+          </label>
+
+          <input
+            type="text"
+            id="identificador"
+            name="identificador"
+            class="form-control"
+            value="<%= valores.identificador || '' %>"
+            autocomplete="username"
+            required
+          >
+        </div>
+
+        <div class="mb-4">
+          <label for="password" class="form-label">
+            Senha
+          </label>
+
+          <div class="password-field">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              autocomplete="current-password"
+              required
+            >
+            <button type="button" class="btn btn-outline-dark" data-password-toggle aria-controls="password" aria-pressed="false">Mostrar senha</button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-dark w-100">Entrar</button>
+      </div>
+    </form>
+
+    <p class="text-center mt-4">
+      Ainda não possui conta?
+      <a href="/cadastro">Cadastre-se</a>
+    </p>
+  </div>
+</section>

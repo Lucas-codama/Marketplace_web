@@ -1,0 +1,29 @@
+<section>
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">Reputação</span>
+      <h1>Avaliações recebidas</h1>
+      <p class="text-secondary">Média aprovada: <strong><%= media.toFixed(1) %> de 5</strong>
+      </p>
+    </div>
+  </div>
+  <div class="reviews-grid">
+    <% avaliacoes.forEach((avaliacao) => { %>
+      <article class="review-card">
+        <div class="review-head">
+          <div>
+            <strong><%= avaliacao.produto.nome %></strong>
+            <small><%= avaliacao.cliente.nomeCompleto %> · @<%= avaliacao.cliente.username %></small>
+          </div>
+          <span class="status status-<%= avaliacao.estado %>"><%= avaliacao.estado %></span>
+        </div>
+        <div class="stars" role="img" aria-label="<%= avaliacao.nota %> de 5 estrelas"><%= '★'.repeat(avaliacao.nota) %><%= '☆'.repeat(5 - avaliacao.nota) %></div>
+        <p><%= avaliacao.comentario %></p>
+        <small><%= new Date(avaliacao.createdAt).toLocaleDateString('pt-BR') %></small>
+      </article>
+    <% }) %>
+    <% if (!avaliacoes.length) { %>
+      <div class="empty-state">Sua loja ainda não recebeu avaliações.</div>
+    <% } %>
+  </div>
+</section>

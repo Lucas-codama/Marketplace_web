@@ -1,0 +1,116 @@
+<section>
+  <a href="/pedidos">← Voltar aos pedidos</a>
+
+  <div class="section-heading mt-3">
+    <div>
+      <span class="eyebrow">Pedido</span>
+      <h1><%= pedido.numero %></h1>
+      <p class="text-secondary"><%= new Date(pedido.createdAt).toLocaleString('pt-BR') %></p>
+    </div>
+
+    <span class="status status-<%= pedido.estado %> js-estado-pedido">
+      <%= pedido.estado.replaceAll('_', ' ') %>
+    </span>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="surface p-4 mb-4">
+        <h2 class="h4 mb-4">Produtos</h2>
+
+        <% pedido.itens.forEach((item) => { %>
+          <div class="d-flex justify-content-between gap-3 border-bottom py-3">
+            <div>
+              <strong><%= item.nomeProduto %></strong>
+
+              <span class="d-block small text-secondary">
+                <%= item.quantidade %> × <%= moeda(item.precoUnitario) %>
+                · vendido por @<%= item.vendedor.username %>
+              </span>
+
+              <span class="status status-<%= item.estado %> mt-2">
+                <%= item.estado.replaceAll('_', ' ') %>
+              </span>
+
+              <% if (item.estado === 'entregue' && item.produtoId) { %>
+                <a class="small d-block mt-2" href="/produtos/<%= item.produtoId %>/avaliar">
+                  Avaliar produto
+                </a>
+              <% } %>
+            </div>
+
+            <strong><%= moeda(item.subtotal) %></strong>
+          </div>
+        <% }) %>
+      </div>
+
+      <div class="surface p-4">
+        <h2 class="h4">Histórico</h2>
+
+        <div class="timeline">
+          <% pedido.historico.forEach((item) => { %>
+            <% const responsavel = item.usuarioResponsavel?.nomeCompleto || item.usuarioResponsavel?.username || 'Sistema'; %>
+
+            <div>
+              <span class="d-block small text-secondary">
+                Estado anterior:
+                <%= item.estadoAnterior ? item.estadoAnterior.replaceAll('_', ' ') : 'não se aplica' %>
+              </span>
+
+              <strong>
+                Novo estado: <%= item.novoEstado.replaceAll('_', ' ') %>
+              </strong>
+
+              <span class="d-block">
+                Responsável: <%= responsavel %>
+              </span>
+
+              <span class="d-block">
+                <%= new Date(item.createdAt).toLocaleString('pt-BR') %>
+              </span>
+
+              <% if (item.observacao) { %>
+                <p><%= item.observacao %></p>
+              <% } %>
+            </div>
+          <% }) %>
+
+          <% if (!pedido.historico.length) { %>
+            <div class="empty-state">
+              Nenhuma alteração registrada para este pedido.
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <aside class="summary-card">
+        <span>Total</span>
+        <strong class="fs-3"><%= moeda(pedido.valorTotal) %></strong>
+
+        <hr>
+
+        <span>Pagamento</span>
+        <strong class="text-uppercase"><%= pedido.formaPagamento %></strong>
+
+        <span class="mt-3">Entrega</span>
+        <strong class="text-capitalize"><%= pedido.formaEntrega %></strong>
+
+        <hr>
+
+        <span>Endereço</span>
+        <strong>
+          <%= pedido.enderecoEntrega.logradouro %>,
+          <%= pedido.enderecoEntrega.numero %>
+        </strong>
+
+        <small>
+          <%= pedido.enderecoEntrega.bairro %>
+          · <%= pedido.enderecoEntrega.cidade %>/<%= pedido.enderecoEntrega.uf %>
+          · CEP <%= pedido.enderecoEntrega.cep %>
+        </small>
+      </aside>
+    </div>
+  </div>
+</section>

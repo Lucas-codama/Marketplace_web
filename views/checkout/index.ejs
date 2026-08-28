@@ -1,0 +1,61 @@
+<section>
+  <div class="section-heading">
+    <div><span class="eyebrow">Última etapa</span>
+      <h1>Finalizar compra</h1>
+    </div>
+  </div>
+  <form action="/checkout" method="post">
+    <div class="row g-4">
+      <div class="col-lg-8">
+        <div class="surface p-4 mb-4">
+          <fieldset>
+          <legend class="h4">Endereço de entrega</legend>
+          <div class="d-grid gap-2 mt-3">
+            <% enderecos.forEach((endereco)=> { %><label class="choice-card"><input class="form-check-input"
+                  type="radio" name="enderecoId" value="<%= endereco.id %>" <%=endereco.principal ? 'checked' : '' %>
+                required> <strong>
+                  <%= endereco.apelido %>
+                </strong><span>
+                  <%= endereco.logradouro %>, <%= endereco.numero %> · <%= endereco.cidade %>/<%= endereco.uf %>
+                </span></label>
+              <% }) %>
+          </div>
+          <% if (!enderecos.length) { %><a class="btn btn-dark mt-3" href="/enderecos">Cadastrar endereço</a>
+            <% } %>
+          </fieldset>
+        </div>
+        <div class="surface p-4">
+          <h2 class="h4">Entrega e pagamento</h2>
+          <div class="row g-3">
+            <div class="col-md-6"><label class="form-label" for="formaEntrega">Entrega</label><select id="formaEntrega" class="form-select" name="formaEntrega">
+                <option value="padrao">Padrão</option>
+                <option value="expressa">Expressa</option>
+                <option value="retirada">Retirada</option>
+              </select></div>
+            <div class="col-md-6"><label class="form-label" for="formaPagamento">Pagamento de teste</label><select id="formaPagamento" class="form-select" name="formaPagamento">
+                <option value="pix">PIX</option>
+                <option value="cartao">Cartão</option>
+                <option value="boleto">Boleto</option>
+              </select></div>
+            <div class="col-12"><label class="form-label" for="observacaoCheckout">Observação</label><textarea id="observacaoCheckout" class="form-control" name="observacao" rows="3"></textarea></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <aside class="summary-card">
+          <h2 class="h4 text-white">Resumo</h2>
+          <% carrinho.itens.forEach((item)=> { %><div class="d-flex justify-content-between gap-2 my-3"><span>
+                <%= item.quantidade %>× <%= item.produto.nome %>
+              </span><strong>
+                <%= Number(item.subtotal).toLocaleString('pt-BR', { style: 'currency' , currency: 'BRL' }) %>
+              </strong></div>
+            <% }) %>
+              <hr><strong class="fs-3">
+                <%= Number(carrinho.valorTotal).toLocaleString('pt-BR', { style: 'currency' , currency: 'BRL' }) %>
+              </strong><button class="btn btn-success w-100 mt-4" <%=!enderecos.length ? 'disabled' : '' %>>Confirmar
+                pedido</button>
+        </aside>
+      </div>
+    </div>
+  </form>
+</section>

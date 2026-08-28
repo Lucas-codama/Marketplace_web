@@ -1,0 +1,42 @@
+<section class="page-head">
+  <div>
+    <span class="eyebrow">Gestão</span>
+    <h1>Vendedores</h1>
+    <p>Controle lojas, vendedores e seus acessos.</p>
+  </div>
+</section>
+<div class="table-shell" role="region" aria-label="Tabela de vendedores" tabindex="0">
+  <table>
+    <caption class="visually-hidden">Vendedores da loja virtual</caption>
+    <thead>
+      <tr>
+        <th scope="col">Loja</th>
+        <th scope="col">Responsável</th>
+        <th scope="col">Produtos</th>
+        <th scope="col">Status</th>
+        <th scope="col">Ação</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% vendedores.forEach((vendedor) => { %>
+        <tr>
+          <td>
+            <strong><%= vendedor.perfilVendedor?.nomeLoja || 'Perfil incompleto' %></strong>
+            <small><%= vendedor.perfilVendedor?.cidade || 'Cidade não informada' %><%= vendedor.perfilVendedor?.uf ? ` · ${vendedor.perfilVendedor.uf}` : '' %></small>
+          </td>
+          <td><%= vendedor.nomeCompleto %><small>@<%= vendedor.username %></small>
+          </td>
+          <td><%= vendedor.produtosVenda.length %></td>
+          <td>
+            <span class="status status-<%= vendedor.status %>"><%= vendedor.status %></span>
+          </td>
+          <td>
+            <button type="button" class="btn btn-sm btn-outline-dark js-status" data-url="/admin/api/vendedores/<%= vendedor.id %>/status" data-status="<%= vendedor.status === 'ativo' ? 'bloqueado' : 'ativo' %>"><%= vendedor.status === 'ativo' ? 'Bloquear' : 'Ativar' %> <span class="visually-hidden"><%= vendedor.nomeCompleto %></span></button>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<script src="/js/admin.js" defer>
+</script>
