@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR"<% if (usuario) { %> data-alto-contraste="<%= usuario.altoContraste ? '1' : '0' %>" data-escala-fonte="<%= usuario.escalaFonte %>"<% } %>>
+<html lang="pt-BR"<% if (usuario) { %> data-alto-contraste="<%= usuario.altoContraste ? '1' : '0' %>" data-escala-fonte="<%= usuario.escalaFonte %>" data-cor-texto="<%= usuario.corTexto || '' %>" data-cor-fundo="<%= usuario.corFundo || '' %>" data-notificacoes-pausadas="<%= usuario.notificacoesPausadas ? '1' : '0' %>"<% } %>>
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,20 +12,32 @@
           var usuarioLogado = html.hasAttribute('data-alto-contraste');
           var altoContraste = false;
           var escalaFonte = 1;
+          var corTexto = '';
+          var corFundo = '';
 
           if (usuarioLogado) {
             altoContraste = html.getAttribute('data-alto-contraste') === '1';
             escalaFonte = Number(html.getAttribute('data-escala-fonte')) || 1;
+            corTexto = html.getAttribute('data-cor-texto') || '';
+            corFundo = html.getAttribute('data-cor-fundo') || '';
           } else {
             var preferenciasSalvas = JSON.parse(localStorage.getItem('nxtplay:acessibilidade') || '{}');
             altoContraste = preferenciasSalvas.altoContraste === true;
             escalaFonte = Number(preferenciasSalvas.escalaFonte) || 1;
+            corTexto = preferenciasSalvas.corTexto || '';
+            corFundo = preferenciasSalvas.corFundo || '';
           }
 
           escalaFonte = Math.min(2, Math.max(.85, escalaFonte));
 
           if (altoContraste) html.classList.add('alto-contraste');
           html.style.setProperty('--fonte-escala', escalaFonte);
+
+          if (corTexto || corFundo) {
+            html.classList.add('cores-personalizadas');
+            if (corTexto) html.style.setProperty('--ink', corTexto);
+            if (corFundo) html.style.setProperty('--paper', corFundo);
+          }
         } catch (erro) {}
       })();
     </script>
@@ -68,6 +80,8 @@
               <% if (usuario) { %>
                 <a class="nav-link" href="/notificacoes"<%- caminhoAtual.startsWith('/notificacoes') ? ' aria-current="page"' : '' %>>Notificações <span id="contadorNotificacoes" class="badge text-bg-success d-none" aria-live="polite" aria-atomic="true">0</span>
                 </a>
+                <button type="button" id="atualizarNotificacoesManual" class="btn btn-sm btn-outline-dark d-none" aria-describedby="descricaoAtualizarManual">Atualizar notificações</button>
+                <span id="descricaoAtualizarManual" class="visually-hidden">Suas atualizações em tempo real estão pausadas nas preferências de acessibilidade. Use este botão para buscar novidades manualmente.</span>
                 <a class="nav-link" href="/perfil"<%- caminhoAtual.startsWith('/perfil') ? ' aria-current="page"' : '' %>>@<%= usuario.username %></a>
                 <form action="/logout" method="post">
                   <button class="btn btn-sm btn-outline-dark">Sair</button>

@@ -10,6 +10,7 @@
     "test": "node --test",
     "db:seed": "node scripts/seed.js",
     "db:reset": "node scripts/seed.js --reset",
+    "db:migrar-acessibilidade": "node scripts/migrarAcessibilidade.js",
     "admin:promote": "node scripts/promoverAdmin.js"
   },
   "dependencies": {
