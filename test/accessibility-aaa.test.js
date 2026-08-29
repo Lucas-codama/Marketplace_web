@@ -45,7 +45,12 @@ test('1.4.8 apresentação visual: mecanismo de cores, largura, espaçamento e s
 
   // Espaçamento de linha e entre parágrafos.
   assert.match(css, /line-height:\s*1\.5/);
-  assert.match(css, /margin-top:\s*1\.5em/);
+  assert.match(css, /margin-top:\s*2\.25em\s*!important/);
+
+  // A escolha precisa alcançar também cartões, tabelas, controles e texto secundário.
+  assert.match(css, /html\.cores-personalizadas\s*\{[^}]*--muted:\s*var\(--ink\)[^}]*--surface:\s*var\(--paper\)/s);
+  assert.match(css, /html\.cores-personalizadas\s+:where\([\s\S]*?article[\s\S]*?caption[\s\S]*?legend[\s\S]*?button[\s\S]*?textarea[\s\S]*?\)\s*\{[^}]*color:\s*var\(--ink\)\s*!important[^}]*background-color:\s*var\(--paper\)\s*!important/s);
+  assert.match(css, /html\.cores-personalizadas \.table\s*\{[^}]*--bs-table-color:\s*var\(--ink\)[^}]*--bs-table-bg:\s*var\(--paper\)/s);
 
   // Sem texto justificado em nenhum lugar do CSS.
   assert.doesNotMatch(css, /text-align:\s*justify/);
@@ -65,18 +70,52 @@ test('2.1.3 teclado sem exceção: interações custom usam elementos nativament
       `${arquivo} deve preferir elementos nativos (button/a) a divs com clique customizado`
     );
   }
+
+  const views = listar('views', '.ejs').map((arquivo) => ({ arquivo, conteudo: ler(arquivo) }));
+  for (const { arquivo, conteudo } of views) {
+    const regioes = conteudo.match(/<div\b[^>]*class="[^"]*\b(?:table-shell|table-responsive)\b[^"]*"[^>]*>/g) || [];
+    for (const regiao of regioes) {
+      assert.match(regiao, /role="region"/, `${arquivo}: região rolável sem semântica`);
+      assert.match(regiao, /aria-label="[^"]+"/, `${arquivo}: região rolável sem nome acessível`);
+      assert.match(regiao, /tabindex="0"/, `${arquivo}: região rolável inalcançável por teclado`);
+    }
+  }
+
+  const app = ler('public/js/app.js');
+  assert.match(app, /addEventListener\('keydown'/);
+  assert.match(app, /regiao\.scrollBy\(\{ left: 80 \}\)/);
+  assert.match(app, /regiao\.scrollTo\(\{ left: regiao\.scrollWidth \}\)/);
 });
 
-test('2.2.3 e 2.2.4: sessão tem prazo documentado e atualizações automáticas são pausáveis', () => {
+test('2.2.3 não impõe limite de tempo à sessão', async () => {
   const sessionConfig = ler('config/session.js');
+
+  assert.doesNotMatch(sessionConfig, /\bmaxAge\s*:/);
+  assert.doesNotMatch(sessionConfig, /\bexpires\s*:/);
+  assert.doesNotMatch(sessionConfig, /setTimeout|setInterval/);
+
+  const [{ default: express }, { default: request }, { default: sessionMiddleware }] = await Promise.all([
+    import('express'),
+    import('supertest'),
+    import('../config/session.js')
+  ]);
+  const app = express();
+  app.use(sessionMiddleware);
+  app.get('/iniciar-sessao', (req, res) => {
+    req.session.testeAcessibilidade = true;
+    res.sendStatus(204);
+  });
+
+  const resposta = await request(app).get('/iniciar-sessao');
+  const cookie = (resposta.headers['set-cookie'] || [])[0] || '';
+  assert.match(cookie, /^nxtplay\.sid=/);
+  assert.doesNotMatch(cookie, /(?:Expires|Max-Age)=/i);
+});
+
+test('2.2.4 permite pausar atualizações automáticas', () => {
   const view = ler('views/acessibilidade/index.ejs');
   const socket = ler('public/js/socket.js');
   const layout = ler('views/layout.ejs');
-
-  // 2.2.3 (nota): o expirar de sessão por segurança é uma exceção prática comum,
-  // mas não isenta formalmente o critério AAA — mantemos o teste como lembrete
-  // de que essa é uma decisão de produto, não um "aprovado" automático.
-  assert.match(sessionConfig, /maxAge/);
 
   // 2.2.4: usuário pode pausar/suprimir atualizações automáticas (exceto emergências).
   assert.match(view, /id="acessibilidadePausarNotificacoes"/);

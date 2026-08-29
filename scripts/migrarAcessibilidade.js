@@ -1,9 +1,8 @@
 import sequelize from '../config/database.js';
 
 /*
- * Migração pontual: adiciona as colunas novas usadas pelas
- * preferências de acessibilidade AAA (cores personalizadas e
- * pausa de notificações) sem apagar dados existentes.
+ * Migração pontual: adiciona todas as colunas usadas pelas
+ * preferências de acessibilidade sem apagar dados existentes.
  *
  * Uso: node scripts/migrarAcessibilidade.js
  * Pode ser executado quantas vezes quiser — colunas já existentes
@@ -11,6 +10,8 @@ import sequelize from '../config/database.js';
  */
 
 const colunasNovas = [
+  { nome: 'alto_contraste', definicao: 'BOOLEAN NOT NULL DEFAULT 0' },
+  { nome: 'escala_fonte', definicao: 'FLOAT NOT NULL DEFAULT 1' },
   { nome: 'cor_texto', definicao: 'VARCHAR(7)' },
   { nome: 'cor_fundo', definicao: 'VARCHAR(7)' },
   { nome: 'notificacoes_pausadas', definicao: 'BOOLEAN NOT NULL DEFAULT 0' }

@@ -2,8 +2,6 @@ import 'dotenv/config';
 
 import session from 'express-session';
 
-const oitoHoras = 1000 * 60 * 60 * 8;
-
 const sessionMiddleware = session({
   name: 'nxtplay.sid',
 
@@ -17,8 +15,7 @@ const sessionMiddleware = session({
   cookie: {
     httpOnly: true,
     sameSite: 'lax',
-    secure: false,
-    maxAge: oitoHoras
+    secure: false
   }
 });
 

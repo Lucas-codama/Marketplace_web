@@ -117,6 +117,28 @@
     });
   });
 
+  document.querySelectorAll('.table-shell[tabindex="0"], .table-responsive[tabindex="0"]').forEach((regiao) => {
+    regiao.addEventListener('keydown', (evento) => {
+      // Controles dentro da tabela preservam seu comportamento de teclado nativo.
+      if (evento.target !== regiao || regiao.scrollWidth <= regiao.clientWidth) return;
+
+      const pagina = Math.max(80, Math.round(regiao.clientWidth * 0.8));
+      const comandos = {
+        ArrowLeft: () => regiao.scrollBy({ left: -80 }),
+        ArrowRight: () => regiao.scrollBy({ left: 80 }),
+        PageUp: () => regiao.scrollBy({ left: -pagina }),
+        PageDown: () => regiao.scrollBy({ left: pagina }),
+        Home: () => regiao.scrollTo({ left: 0 }),
+        End: () => regiao.scrollTo({ left: regiao.scrollWidth })
+      };
+      const executar = comandos[evento.key];
+      if (!executar) return;
+
+      evento.preventDefault();
+      executar();
+    });
+  });
+
   document.querySelectorAll('[data-confirmar]').forEach((form) =>
     form.addEventListener('submit', (evento) => {
       if (!window.confirm(form.dataset.confirmar)) evento.preventDefault();

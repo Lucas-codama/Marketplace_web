@@ -2008,7 +2008,8 @@ blockquote,
 
 p + p,
 .texto-corrido p + p {
-  margin-top: 1.5em;
+  /* 1.5 x a altura de linha de 1.5em = 2.25em. */
+  margin-top: 2.25em !important;
 }
 
 /*
@@ -2023,9 +2024,86 @@ blockquote,
   text-align: left;
 }
 
-html.cores-personalizadas body {
-  color: var(--ink);
-  background: var(--paper);
+/*
+  No modo de cores escolhido pelo usuário, todos os blocos de texto e
+  controles usam a mesma dupla de primeiro plano/fundo. Isso evita que
+  superfícies com cores próprias (como cartões brancos) ocultem o texto.
+*/
+html.cores-personalizadas {
+  --muted: var(--ink);
+  --surface: var(--paper);
+  --line: var(--ink);
+  --control-border: var(--ink);
+  --lime: var(--paper);
+  --green: var(--ink);
+}
+
+html.cores-personalizadas :where(
+  body,
+  header,
+  nav,
+  main,
+  footer,
+  section,
+  article,
+  aside,
+  div,
+  form,
+  fieldset,
+  table,
+  caption,
+  thead,
+  tbody,
+  tr,
+  th,
+  td,
+  ul,
+  ol,
+  li,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  blockquote,
+  legend,
+  dt,
+  dd,
+  pre,
+  code,
+  time,
+  label,
+  small,
+  span,
+  strong,
+  output,
+  a,
+  button,
+  input,
+  select,
+  option,
+  textarea
+) {
+  color: var(--ink) !important;
+  background-color: var(--paper) !important;
+  border-color: var(--ink) !important;
+}
+
+html.cores-personalizadas .table {
+  --bs-table-color: var(--ink);
+  --bs-table-bg: var(--paper);
+  --bs-table-border-color: var(--ink);
+  --bs-table-striped-color: var(--ink);
+  --bs-table-striped-bg: var(--paper);
+  --bs-table-hover-color: var(--ink);
+  --bs-table-hover-bg: var(--paper);
+}
+
+html.cores-personalizadas ::placeholder {
+  color: var(--ink) !important;
+  opacity: 1;
 }
 
 .form-switch .form-check-input {

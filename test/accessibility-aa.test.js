@@ -50,6 +50,7 @@ test('1.4.3 mantém contraste mínimo nas cores textuais principais', () => {
 test('1.4.4 permite ampliar texto até 200 por cento sem controles fixos', () => {
   const script = ler('public/js/acessibilidade.js');
   const controller = ler('controllers/acessibilidadeController.js');
+  const migracao = ler('scripts/migrarAcessibilidade.js');
   const layout = ler('views/layout.ejs');
   const css = ler('public/css/estilo.css');
   assert.match(script, /ESCALA_MAX\s*=\s*2\s*;/);
@@ -57,6 +58,8 @@ test('1.4.4 permite ampliar texto até 200 por cento sem controles fixos', () =>
   assert.match(script, /localStorage\.setItem\(CHAVE_ARMAZENAMENTO/);
   assert.match(script, /addEventListener\('storage'/);
   assert.match(layout, /localStorage\.getItem\('nxtplay:acessibilidade'\)/);
+  assert.match(migracao, /nome:\s*'alto_contraste',[^}]*DEFAULT 0/);
+  assert.match(migracao, /nome:\s*'escala_fonte',[^}]*DEFAULT 1/);
   assert.doesNotMatch(css, /\.acessibilidade-controle-fonte \.btn\s*\{[^}]*\n\s*height:\s*44px/s);
   assert.match(css, /\.acessibilidade-controle-fonte\s*\{[^}]*flex-wrap:\s*wrap/s);
 });
@@ -84,6 +87,29 @@ test('1.4.13 não cria conteúdo adicional apenas por hover ou foco', () => {
   assert.doesNotMatch(fontes, /data-bs-toggle=["'](?:tooltip|popover)|\btitle=["']/i);
   const conteudosGerados = [...ler('public/css/estilo.css').matchAll(/^\s*content:\s*([^;]+);/gm)].map((item) => item[1].trim());
   assert.ok(conteudosGerados.every((valor) => valor === "''" || valor === '""'));
+});
+
+test('2.1.1 torna todas as tabelas com rolagem operáveis por teclado', () => {
+  const views = listar('views', '.ejs').map((arquivo) => ({ arquivo, conteudo: ler(arquivo) }));
+  const app = ler('public/js/app.js');
+  let totalRegioesRolaveis = 0;
+
+  for (const { arquivo, conteudo } of views) {
+    const regioes = conteudo.match(/<div\b[^>]*class="[^"]*\b(?:table-shell|table-responsive)\b[^"]*"[^>]*>/g) || [];
+    totalRegioesRolaveis += regioes.length;
+
+    for (const regiao of regioes) {
+      assert.match(regiao, /role="region"/, `${arquivo}: a tabela rolável precisa ser uma região`);
+      assert.match(regiao, /aria-label="[^"]+"/, `${arquivo}: a região rolável precisa de nome acessível`);
+      assert.match(regiao, /tabindex="0"/, `${arquivo}: a região rolável precisa entrar na ordem do teclado`);
+    }
+  }
+
+  assert.ok(totalRegioesRolaveis > 0);
+  assert.match(app, /\.table-shell\[tabindex="0"\], \.table-responsive\[tabindex="0"\]/);
+  assert.match(app, /ArrowLeft:[\s\S]*ArrowRight:[\s\S]*PageUp:[\s\S]*PageDown:[\s\S]*Home:[\s\S]*End:/);
+  assert.match(app, /evento\.target !== regiao/);
+  assert.match(app, /evento\.preventDefault\(\)/);
 });
 
 test('2.4.5 oferece navegação principal, complementar e mapa do site', () => {
